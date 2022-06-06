@@ -12,4 +12,4 @@ kramdown:
     block:
       line_numbers: false
 
-theme: jekyll-theme-modernist
+theme: jekyll-theme-hacker
