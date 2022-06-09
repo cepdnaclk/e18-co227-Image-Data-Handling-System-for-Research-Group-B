@@ -15,7 +15,7 @@ title: Image-Data-Handling-System-for-Research
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-![Sample Image](./images/intro_image.png =100x20)
+<img src="./images/intro_image.png" width="100" height="100/>
 
 
 ## Team
