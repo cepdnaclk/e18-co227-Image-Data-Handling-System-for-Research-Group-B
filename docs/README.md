@@ -15,7 +15,7 @@ title: Image-Data-Handling-System-for-Research
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
- ![Sample Image](./images/intro_image2.png)
+ ![Sample Image](./images/intro_image.png)
 
 
 ## Team
@@ -38,10 +38,10 @@ In this project, we develop a mobile application that can be used to capture and
 ### Purpose of Our Project
 
 This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
-An AI-based tool needs a lot of images to train the model. But, A web-based application doesn't provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
+An AI-based tool needs a lot of images to train the model. But, A web-based application does not provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
 
 ## Technology Stack
- **    **
+ \
  ![TrechStack Image](./images/ts.jpg)
  
 ## Solution Architecture

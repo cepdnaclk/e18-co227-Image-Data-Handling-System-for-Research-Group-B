@@ -24,6 +24,9 @@ In this project, we develop a mobile application that can be used to capture and
 This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
 An AI-based tool needs a lot of images to train the model. But, A web-based application doesn't provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
 
+## Technology Stack
+ \
+ ![TrechStack Image](./docs/images/ts.jpg)
 ## Solution Architecture
 
 ![WorkPlacePage](./docs/images/solution.png)
@@ -51,8 +54,8 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 ## Links
 
-- [Project Repository]([https://github.com/cepdnaclk](https://github.com/cepdnaclk/e18-co227-Image-Data-Handling-System-for-Research-Group-B)/{{ page.repository-name }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/e18-co227-Image-Data-Handling-System-for-Research-Group-B){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e18-co227-Image-Data-Handling-System-for-Research-Group-B)
+- [Project Page](https://cepdnaclk.github.io/e18-co227-Image-Data-Handling-System-for-Research-Group-B)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
