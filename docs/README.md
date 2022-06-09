@@ -3,8 +3,8 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and title
-repository-name: eYY-XXX-project-template
-title:
+repository-name: e18-co227-Image-Data-Handling-System-for-Research-Group-B
+title: Image-Data-Handling-System-for-Research
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
@@ -13,9 +13,9 @@ title:
 
 ---
 
-This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/)
+<!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-![Sample Image](./images/sample.png)
+![Sample Image](./images/intro_image.png)
 
 
 ## Team
@@ -25,8 +25,9 @@ This is a sample image, to show how to add images to your page. To learn more op
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Other Sub Topics](#other-sub-topics)
-3. [Links](#links)
+2. [Solution Architecture](#solution-architecture )
+3. [User Interface Design](#user-interface-design)
+4. [Links](#links)
 
 ---
 
