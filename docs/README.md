@@ -66,7 +66,7 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 ## Links
 
-- [Project Repository]([https://github.com/cepdnaclk](https://github.com/cepdnaclk/e18-co227-Image-Data-Handling-System-for-Research-Group-B)/{{ page.repository-name }}){:target="_blank"}
+- [Project Repository]([https://github.com/cepdnaclk](https://github.com/cepdnaclk/e18-co227-Image-Data-Handling-System-for-Research-Group-B){:target="_blank"}
 - [Project Page](https://cepdnaclk.github.io/e18-co227-Image-Data-Handling-System-for-Research-Group-B){:target="_blank"}
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
