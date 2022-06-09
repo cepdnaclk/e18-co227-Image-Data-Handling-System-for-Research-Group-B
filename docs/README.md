@@ -40,13 +40,13 @@ In this project, we develop a mobile application that can be used to capture and
 This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
 An AI-based tool needs a lot of images to train the model. But, A web-based application doesn't provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
 
-## Solution Architecture
-
-**Technology Stack**
-
- ![Solution Image](./images/solution.png)
+##Technology Stack
  
  ![TrechStack Image](./images/ts.jpg)
+ 
+## Solution Architecture
+ 
+ ![Solution Image](./images/solution.png)
  
 ## User Interface Design
 
