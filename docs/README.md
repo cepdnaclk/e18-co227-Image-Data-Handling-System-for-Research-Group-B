@@ -44,9 +44,9 @@ An AI-based tool needs a lot of images to train the model. But, A web-based appl
 
 **Technology Stack**
 
- ![TrechStack Image](./images/ts.jpg)
- 
  ![Solution Image](./images/solution.png)
+ 
+ ![TrechStack Image](./images/ts.jpg)
  
 ## User Interface Design
 
