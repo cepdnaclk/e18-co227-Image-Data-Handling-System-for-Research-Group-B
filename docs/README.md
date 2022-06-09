@@ -15,7 +15,7 @@ title: Image-Data-Handling-System-for-Research
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-![Sample Image](./images/intro_image.png)
+![Sample Image](./images/intro_image.png =100x20)
 
 
 ## Team
@@ -33,10 +33,17 @@ title: Image-Data-Handling-System-for-Research
 
 ## Introduction
 
- In this project, we will be building a software system with graphical user interfaces to handle research data, mainly images.
+In this project, we develop a mobile application that can be used to capture and upload images of the oral cavity. This will mainly serve the roles of the admin to accept user requests and the doctor to capture the oral cavity images and upload them along with the patient's details. 
 
-## Other Sub Topics
+### Purpose of Our Project
 
+This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
+An AI-based tool needs a lot of images to train the model. But, A web-based application doesn't provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
+
+## Solution Architecture
+
+
+## User Interface Design
 .....
 
 ## Links
