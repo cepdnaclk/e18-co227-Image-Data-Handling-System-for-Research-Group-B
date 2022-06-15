@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-import WelcomeHeader from "../components/screenHeader";
-import InputField from "../components/InputField";
+import WelcomeHeader from "../components/welcomeHeader";
+import InputField from "../components/inputField";
 import SubmitButton from "../components/submitButton";
 
 function LoginScreen(props) {
