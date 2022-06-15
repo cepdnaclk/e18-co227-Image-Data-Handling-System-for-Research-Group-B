@@ -8,7 +8,7 @@ import IconAntDesign from "react-native-vector-icons/AntDesign";
 
 // text - text to be distpalyed on the button
 // pass iconName, iconSize if there is an icon
-const SubmitButton = ({ text, iconName, iconSize }) => {
+const submitButton = ({ text, iconName, iconSize }) => {
   return (
     <TouchableHighlight style={styles.btnLogin} underlayColor="#fff">
       <Text style={[styles.textLogin]}>
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SubmitButton;
+export default submitButton;
