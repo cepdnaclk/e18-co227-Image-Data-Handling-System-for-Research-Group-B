@@ -1,6 +1,6 @@
 # Image Data Handling System for Research
 
- ![Sample Image](./docs/images/intro_image.png)
+ ![Sample Image](../docs/images/intro_image.png)
 
 ## Team
 -  E/18/073 - Dhananjaya W.M.T.   [e18073@eng.pdn.ac.lk](mailto:e18073@eng.pdn.ac.lk)
@@ -26,10 +26,10 @@ An AI-based tool needs a lot of images to train the model. But, A web-based appl
 
 ## Technology Stack
  \
- ![TrechStack Image](./docs/images/ts.jpg)
+ ![TrechStack Image](../docs/images/ts.jpg)
 ## Solution Architecture
 
-![WorkPlacePage](./docs/images/solution.png)
+![WorkPlacePage](../docs/images/solution.png)
 
 ## User Interface Design
 
@@ -48,7 +48,7 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 **Wire frame Diagram**
 
-![WorkPlacePage](./docs/images/wireframe.jpg)
+![WorkPlacePage](../docs/images/wireframe.jpg)
 
 .....
 
