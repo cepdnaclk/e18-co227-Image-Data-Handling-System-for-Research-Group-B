@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-import WelcomeHeader from "../components/welcomeHeader";
-import InputField from "../components/inputField";
-import SubmitButton from "../components/submitButton";
+import WelcomeHeader from "../components/WelcomeHeader";
+import InputField from "../components/InputField";
+import SubmitButton from "../components/SubmitButton";
 
 function RegisterScreen(props) {
   return (

@@ -6,5 +6,5 @@ import PatientRegisterScreen from "./app/screens/PatientRegisterScreen";
 import SelectPatientScreen from "./app/screens/SelectPatientScreen";
 
 export default function App() {
-  return <LoginScreen /> ;
+  return <SelectPatientScreen /> ;
 }
