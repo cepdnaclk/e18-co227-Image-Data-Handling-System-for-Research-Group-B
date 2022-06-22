@@ -45,5 +45,9 @@ app.get("/api/get-all", async (req, res) => {
 // import routes
 
 // User route
-const userAuthRoute = require("./routes/UserAuthentication");
+const userAuthRoute = require("./routes/user_authentication");
 app.use("/api/auth", userAuthRoute);
+
+// Admin route
+const adminAcceptRoute = require("./routes/admin");
+app.use("/api/admin", adminAcceptRoute);
