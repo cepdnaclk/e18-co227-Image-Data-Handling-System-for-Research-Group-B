@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
+// database name --> co227testdb
 mongoose
-  .connect("mongodb://localhost/e18testdb2", { useNewUrlParser: true })
+  .connect("mongodb://localhost/co227testdb", { useNewUrlParser: true })
   .then(() => {
     console.log("connected");
   })
