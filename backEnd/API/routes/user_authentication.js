@@ -16,13 +16,15 @@ router.post("/signup", async (req, res) => {
 
     // avoid duplicate users (409 conflict-request could not be processed because of conflict in the request )
     const userByEmail = await User.findOne({ email: req.body.email });
-    if (userByEmail) {
+    const requestByEmail = await Request.findOne({ email: req.body.email });
+    if (userByEmail || requestByEmail) {
       return res.status(409).json({ message: "This Email already in use." });
     }
 
     const userByRegno = await User.findOne({ reg_no: req.body.reg_no });
-    if (userByRegno) {
-      console.log(userByEmail);
+    const requestByRegno = await Request.findOne({ email: req.body.email });
+    if (userByRegno || requestByRegno) {
+      
       return res
         .status(409)
         .json({ message: "This Registration Number already in use." });
@@ -58,10 +60,10 @@ router.post("/login", async (req, res) => {
     const userByEmail = await User.findOne({ email: req.body.email });
     if (!userByEmail) return res.status(400).json({ message: "Wrong credentials!" });
 
-    const userByPassword = await bcrypt.compare(req.body.password,user.password)
+    const userByPassword = await bcrypt.compare(req.body.password,userByEmail.password)
     if(!userByPassword) return res.status(400).json({message:"Wrong credentials!"})
-
-    res.status(200).json(user);
+    
+    res.status(200).json(userByEmail);
   } catch (error) {
     res.status(500).json(error);
   }

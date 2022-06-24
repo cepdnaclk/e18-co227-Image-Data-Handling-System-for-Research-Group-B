@@ -28,6 +28,7 @@ app.post("/api/add-user", async (req, res) => {
   });
 
   await newUser.save();
+  console.log(newUser);
   res.json(newUser);
 });
 
