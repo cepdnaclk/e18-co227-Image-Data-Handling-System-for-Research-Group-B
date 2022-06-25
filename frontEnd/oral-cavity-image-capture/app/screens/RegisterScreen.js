@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   // },
 
   submitButton: {
-    marginTop: "10%",
+    marginTop: "25%",
     alignItems: "center",
   },
 
