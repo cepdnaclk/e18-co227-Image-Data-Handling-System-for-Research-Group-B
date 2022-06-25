@@ -106,11 +106,11 @@ create and get patient information
 </tr>
 
 <tr>
-<td valign="top">Get all patient information</td>
+<td valign="top">Get patient list</td>
 <td valign="top">GET</td>
 <td valign="top">/all</td>
 <td valign="top">Body:<br>accessToken</td>
-<td valign="top"><span style="color:green">Success:</span><br>StatusCode: 200<br>Message :<br>Body:patientInfoList
+<td valign="top"><span style="color:green">Success:</span><br>StatusCode: 200<br>Message :<br>Body:patientIDList
 <br><br><span style="color:red">Failure:</span><br>Status Code: 500<br>Message :<br>Body:</td>
 </tr>
 </table>
