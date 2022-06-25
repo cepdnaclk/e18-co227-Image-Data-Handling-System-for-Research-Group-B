@@ -58,12 +58,12 @@ router.post("/login", async (req, res) => {
   try {
     // check whether the user has already signed up
     const userByEmail = await User.findOne({ email: req.body.email });
-    if (!userByEmail) return res.status(400).json({ message: "Wrong credentials!" });
+    if (!userByEmail) return res.status(400).json({ success: false, message: "Wrong credentials!" });
 
     const userByPassword = await bcrypt.compare(req.body.password,userByEmail.password)
-    if(!userByPassword) return res.status(400).json({message:"Wrong credentials!"})
+    if(!userByPassword) return res.status(200).json({ success: false, message:"Wrong credentials!" })
     
-    res.status(200).json(userByEmail);
+    res.status(200).json({success: true, user: userByEmail});
   } catch (error) {
     res.status(500).json(error);
   }
