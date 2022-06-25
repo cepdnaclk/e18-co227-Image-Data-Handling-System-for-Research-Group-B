@@ -14,7 +14,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import TopPane from "../components/TopPane";
 import InputsWithoutIcon from "../components/InputsWithoutIcon";
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "../components/submitButton";
 import SelectOption from "../components/SelectOption";
 import DescriptionBox from "../components/DescriptionBox";
 

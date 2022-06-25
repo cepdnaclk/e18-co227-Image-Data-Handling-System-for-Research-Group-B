@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 
 import TopPane from "../components/TopPane";
 import InputsWithoutIcon from "../components/InputsWithoutIcon";
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "../components/submitButton";
 import SelectOption from "../components/SelectOption";
 
 const patients = [1, 2, 3, 4, 5];

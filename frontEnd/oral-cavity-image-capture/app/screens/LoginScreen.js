@@ -1,79 +1,148 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-import WelcomeHeader from "../components/WelcomeHeader";
-import InputField from "../components/InputField";
-import SubmitButton from "../components/SubmitButton";
+import AppFormField from "../components/AppFormField";
+import SubmitButton from "../components/submitButton";
+import Screen from "../components/Screen";
+import WelcomeHeader from "../components/welcomeHeader";
 
-function LoginScreen(props) {
+import client from "../API/client";
+
+import Profile from "../screens/Profile";
+import RegisterScreen from "../screens/RegisterScreen";
+import Requests from "../screens/Requests";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).max(12).label("Password"),
+});
+
+function LoginScreen({ navigation }) {
+  const createThreeButtonAlert = () =>
+    Alert.alert(
+      "Login Denied!",
+      "This may be due to Wrong Credentials or Unaccepted signup Request. Please make sure you have signed up and try again later.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+    );
+
+  const login = async (values, { resetForm }) => {
+    //console.log(values);
+    const res = await client.post("/auth/login", {
+      ...values,
+    });
+    console.log(res.data);
+    if (res.data.success) {
+      if (res.data.user.role.includes(3)) {
+        navigation.navigate("Profile");
+      }else{
+        navigation.navigate("Requests");
+      }
+    } else {
+      createThreeButtonAlert();
+      // resetForm({initialValues});
+    }
+  };
+
+  const [isSecured, setSecured] = useState(true);
+
   return (
     // full screen
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      {/* container with the headers */}
-      <View style={styles.topFlex}>
+    <Screen style={styles.screen}>
+      <View style={{ marginTop: 20 }}>
         <WelcomeHeader topLine="Hey there," bottomLine="Welcome Back" />
       </View>
 
-      {/* container with all the text input fields */}
-      <View style={styles.inputFlex}>
-        <InputField
-          isSecured={false}
-          iconName="mail"
-          iconSize={15}
-          hint={"Email"}
-        />
-        <InputField
-          isSecured={true}
-          iconName="lock"
-          iconSize={15}
-          hint={"Password"}
-        />
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={login}
+        validationSchema={validationSchema}
+      >
+        {({ handleSubmit }) => (
+          <>
+            <View style={styles.inputFlex}>
+              {/* container with all the text input fields */}
 
-        <Text style={styles.recoverPwd}> Forgot your password? </Text>
-      </View>
+              {/* email input*/}
+              <AppFormField
+                name="email"
+                autoCapitalize="none"
+                autoCorrect={false}
+                hint={"Email"}
+                iconName="mail"
+                iconSize={15}
+                isSecured={false}
+                keyboardType="email-address"
+                textContentType="emailAddress"
+              />
+              {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
 
-      {/* the empty white space */}
-      <View
-        style={{
-          flex: 1,
-        }}
-      />
+              {/* password input */}
+              <AppFormField
+                name="password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                hint="Password"
+                iconName="lock"
+                iconSize={15}
+                isSecured={isSecured}
+                password={true}
+                showImage={<Text>Show</Text>}
+                textContentType="password"
+              />
 
-      {/* container with the login button and 'Don't have an account yet?' text */}
-      <View style={styles.bottomFlex}>
-        <SubmitButton text=" Login" iconName={"login"} iconSize={18} />
+              {/* forgot password */}
+              <Text style={styles.recoverPwd}> Forgot your password? </Text>
+            </View>
 
-        <Text style={{ margin: 20 }}> or </Text>
+            <View style={{ height: "25%" }}></View>
 
-        <Text>
-          {" "}
-          Don't have an account yet?{" "}
-          <Text style={{ color: "#c25ced" }}> Register </Text>{" "}
-        </Text>
-      </View>
-    </View>
+            <View style={styles.bottomFlex}>
+              <SubmitButton
+                text=" Login"
+                iconName={"login"}
+                iconSize={18}
+                onPress={handleSubmit}
+              />
+
+              <Text style={{ margin: 10 }}> or </Text>
+
+              <View style={styles.reg}>
+                <Text>Don't have an account yet?</Text>
+
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate("RegisterScreen")}
+                >
+                  <Text style={styles.regTouch}> Register </Text>
+                </TouchableWithoutFeedback>
+              </View>
+            </View>
+          </>
+        )}
+      </Formik>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-
-  topFlex: {
-    marginTop: "5%",
+  screen: {
     flex: 1,
   },
 
   inputFlex: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 10,
   },
 
   bottomFlex: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: "10%",
@@ -82,8 +151,19 @@ const styles = StyleSheet.create({
   recoverPwd: {
     color: "#a9abb0", // text color - ash
     textDecorationLine: "underline",
+    marginTop: 15,
+    textAlign: "center",
   },
 
+  reg: {
+    flexDirection: "row",
+    // padding: 10,
+  },
+
+  regTouch: {
+    color: "#c25ced",
+    marginLeft: 5,
+  },
 });
 
 export default LoginScreen;

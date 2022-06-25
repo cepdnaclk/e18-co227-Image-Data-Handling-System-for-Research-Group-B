@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 
-import colors from "../config/colors";
+import colors from "../Config/colors";
 
 // how to get the screen dimensions
 // see if this works when screen is rotated ( if not watch React Native Tutorial 1:25:00 )
