@@ -18,7 +18,7 @@ Authentication and Authorization
 <td valign="top">Sign up</td>
 <td valign="top">POST</td>
 <td valign="top">/signup</td>
-<td valign="top">Body:<br>username, email, password</td>
+<td valign="top">Body:<br>username, email, registration number, password</td>
 <td valign="top"><span style="color:green">Success:</span><br>StatusCode: 201<br>Message : Account successfully created!<br>Body:<br><br><span style="color:red">Failure:</span><br>Status Code: 422<br>Message :Invalid Inputs<br>Status Code : 500<br>Body:<br></td>
 </tr>
 
