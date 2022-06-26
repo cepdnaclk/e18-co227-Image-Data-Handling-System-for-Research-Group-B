@@ -1,19 +1,18 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  KeyboardAvoidingView
-} from "react-native";
+import { View, StyleSheet, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Alert } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import WelcomeHeader from "../components/welcomeHeader";
-import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
+import ErrorMessage from "../components/ErrorMessage";
+import AppFormField from "../components/AppFormField";
 import client from "../API/client"; 
+
+import LoginScreen from "../screens/LoginScreen";
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Full Name"),
@@ -23,7 +22,14 @@ const validationSchema = Yup.object().shape({
   passwordConfirm: Yup.string().oneOf([Yup.ref("password"), null]),
 });
 
-function RegisterScreen(props) {
+function RegisterScreen({ navigation }) {
+
+  const createThreeButtonAlert = () =>
+    Alert.alert(
+      "Request Sent Successfully!",
+      "Please wait for the admin to accept your request.",
+      [{ text: "OK", onPress: () => navigation.navigate("LoginScreen")}]
+    );
 
   const signUp = async (values, formikActions) => {
     console.log(values);
@@ -31,8 +37,9 @@ function RegisterScreen(props) {
       ...values,
     })
     console.log(res.data);
-    formikActions.resetForm();
-    formikActions.setSubmitting(false);
+    createThreeButtonAlert();
+    // formikActions.resetForm();
+    // formikActions.setSubmitting(false);
   }
 
 
@@ -120,7 +127,11 @@ function RegisterScreen(props) {
 
           <Text>
             Already have an account?
-            <Text style={{ color: "#c25ced" }}> Login </Text>
+            <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate("LoginScreen")}
+                >
+                  <Text style={styles.regTouch}> Login </Text>
+                </TouchableWithoutFeedback>
           </Text>
         </View>
       </View>
@@ -132,22 +143,35 @@ function RegisterScreen(props) {
 
 const styles = StyleSheet.create({
   all: {
+    // flex: 1,
     justifyContent: "space-between",
   },
 
   bottomFlex: {
     alignItems: "center",
+    //marginBottom: "20%",
     justifyContent: "flex-end",
   },
 
+  // btnPosition: {
+  //   alignItems: "center",
+  //   width: "80%",
+  // },
+
   submitButton: {
-    marginTop: "25%",
+    marginTop: "10%",
     alignItems: "center",
   },
 
   topFlex: {
     justifyContent: "center",
     marginTop: "10%",
+    // alignItems: "center",
+  },
+
+  regTouch: {
+    color: "#c25ced",
+    marginLeft: 5,
   },
 });
 
