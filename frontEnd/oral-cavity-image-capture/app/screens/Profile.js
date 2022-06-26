@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 
-import AppText from "../Config/AppText";
-import colours from "../Config/colors";
 import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
+import AppText from "../config/AppText";
+import colours from "../config/colors";
 
 export default function Profile({ name, id, email, image }) {
   return (

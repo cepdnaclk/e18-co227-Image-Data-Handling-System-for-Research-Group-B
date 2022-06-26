@@ -9,16 +9,11 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import WelcomeHeader from "../components/welcomeHeader";
 import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
-import WelcomeHeader from "../components/welcomeHeader";
-
 import client from "../API/client";
-
-import Profile from "../screens/Profile";
-import RegisterScreen from "../screens/RegisterScreen";
-import Requests from "../screens/Requests";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -30,13 +25,15 @@ function LoginScreen({ navigation }) {
     Alert.alert(
       "Login Denied!",
       "This may be due to Wrong Credentials or Unaccepted signup Request. Please make sure you have signed up and try again later.",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      [{ text: "OK", onPress: () => console.log("OK Pressed")}]
     );
 
   const login = async (values, { resetForm }) => {
-    //console.log(values);
+    console.log(values);
     const res = await client.post("/auth/login", {
       ...values,
+    }).catch((error)=> {
+      console.log(error.message)
     });
     console.log(res.data);
     if (res.data.success) {
@@ -47,7 +44,6 @@ function LoginScreen({ navigation }) {
       }
     } else {
       createThreeButtonAlert();
-      // resetForm({initialValues});
     }
   };
 
@@ -119,7 +115,7 @@ function LoginScreen({ navigation }) {
 
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("RegisterScreen")}
-                >
+                  >
                   <Text style={styles.regTouch}> Register </Text>
                 </TouchableWithoutFeedback>
               </View>
@@ -157,7 +153,6 @@ const styles = StyleSheet.create({
 
   reg: {
     flexDirection: "row",
-    // padding: 10,
   },
 
   regTouch: {

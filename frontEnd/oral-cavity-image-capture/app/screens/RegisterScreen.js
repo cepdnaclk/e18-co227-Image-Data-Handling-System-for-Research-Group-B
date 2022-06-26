@@ -1,16 +1,19 @@
 import React from "react";
-import { View, StyleSheet, Text, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  KeyboardAvoidingView
+} from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import WelcomeHeader from "../components/welcomeHeader";
+import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
-import ErrorMessage from "../components/ErrorMessage";
-import AppFormField from "../components/AppFormField";
 import client from "../API/client"; 
-
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Full Name"),
@@ -129,20 +132,13 @@ function RegisterScreen(props) {
 
 const styles = StyleSheet.create({
   all: {
-    // flex: 1,
     justifyContent: "space-between",
   },
 
   bottomFlex: {
     alignItems: "center",
-    //marginBottom: "20%",
     justifyContent: "flex-end",
   },
-
-  // btnPosition: {
-  //   alignItems: "center",
-  //   width: "80%",
-  // },
 
   submitButton: {
     marginTop: "25%",
@@ -152,7 +148,6 @@ const styles = StyleSheet.create({
   topFlex: {
     justifyContent: "center",
     marginTop: "10%",
-    // alignItems: "center",
   },
 });
 
