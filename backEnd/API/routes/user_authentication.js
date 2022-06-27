@@ -24,7 +24,6 @@ router.post("/signup", async (req, res) => {
     const userByRegno = await User.findOne({ reg_no: req.body.reg_no });
     const requestByRegno = await Request.findOne({ email: req.body.email });
     if (userByRegno || requestByRegno) {
-      
       return res
         .status(409)
         .json({ message: "This Registration Number already in use." });
@@ -38,7 +37,7 @@ router.post("/signup", async (req, res) => {
       reg_no: req.body.reg_no,
       username: req.body.username,
       email: req.body.email,
-      password: hashedPassword,  // store the encrypted password
+      password: hashedPassword, // store the encrypted password
     });
 
     const user = await newUserReq.save();
@@ -58,13 +57,32 @@ router.post("/login", async (req, res) => {
   try {
     // check whether the user has already signed up
     const userByEmail = await User.findOne({ email: req.body.email });
-    if (!userByEmail) return res.status(200).json({ success: false, message: "Wrong credentials!" });
+    if (!userByEmail)
+      return res
+        .status(200)
+        .json({ success: false, message: "Wrong credentials!" });
 
-    const userByPassword = await bcrypt.compare(req.body.password,userByEmail.password)
-    if(!userByPassword) return res.status(200).json({ success: false, message:"Wrong credentials!" })
-    
-    res.status(200).json({success: true, user: userByEmail});
-    console.log(res.status);
+    const userByPassword = await bcrypt.compare(
+      req.body.password,
+      userByEmail.password
+    );
+    if (!userByPassword)
+      return res
+        .status(200)
+        .json({ success: false, message: "Wrong credentials!" });
+
+    // create json web token and send it with the login request so that it can be used for user authorization
+    const access_token = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.ACCESS_SECRET,
+      { expiresIn: process.env.REFRESH_TIME }
+    );
+
+    res.status(200).json({
+      success: true,
+      user: userByEmail,
+      refresh_token: refresh_token,
+    });
   } catch (error) {
     res.status(500).json(error);
   }
