@@ -1,3 +1,5 @@
 ACCESS_SECRET=
 REFRESH_SECRET=
 REFRESH_TIME=
+
+require('crypto').randomBytes(64).toString('hex')

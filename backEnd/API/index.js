@@ -45,10 +45,14 @@ app.get("/api/get-all", async (req, res) => {
 
 // import routes
 
-// User route
+// User Auth route
 const userAuthRoute = require("./routes/user_authentication");
 app.use("/api/auth", userAuthRoute);
 
 // Admin route
 const adminAcceptRoute = require("./routes/admin");
 app.use("/api/admin", adminAcceptRoute);
+
+// User route
+const user = require("./routes/user");
+app.use("/api/user", user);

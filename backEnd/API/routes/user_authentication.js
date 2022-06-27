@@ -1,7 +1,11 @@
 const router = require("express").Router();
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Request = require("../models/UserRequest");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
+
+let refreshTokens = [];
 
 /*************** post method to sign up a user to the database *****************************/
 
@@ -73,16 +77,17 @@ router.post("/login", async (req, res) => {
 
     // create json web token and send it with the login request so that it can be used for user authorization
     const access_token = jwt.sign(
-      { email: user.email, role: user.role },
+      { email: userByEmail.email, role: userByEmail.role },
       process.env.ACCESS_SECRET,
       { expiresIn: process.env.REFRESH_TIME }
     );
-
-    res.status(200).json({
-      success: true,
-      user: userByEmail,
-      refresh_token: refresh_token,
-    });
+    const refresh_token = jwt.sign(
+      { email: userByEmail.email, role: userByEmail.role },
+      process.env.REFRESH_SECRET
+    );
+    refreshTokens.push(refresh_token);
+  
+    res.status(200).json({ success: true, access_token: access_token, refresh_token: refresh_token });
   } catch (error) {
     res.status(500).json(error);
   }
