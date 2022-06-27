@@ -3,9 +3,11 @@ import axios from "axios";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
-import Profile from "./app/screens/Profile";
+import ProfileScreen from "./app/screens/ProfileScreen";
+import RequestScreen from "./app/screens/RequestScreen";
 
 
 const Stack = createStackNavigator();
@@ -29,8 +31,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='LoginScreen'>
         <Stack.Screen options={{headerShown: false}} name={'LoginScreen'} component={LoginScreen} />
-        <Stack.Screen options={{headerShown: false}} name={'Profile'} component={Profile} />
+        <Stack.Screen options={{headerShown: false}} name={'ProfileScreen'} component={ProfileScreen} />
         <Stack.Screen options={{headerShown: false}} name={'RegisterScreen'} component={RegisterScreen} />
+        <Stack.Screen options={{headerShown: false}} name={'RequestScreen'} component={RequestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
 

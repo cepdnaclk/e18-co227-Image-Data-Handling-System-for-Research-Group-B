@@ -38,9 +38,9 @@ function LoginScreen({ navigation }) {
     console.log(res.data);
     if (res.data.success) {
       if (res.data.user.role.includes(3)) {
-        navigation.navigate("Profile");
+        navigation.navigate("ProfileScreen");
       }else{
-        navigation.navigate("Requests");
+        navigation.navigate("RequestScreen");
       }
     } else {
       createThreeButtonAlert();
