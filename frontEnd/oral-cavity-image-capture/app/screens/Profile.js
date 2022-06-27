@@ -1,123 +1,100 @@
-import React from "react";
-import { View, Image, StyleSheet, Text } from "react-native";
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  FlatList,
+  Button,
+  SafeAreaView,
+  View,
+} from "react-native";
+import axios from "axios";
 
-import SubmitButton from "../components/submitButton";
+import ProfileCard from "../components/ProfileCard";
 import Screen from "../components/Screen";
-import AppText from "../config/AppText";
-import colours from "../config/colors";
+import SubmitButton from "../components/submitButton";
+import client from "../API/client";
 
-export default function Profile({ name, id, email, image }) {
-  return (
-    <Screen style={styles.screen}>
-      <View style={styles.profilePage}>
-        <View style={styles.cards}>
-          <Image style={styles.image} source={image} />
-          <View style={styles.textContainer}>
-            <AppText style={styles.titleStyle}>{name}</AppText>
-            <AppText style={styles.id}>{id}</AppText>
-            <AppText style={styles.email}>{email}</AppText>
+class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userdata: [],
+      loading: true,
+    };
+  }
+
+  componentDidMount() {
+    client
+      .get("/user/get-user")
+      .then((data) => {
+        this.setState({ userdata: data }, () => {
+          this.setState({ loading: false });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={styles.header}>Profile</Text>
           </View>
+          <View style={{ flex: 2 }}>
+            <FlatList
+              data={this.state.userdata.data}
+              keyExtractor={this._keyExtractor}
+              renderItem={({ item: requestItem }) => (
+                <ProfileCard
+                  name={requestItem.username}
+                  id={requestItem.reg_no}
+                  email={requestItem.email}
+                  image={require("../assets/Images/doctor.jpg")}
+                />
+              )}
+            />
+          </View>
+        </>
+        <View
+          style={{ flex: 2, alignItems: "center", justifyContent: "center" }}
+        >
+          <SubmitButton
+            // style={styles.submitButton}
+            text=" Capture Image"
+            iconName={"camerao"}
+            iconSize={19}
+            onPress={() => console.log("Sign Out")}
+          />
+
+          <SubmitButton
+            // style={styles.submitButton}
+            text=" Sign Out"
+            iconName={"logout"}
+            iconSize={18}
+            onPress={() => console.log("Sign Out")}
+          />
         </View>
-      </View>
-
-      {/* admin details text container */}
-      <View style={styles.textContainer2}>
-        <Text style={styles.text}>Something here</Text>
-      </View>
-
-      <View style={styles.button}>
-        <SubmitButton
-          // style={styles.submitButton}
-          text=" Capture Image"
-          iconName={"camerao"}
-          iconSize={18}
-          onPress={() => console.log("Check Request")}
-        />
-        <SubmitButton
-          // style={styles.submitButton}
-          text=" Sign Out"
-          iconName={"logout"}
-          iconSize={18}
-          onPress={() => console.log("Sign Out")}
-        />
-      </View>
-    </Screen>
-  );
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  cards: {
-    width: "90%",
-    borderRadius: 15,
-    backgroundColor: colours.lightGray,
-    overflow: "hidden",
-    alignContent: "center",
-    marginTop: 15,
-  },
-  profilePage: {
-    alignItems: "center",
-  },
-
-  email: {
-    color: colours.lightGray,
-    fontSize: 15,
-    fontStyle: "italic",
-  },
-
-  image: {
-    height: 120,
-    width: 120,
-    borderRadius: 60,
-    marginTop: 15,
-    marginLeft: 15,
-    marginBottom: 15,
-  },
-
-  textContainer: {
-    padding: 20,
-    backgroundColor: colours.gray,
-  },
-
-  titleStyle: {
-    fontSize: 20,
-    color: colours.white,
-  },
-
-  id: {
-    paddingTop: 15,
-    fontSize: 15,
-    color: colours.lightGray,
-  },
-
-  screen: {
-    flex: 1,
-  },
-
-  button: {
-    // flex: 1,
-    // backgroundColor: colours.danger,
-    // position: "absolute",
-    width: "100%",
-    height: "20%",
-    alignItems: "center",
-    marginTop: "10%",
-  },
-
-  text: {
-    marginTop: 35,
+  header: {
     textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    
   },
-  textContainer2: {
-    // flex: 0.5,
-    height: "30%",
-    width: "100%",
-
-    // backgroundColor: colours.lightGreen,
-  },
-  // textContainer3: {
-  //   // flex: 0.5,
-  //   width: "100%",
-  //   height: "20%",
-  //   backgroundColor: colours.danger,
-  // },
 });
+
+export default Profile;
