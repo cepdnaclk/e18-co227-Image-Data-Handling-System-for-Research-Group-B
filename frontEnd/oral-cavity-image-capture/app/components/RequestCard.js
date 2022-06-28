@@ -26,6 +26,25 @@ export default function RequestCard({ name, regno, email, image, reqid, requestS
 
   };
 
+  const reject = async () => {
+    const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
+      
+      console.log('id2' + error.message);
+    });
+    
+    client
+        .get("/admin/get-requests")
+        .then((data) => {
+          requestScreen.setState({ responsedata: data }, () => {
+            requestScreen.setState({ loading: false });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+  };
+
   return (
     <View style={styles.all}>
       <View style={styles.card}>
@@ -55,7 +74,7 @@ export default function RequestCard({ name, regno, email, image, reqid, requestS
             text=" Reject"
             iconName={"closecircleo"}
             iconSize={15}
-            onPress={() => console.log("Rejected")}
+            onPress={reject}
           />
         </View>
       </View>

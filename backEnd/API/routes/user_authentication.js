@@ -16,21 +16,21 @@ router.post("/signup", async (req, res) => {
     if (reqExisting)
       return res
         .status(200)
-        .json({ message: "The Request already sent. Wait for the approval" });
+        .json({ success: false, message: "Request for this Registration Number has been sent already. Wait for the approval" });
 
     // avoid duplicate users (409 conflict-request could not be processed because of conflict in the request )
     const userByEmail = await User.findOne({ email: req.body.email });
     const requestByEmail = await Request.findOne({ email: req.body.email });
     if (userByEmail || requestByEmail) {
-      return res.status(409).json({ message: "This Email already in use." });
+      return res.status(200).json({ success: false, message: "This Email already in use." });
     }
 
     const userByRegno = await User.findOne({ reg_no: req.body.reg_no });
     const requestByRegno = await Request.findOne({ email: req.body.email });
     if (userByRegno || requestByRegno) {
       return res
-        .status(409)
-        .json({ message: "This Registration Number already in use." });
+        .status(200)
+        .json({ success: false, message: "This Registration Number already in use." });
     }
 
     // encrypt the password - for security purposes
@@ -48,7 +48,7 @@ router.post("/signup", async (req, res) => {
     const { password } = user._doc;
     //others["message"] = "The Signup Request sent successfully. Wait for the approval";
     return res.status(200).json({
-      message: "The Signup Request sent successfully. Wait for the approval",
+      success: true, message: "The Signup Request sent successfully. Wait for the approval",
     });
   } catch (error) {
     res.status(500).json(error);

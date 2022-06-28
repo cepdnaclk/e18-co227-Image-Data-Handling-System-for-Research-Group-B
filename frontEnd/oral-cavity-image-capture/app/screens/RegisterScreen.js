@@ -23,22 +23,34 @@ const validationSchema = Yup.object().shape({
 
 function RegisterScreen({ navigation }) {
 
-  const createThreeButtonAlert = () =>
+  const successAlert = () =>
     Alert.alert(
       "Request Sent Successfully!",
       "Please wait for the admin to accept your request.",
       [{ text: "OK", onPress: () => navigation.navigate("LoginScreen")}]
     );
 
+    const notsuccessAlert = (msg) =>
+    Alert.alert(
+      "Request Sent Failed!",
+      msg,
+      [{ text: "OK", onPress: () => navigation.navigate("RegisterScreen")}]
+    );
+
   const signUp = async (values, formikActions) => {
     console.log(values);
     const res = await client.post('/auth/signup', {
       ...values,
-    })
+    }).catch((error)=> {
+      console.log(error.message)
+    });
     console.log(res.data);
-    createThreeButtonAlert();
-    // formikActions.resetForm();
-    // formikActions.setSubmitting(false);
+    if (res.data.success) {
+        successAlert();
+      
+    } else {
+      notsuccessAlert(res.data.message);
+    }
   }
 
 
@@ -59,7 +71,7 @@ function RegisterScreen({ navigation }) {
               passwordConfirm: "",
             }}
             onSubmit={signUp}
-            validationSchema={validationSchema}
+          //  validationSchema={validationSchema}
           >
             {({
               handleChange,
