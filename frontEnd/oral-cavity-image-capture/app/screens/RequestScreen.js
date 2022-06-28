@@ -26,18 +26,16 @@ class RequestScreen extends Component {
 
   componentDidMount() {
     client
-      .get("/admin/get-requests")
-      .then((data) => {
-        this.setState({ responsedata: data }, () => {
-          this.setState({ loading: false });
+        .get("/admin/get-requests")
+        .then((data) => {
+          this.setState({ responsedata: data }, () => {
+            this.setState({ loading: false });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
-
-  
 
   render() {
     return (
@@ -58,9 +56,11 @@ class RequestScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={({ item: requestItem }) => (
                 <RequestCard
+                  reqid={requestItem._id}
                   name={requestItem.username}
-                  id={requestItem.reg_no}
+                  regno={requestItem.reg_no}
                   email={requestItem.email}
+                  requestScreen={this}
                   image={require("../assets/Images/doctor.jpg")}
                 />
               )}

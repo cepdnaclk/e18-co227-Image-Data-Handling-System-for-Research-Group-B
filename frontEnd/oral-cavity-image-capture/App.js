@@ -8,7 +8,7 @@ import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
-
+import RequestCard from "./app/components/RequestCard";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -34,6 +34,7 @@ export default function App() {
         <Stack.Screen options={{headerShown: false}} name={'ProfileScreen'} component={ProfileScreen} />
         <Stack.Screen options={{headerShown: false}} name={'RegisterScreen'} component={RegisterScreen} />
         <Stack.Screen options={{headerShown: false}} name={'RequestScreen'} component={RequestScreen} />
+        <Stack.Screen options={{headerShown: false}} name={'RequestCard'} component={RequestCard} />
       </Stack.Navigator>
     </NavigationContainer>
 

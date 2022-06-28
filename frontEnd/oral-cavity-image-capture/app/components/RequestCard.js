@@ -4,8 +4,28 @@ import { View, Image, StyleSheet } from "react-native";
 import AppText from "../config/AppText";
 import colours from "../config/colors";
 import SubmitButton from "./submitButton";
+import client from "../API/client";
 
-export default function RequestCard({ name, id, email, image }) {
+export default function RequestCard({ name, regno, email, image, reqid, requestScreen }) {
+  const accept = async () => {
+    const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
+      
+      console.log('id2' + error.message);
+    });
+    
+    client
+        .get("/admin/get-requests")
+        .then((data) => {
+          requestScreen.setState({ responsedata: data }, () => {
+            requestScreen.setState({ loading: false });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+  };
+
   return (
     <View style={styles.all}>
       <View style={styles.card}>
@@ -13,7 +33,7 @@ export default function RequestCard({ name, id, email, image }) {
           <Image style={styles.image} source={image} />
           <View style={styles.detailsContainer}>
             <AppText style={styles.name}>{name}</AppText>
-            <AppText style={[styles.id]}>{id}</AppText>
+            <AppText style={[styles.regno]}>{regno}</AppText>
             <AppText style={styles.email}>{email}</AppText>
           </View>
         </View>
@@ -26,7 +46,7 @@ export default function RequestCard({ name, id, email, image }) {
             text=" Accept"
             iconName={"checkcircleo"}
             iconSize={15}
-            onPress={() => console.log("Accepted")}
+            onPress={accept}
           />
 
           <SubmitButton
@@ -70,7 +90,6 @@ const styles = StyleSheet.create({
     backgroundColor: colours.lightGray,
     borderRadius: 15,
     overflow: "hidden",
-    
   },
 
   image: {
@@ -90,7 +109,7 @@ const styles = StyleSheet.create({
     color: colours.black,
   },
 
-  id: {
+  regno: {
     paddingTop: 15,
     fontSize: 13,
     color: colours.black,
