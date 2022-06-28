@@ -90,11 +90,38 @@ router.post("/login", async (req, res) => {
       process.env.REFRESH_SECRET
     );
     refreshTokens.push(refresh_token); // refresh token will be expired at log out
-  
+  console.log(access_token);
     res.status(200).json({ success: true, user: userByEmail, access_token: access_token, refresh_token: refresh_token });
   } catch (error) {
     res.status(500).json(error);
   }
 });
+
+
+// log out
+router.post('/logout', (req, res) =>{
+    const refreshToken = req.header('refresh_token');
+    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+
+    refreshTokens = refreshTokens.filter( token => token !== refreshToken)
+    res.status(204).json({message:'Successfuly logged out'})
+})
+
+
+// re-new access token 
+router.post('/token' , (req, res)=>{
+    const refreshToken = req.header('refresh_token');
+
+    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+    if(!refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
+    
+    jwt.verify(refreshToken, process.env.REFRESH_SECRET ,(err , result)=>{
+        if(err) return res.status(500).json({message:'Authentication failed'})
+        
+        const access_token = jwt.sign({ email: userByEmail.email, role: userByEmail.role } , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
+        res.status(200).json({"access_token": access_token });
+    })
+
+})
 
 module.exports = router;

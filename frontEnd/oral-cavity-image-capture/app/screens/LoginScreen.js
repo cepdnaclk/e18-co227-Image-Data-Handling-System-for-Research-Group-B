@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import * as SecureStore from "expo-secure-store";
 
 import WelcomeHeader from "../components/welcomeHeader";
 import AppFormField from "../components/AppFormField";
@@ -21,29 +22,39 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
-  const createThreeButtonAlert = () =>
+  async function saveToken(key, val) {
+    await SecureStore.setItemAsync(key, val);
+  }
+
+  const createAlert = () =>
     Alert.alert(
       "Login Denied!",
-      "This may be due to Wrong Credentials or Unaccepted signup Request. Please make sure you have signed up and try again later.",
-      [{ text: "OK", onPress: () => console.log("OK Pressed")}]
+      "This may be due to Wrong Credentials or Unaccepted Signup Request.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
     );
 
   const login = async (values, { resetForm }) => {
-    console.log(values);
-    const res = await client.post("/auth/login", {
-      ...values,
-    }).catch((error)=> {
-      console.log(error.message)
-    });
+    
+    //console.log(values);
+    const res = await client
+      .post("/auth/login", {
+        ...values,
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
     console.log(res.data);
     if (res.data.success) {
+      
       if (res.data.user.role.includes(3)) {
+        saveToken("access", res.data.access_token);
+        saveToken("refresh", res.data.refresh_token);
         navigation.navigate("ProfileScreen");
-      }else{
+      } else {
         navigation.navigate("RequestScreen");
       }
     } else {
-      createThreeButtonAlert();
+      createAlert();
     }
   };
 
@@ -115,7 +126,7 @@ function LoginScreen({ navigation }) {
 
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("RegisterScreen")}
-                  >
+                >
                   <Text style={styles.regTouch}> Register </Text>
                 </TouchableWithoutFeedback>
               </View>

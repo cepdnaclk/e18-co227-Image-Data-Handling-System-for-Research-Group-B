@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,78 +14,69 @@ import Screen from "../components/Screen";
 import SubmitButton from "../components/submitButton";
 import client from "../API/client";
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userdata: [],
-      loading: true,
-    };
-  }
+function Profile({ navigation }) {
+  const [userDetails, setDetails] = useState([]);
 
-  componentDidMount() {
+  const getDetails = () => {
     client
       .get("/user/get-user")
       .then((data) => {
-        this.setState({ userdata: data }, () => {
-          this.setState({ loading: false });
-        });
+        setDetails(data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-  render() {
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={styles.header}>Profile</Text>
-          </View>
-          <View style={{ flex: 2 }}>
-            <FlatList
-              data={this.state.userdata.data}
-              keyExtractor={this._keyExtractor}
-              renderItem={({ item: requestItem }) => (
-                <ProfileCard
-                  name={requestItem.username}
-                  id={requestItem.reg_no}
-                  email={requestItem.email}
-                  image={require("../assets/Images/doctor.jpg")}
-                />
-              )}
-            />
-          </View>
-        </>
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <>
         <View
-          style={{ flex: 2, alignItems: "center", justifyContent: "center" }}
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <SubmitButton
-            // style={styles.submitButton}
-            text=" Capture Image"
-            iconName={"camerao"}
-            iconSize={19}
-            onPress={() => console.log("Sign Out")}
-          />
-
-          <SubmitButton
-            // style={styles.submitButton}
-            text=" Sign Out"
-            iconName={"logout"}
-            iconSize={18}
-            onPress={() => console.log("Sign Out")}
+          <Text style={styles.header}>Profile</Text>
+        </View>
+        <View style={{ flex: 2 }}>
+          <FlatList
+            data={userDetails.data}
+            //keyExtractor={this._keyExtractor}
+            renderItem={({ item: requestItem }) => (
+              <ProfileCard
+                name={requestItem.username}
+                id={requestItem.reg_no}
+                email={requestItem.email}
+                image={require("../assets/Images/doctor.jpg")}
+              />
+            )}
           />
         </View>
-      </SafeAreaView>
-    );
-  }
+      </>
+      <View style={{ flex: 2, alignItems: "center", justifyContent: "center" }}>
+        <SubmitButton
+          // style={styles.submitButton}
+          text=" Capture Image"
+          iconName={"camerao"}
+          iconSize={18}
+          onPress={() => navigation.navigate("LoginScreen")}
+        />
+        <SubmitButton
+          // style={styles.submitButton}
+          text=" Sign Out"
+          iconName={"logout"}
+          iconSize={18}
+          onPress={() => navigation.navigate("LoginScreen")}
+        />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -93,7 +84,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    
   },
 });
 
