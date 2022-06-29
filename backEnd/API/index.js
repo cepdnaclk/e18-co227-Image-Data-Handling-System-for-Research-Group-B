@@ -5,7 +5,8 @@ const fs = require("fs");
 const User = require("./models/User");
 
 // create/ connect with the database
-require("./configurations/db");
+const db = require("./configurations/db");
+db.connect();
 
 app.use(express.json());
 

@@ -16,13 +16,19 @@ router.post("/signup", async (req, res) => {
     if (reqExisting)
       return res
         .status(200)
-        .json({ success: false, message: "Request for this Registration Number has been sent already. Wait for the approval" });
+        .json({
+          success: false,
+          message:
+            "A request for this registration number has been already sent. Wait for the approval",
+        });
 
     // avoid duplicate users (409 conflict-request could not be processed because of conflict in the request )
     const userByEmail = await User.findOne({ email: req.body.email });
     const requestByEmail = await Request.findOne({ email: req.body.email });
     if (userByEmail || requestByEmail) {
-      return res.status(200).json({ success: false, message: "This Email already in use." });
+      return res
+        .status(200)
+        .json({ success: false, message: "This Email already in use." });
     }
 
     const userByRegno = await User.findOne({ reg_no: req.body.reg_no });
@@ -30,7 +36,10 @@ router.post("/signup", async (req, res) => {
     if (userByRegno || requestByRegno) {
       return res
         .status(200)
-        .json({ success: false, message: "This Registration Number already in use." });
+        .json({
+          success: false,
+          message: "This Registration Number already in use.",
+        });
     }
 
     // encrypt the password - for security purposes
@@ -48,7 +57,8 @@ router.post("/signup", async (req, res) => {
     const { password } = user._doc;
     //others["message"] = "The Signup Request sent successfully. Wait for the approval";
     return res.status(200).json({
-      success: true, message: "The Signup Request sent successfully. Wait for the approval",
+      success: true,
+      message: "The Signup Request sent successfully. Wait for the approval",
     });
   } catch (error) {
     res.status(500).json(error);
@@ -59,6 +69,17 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
+    const sentRequest = await Request.findOne({ email: req.body.email });
+    
+    if (sentRequest){
+      return res
+        .status(200)
+        .json({
+          success: false,
+          message: "The request for this Email Address not yet approved. Please try again later",
+        });
+    }
+      
     // check whether the user has already signed up
     const userByEmail = await User.findOne({ email: req.body.email });
     if (!userByEmail)
@@ -75,7 +96,7 @@ router.post("/login", async (req, res) => {
         .status(200)
         .json({ success: false, message: "Wrong credentials!" });
 
-    // create json web token and send it with the login request 
+    // create json web token and send it with the login request
 
     // access tokens for autherization
     const access_token = jwt.sign(
@@ -90,38 +111,49 @@ router.post("/login", async (req, res) => {
       process.env.REFRESH_SECRET
     );
     refreshTokens.push(refresh_token); // refresh token will be expired at log out
-  console.log(access_token);
-    res.status(200).json({ success: true, user: userByEmail, access_token: access_token, refresh_token: refresh_token });
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        user: userByEmail,
+        access_token: access_token,
+        refresh_token: refresh_token,
+      });
   } catch (error) {
     res.status(500).json(error);
   }
 });
 
-
 // log out
-router.post('/logout', (req, res) =>{
-    const refreshToken = req.header('refresh_token');
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+router.post("/logout", (req, res) => {
+  const refreshToken = req.header("refresh_token");
+  if (!refreshToken)
+    return res.status(401).json({ message: "Authentication failed" });
 
-    refreshTokens = refreshTokens.filter( token => token !== refreshToken)
-    res.status(204).json({message:'Successfuly logged out'})
-})
+  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+  res.status(200).json({ message: "Successfuly logged out" });
+});
 
+// re-new access token
+router.post("/token", (req, res) => {
+  const refreshToken = req.header("refresh_token");
 
-// re-new access token 
-router.post('/token' , (req, res)=>{
-    const refreshToken = req.header('refresh_token');
+  if (!refreshToken)
+    return res.status(401).json({ message: "Authentication failed" });
+  if (!refreshTokens.includes(refreshToken))
+    return res.status(403).json({ message: "Authentication failed" });
 
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
-    if(!refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
-    
-    jwt.verify(refreshToken, process.env.REFRESH_SECRET ,(err , result)=>{
-        if(err) return res.status(500).json({message:'Authentication failed'})
-        
-        const access_token = jwt.sign({ email: userByEmail.email, role: userByEmail.role } , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
-        res.status(200).json({"access_token": access_token });
-    })
+  jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, result) => {
+    if (err) return res.status(500).json({ message: "Authentication failed" });
 
-})
+    const access_token = jwt.sign(
+      { email: userByEmail.email, role: userByEmail.role },
+      process.env.ACCESS_SECRET,
+      { expiresIn: process.env.REFRESH_TIME }
+    );
+    res.status(200).json({ access_token: access_token });
+  });
+});
 
 module.exports = router;

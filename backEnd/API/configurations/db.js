@@ -1,9 +1,16 @@
 const mongoose = require("mongoose");
 
 // database name --> co227testdb
-mongoose
-  .connect("mongodb://localhost/co227testdb", { useNewUrlParser: true })
-  .then(() => {
-    console.log("connected");
-  })
-  .catch((err) => console.log(err.message));
+function connect() {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect("mongodb://localhost/co227testdb", { useNewUrlParser: true })
+      .then((res, err) => {
+        if (err) return reject(err);
+        resolve();
+        console.log("connected to the MongoDB database")
+      });
+  });
+}
+
+module.exports = { connect };

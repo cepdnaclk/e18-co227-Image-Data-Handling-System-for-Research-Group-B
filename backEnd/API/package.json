@@ -5,18 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "mocha --recursive  --exit"
   },
   "author": "Nethmi",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chai": "^4.3.6",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^10.0.0",
+    "mockgoose": "^8.0.4",
     "mongoose": "^6.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.18"
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.18",
+    "supertest": "^6.2.3"
   }
 }
