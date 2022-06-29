@@ -23,7 +23,7 @@ router.post("/accept/:id", async (req, res) => {
 
     // check for the request with given id
     const request = await Request.findById(req.params.id);
-    console.log(request);
+    //console.log(request);
 
     if (request) {
 
@@ -64,5 +64,33 @@ router.post("/accept/:id", async (req, res) => {
     return res.status(500).json(error);
   }
 });
+
+
+// **************** post method to reject a signup request *************************
+
+router.post("/reject/:id", async (req, res) => {
+  try {
+
+    // check for the request with given id
+    const request = await Request.findById(req.params.id);
+
+    if (request) {
+      
+      try {
+
+        // delete from Requests
+        await Request.findByIdAndDelete(req.params.id);
+        return res.status(200).json({ message: "Request successfully rejected!" });
+      } catch (error) {
+        return res.status(500).json({ message: "Request rejection failed!" });
+      }
+    } else {
+      return res.status(404).json({ message: "No Request Found!" });
+    }
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
 
 module.exports = router;
