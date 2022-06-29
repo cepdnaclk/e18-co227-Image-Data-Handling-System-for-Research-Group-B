@@ -26,15 +26,14 @@ function LoginScreen({ navigation }) {
     await SecureStore.setItemAsync(key, val);
   }
 
-  const createAlert = () =>
+  const createAlert = (msg) =>
     Alert.alert(
-      "Login Denied!",
-      "This may be due to Wrong Credentials or Unaccepted Signup Request.",
+      "Login Denied",
+      msg,
       [{ text: "OK", onPress: () => console.log("OK Pressed") }]
     );
 
-  const login = async (values, { resetForm }) => {
-    
+  const login = async (values, formikActions) => {
     //console.log(values);
     const res = await client
       .post("/auth/login", {
@@ -43,18 +42,20 @@ function LoginScreen({ navigation }) {
       .catch((error) => {
         console.log(error.message);
       });
-    console.log(res.data);
+    console.log("values: " + values.username);
     if (res.data.success) {
-      
+      saveToken("access", res.data.access_token);
+      saveToken("refresh", res.data.refresh_token);
+
       if (res.data.user.role.includes(3)) {
-        saveToken("access", res.data.access_token);
-        saveToken("refresh", res.data.refresh_token);
+        //formikActions.resetFrom(); // not working
         navigation.navigate("ProfileScreen");
       } else {
+        //formikActions.resetFrom();
         navigation.navigate("RequestScreen");
       }
     } else {
-      createAlert();
+      createAlert(res.data.message);
     }
   };
 

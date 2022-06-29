@@ -71,7 +71,7 @@ function RegisterScreen({ navigation }) {
               passwordConfirm: "",
             }}
             onSubmit={signUp}
-          //  validationSchema={validationSchema}
+           validationSchema={validationSchema}
           >
             {({
               handleChange,
@@ -106,18 +106,28 @@ function RegisterScreen({ navigation }) {
                     name="email"
                   />
                   <AppFormField
-                    isSecured={true}
+                    name="password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    hint="Password"
                     iconName="lock"
                     iconSize={15}
-                    hint={"Password"}
-                    name="password"
+                    isSecured={true}
+                    password={true}
+                    showImage={<Text>Show</Text>}
+                    textContentType="password"
                   />
                   <AppFormField
-                    isSecured={true}
+                    name="password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    hint="Confirm Password"
                     iconName="lock"
                     iconSize={15}
-                    hint={"Confirm Password"}
-                    name="passwordConfirm"
+                    isSecured={true}
+                    password={true}
+                    showImage={<Text>Show</Text>}
+                    textContentType="confirmpassword"
                   />
                 </KeyboardAwareScrollView>
                 {/* container with the register button and text below */}

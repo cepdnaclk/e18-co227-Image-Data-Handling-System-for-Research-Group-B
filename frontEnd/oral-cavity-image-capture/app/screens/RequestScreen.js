@@ -13,9 +13,9 @@ import RequestCard from "../components/RequestCard";
 import Screen from "../components/Screen";
 import SubmitButton from "../components/submitButton";
 import client from "../API/client";
+import client2 from "../API/client_refreshToken";
 
 class RequestScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -24,22 +24,35 @@ class RequestScreen extends Component {
     };
   }
 
+  logout = async () => {
+    const res = await client2
+      .post("/auth/logout", {})
+      .catch((error) => {
+        console.log("error: " + error.message);
+      });
+    console.log(res.data.message);
+    // deleteToken('access');
+    // deleteToken('refresh');
+    this.props.navigation.navigate("LoginScreen")
+    
+  };
+
   componentDidMount() {
     client
-        .get("/admin/get-requests")
-        .then((data) => {
-          this.setState({ responsedata: data }, () => {
-            this.setState({ loading: false });
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+      .get("/admin/get-requests")
+      .then((data) => {
+        this.setState({ responsedata: data }, () => {
+          this.setState({ loading: false });
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 2}}>
+      <SafeAreaView style={{ flex: 2 }}>
         <>
           <View
             style={{
@@ -75,7 +88,8 @@ class RequestScreen extends Component {
             text=" Sign Out"
             iconName={"logout"}
             iconSize={18}
-            onPress={() => console.log("Sign Out")}
+            onPress={this.logout}
+              
           />
         </View>
       </SafeAreaView>

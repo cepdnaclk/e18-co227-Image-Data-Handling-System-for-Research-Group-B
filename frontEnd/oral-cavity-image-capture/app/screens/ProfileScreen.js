@@ -8,17 +8,24 @@ import {
   View,
 } from "react-native";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 
 import ProfileCard from "../components/ProfileCard";
 import Screen from "../components/Screen";
 import SubmitButton from "../components/submitButton";
-import client from "../API/client";
+import client1 from "../API/client";
+import client2 from "../API/client_refreshToken";
 
 function Profile({ navigation }) {
+
+  async function deleteToken(key) {
+    await SecureStore.deleteItemAsync(key);
+  }
+
   const [userDetails, setDetails] = useState([]);
 
   const getDetails = () => {
-    client
+    client1
       .get("/user/get-user")
       .then((data) => {
         setDetails(data);
@@ -26,6 +33,19 @@ function Profile({ navigation }) {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const logout = async () => {
+    const res = await client2
+      .post("/auth/logout", {})
+      .catch((error) => {
+        console.log("error: " + error.message);
+      });
+    console.log(res.data.message);
+    deleteToken('access');
+    deleteToken('refresh');
+    navigation.navigate("LoginScreen")
+    
   };
 
   useEffect(() => {
@@ -72,7 +92,7 @@ function Profile({ navigation }) {
           text=" Sign Out"
           iconName={"logout"}
           iconSize={18}
-          onPress={() => navigation.navigate("LoginScreen")}
+          onPress={logout}
         />
       </View>
     </SafeAreaView>
