@@ -27,14 +27,14 @@ function LoginScreen({ navigation }) {
   }
 
   const createAlert = (msg) =>
-    Alert.alert(
-      "Login Denied",
-      msg,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-    );
+    Alert.alert("Login Denied", msg, [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
 
   const login = async (values, formikActions) => {
-    //console.log(values);
+    formikActions.resetForm();
+    // formikActions.setSubmitting(false);
+    
     const res = await client
       .post("/auth/login", {
         ...values,
@@ -42,16 +42,16 @@ function LoginScreen({ navigation }) {
       .catch((error) => {
         console.log(error.message);
       });
-    console.log("values: " + values.username);
+    
     if (res.data.success) {
       saveToken("access", res.data.access_token);
       saveToken("refresh", res.data.refresh_token);
 
       if (res.data.user.role.includes(3)) {
-        //formikActions.resetFrom(); // not working
+        
         navigation.navigate("ProfileScreen");
       } else {
-        //formikActions.resetFrom();
+        
         navigation.navigate("RequestScreen");
       }
     } else {
@@ -73,67 +73,75 @@ function LoginScreen({ navigation }) {
         onSubmit={login}
         validationSchema={validationSchema}
       >
-        {({ handleSubmit }) => (
-          <>
-            <View style={styles.inputFlex}>
-              {/* container with all the text input fields */}
+        {({ values, handleSubmit, handleChange }) => {
+          const { email, password } = values;
 
-              {/* email input*/}
-              <AppFormField
-                name="email"
-                autoCapitalize="none"
-                autoCorrect={false}
-                hint={"Email"}
-                iconName="mail"
-                iconSize={15}
-                isSecured={false}
-                keyboardType="email-address"
-                textContentType="emailAddress"
-              />
-              {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
+          return (
+            <>
+              <View style={styles.inputFlex}>
+                {/* container with all the text input fields */}
 
-              {/* password input */}
-              <AppFormField
-                name="password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                hint="Password"
-                iconName="lock"
-                iconSize={15}
-                isSecured={isSecured}
-                password={true}
-                showImage={<Text>Show</Text>}
-                textContentType="password"
-              />
+                {/* email input*/}
+                <AppFormField
+                  value={values.email}
+                  handleChange={handleChange("email")}
+                  name="email"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  hint={"Email"}
+                  iconName="mail"
+                  iconSize={15}
+                  isSecured={false}
+                  keyboardType="email-address"
+                  textContentType="emailAddress"
+                />
+                {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
 
-              {/* forgot password */}
-              <Text style={styles.recoverPwd}> Forgot your password? </Text>
-            </View>
+                {/* password input */}
+                <AppFormField
+                  value={password}
+                  handleChange={handleChange("password")}
+                  name="password"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  hint="Password"
+                  iconName="lock"
+                  iconSize={15}
+                  isSecured={isSecured}
+                  password={true}
+                  showImage={<Text>Show</Text>}
+                  textContentType="password"
+                />
 
-            <View style={{ height: "25%" }}></View>
-
-            <View style={styles.bottomFlex}>
-              <SubmitButton
-                text=" Login"
-                iconName={"login"}
-                iconSize={18}
-                onPress={handleSubmit}
-              />
-
-              <Text style={{ margin: 10 }}> or </Text>
-
-              <View style={styles.reg}>
-                <Text>Don't have an account yet?</Text>
-
-                <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate("RegisterScreen")}
-                >
-                  <Text style={styles.regTouch}> Register </Text>
-                </TouchableWithoutFeedback>
+                {/* forgot password */}
+                <Text style={styles.recoverPwd}> Forgot your password? </Text>
               </View>
-            </View>
-          </>
-        )}
+
+              <View style={{ height: "25%" }}></View>
+
+              <View style={styles.bottomFlex}>
+                <SubmitButton
+                  text=" Login"
+                  iconName={"login"}
+                  iconSize={18}
+                  onPress={handleSubmit}
+                />
+
+                <Text style={{ margin: 10 }}> or </Text>
+
+                <View style={styles.reg}>
+                  <Text>Don't have an account yet?</Text>
+
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate("RegisterScreen")}
+                  >
+                    <Text style={styles.regTouch}> Register </Text>
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+            </>
+          );
+        }}
       </Formik>
     </Screen>
   );

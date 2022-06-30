@@ -42,6 +42,7 @@ function InputField({
             padding={10}
             placeholder={hint}
           ></TextInput>
+          
         </View>
 
         <TouchableOpacity style={styles.eye} onPress={() => setShow(!show)}>
