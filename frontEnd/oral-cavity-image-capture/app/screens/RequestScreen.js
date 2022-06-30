@@ -25,16 +25,13 @@ class RequestScreen extends Component {
   }
 
   logout = async () => {
-    const res = await client2
-      .post("/auth/logout", {})
-      .catch((error) => {
-        console.log("error: " + error.message);
-      });
+    const res = await client2.post("/auth/logout", {}).catch((error) => {
+      console.log("error: " + error.message);
+    });
     console.log(res.data.message);
-    // deleteToken('access');
-    // deleteToken('refresh');
-    this.props.navigation.navigate("LoginScreen")
-    
+    deleteToken("access");
+    deleteToken("refresh");
+    this.props.navigation.navigate("LoginScreen");
   };
 
   componentDidMount() {
@@ -52,18 +49,12 @@ class RequestScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 2 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <>
-          <View
-            style={{
-              flex: 0.5,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={styles.header}>Requests</Text>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>Requests</Text>
           </View>
-          <View style={{ flex: 3 }}>
+          <View style={styles.infoContainer}>
             <FlatList
               data={this.state.responsedata.data}
               keyExtractor={this._keyExtractor}
@@ -80,16 +71,12 @@ class RequestScreen extends Component {
             />
           </View>
         </>
-        <View
-          style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}
-        >
+        <View style={styles.buttonContainer}>
           <SubmitButton
-            // style={styles.submitButton}
             text=" Sign Out"
             iconName={"logout"}
             iconSize={18}
             onPress={this.logout}
-              
           />
         </View>
       </SafeAreaView>
@@ -98,11 +85,28 @@ class RequestScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
+  headerText: {
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 15,
+    justifyContent: "center",
+  },
+
+  headerContainer: {
+    marginTop: 10,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  infoContainer: {
+    flex: 6,
+  },
+
+  buttonContainer: { 
+    flex: 1, 
+    alignItems: "center", 
+    justifyContent: "center" 
   },
 });
 
