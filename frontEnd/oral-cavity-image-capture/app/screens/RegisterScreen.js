@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
   reg_no: Yup.string().required().label("Registration Number"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).max(12).label("Password"),
-  passwordConfirm: Yup.string().oneOf([Yup.ref("password"), null]),
+  confirmpassword: Yup.string().oneOf([Yup.ref("password"), null],"Passwords must match"),
 });
 
 function RegisterScreen({ navigation }) {
@@ -41,7 +41,6 @@ function RegisterScreen({ navigation }) {
     ]);
 
   const signUp = async (values, formikActions) => {
-    
     console.log(values);
     const res = await client
       .post("/auth/signup", {
@@ -72,7 +71,7 @@ function RegisterScreen({ navigation }) {
               reg_no: "",
               email: "",
               password: "",
-              passwordConfirm: "",
+              confirmpassword: "",
             }}
             onSubmit={signUp}
             validationSchema={validationSchema}
