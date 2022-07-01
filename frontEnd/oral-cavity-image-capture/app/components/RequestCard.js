@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Alert } from "react-native";
 
 import AppText from "../config/AppText";
 import colours from "../config/colors";
@@ -7,6 +7,13 @@ import SubmitButton from "./submitButton";
 import client from "../API/client";
 
 export default function RequestCard({ name, regno, email, image, reqid, requestScreen }) {
+
+  const createAlert = () =>
+    Alert.alert("Are You Sure?", "You will not be able to recover a request after rejection", [
+      { text: "Yes, Reject", onPress: () => reject() },
+      { text: "Cancel", onPress: () => console.log("OK Pressed") },
+    ]);
+  
   const accept = async () => {
     const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
       
@@ -74,7 +81,7 @@ export default function RequestCard({ name, regno, email, image, reqid, requestS
             text=" Reject"
             iconName={"closecircleo"}
             iconSize={15}
-            onPress={reject}
+            onPress={createAlert}
           />
         </View>
       </View>

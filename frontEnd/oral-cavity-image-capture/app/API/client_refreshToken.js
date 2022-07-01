@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     async (config) => {
         const token = await SecureStore.getItemAsync('refresh');
-        console.log("rfresh token is " + token);
+        //console.log("refresh token is " + token);
         if(token){
             config.headers.refresh_token = `${token}`;
         }

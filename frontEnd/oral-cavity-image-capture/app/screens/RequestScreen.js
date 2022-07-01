@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 
 import RequestCard from "../components/RequestCard";
 import Screen from "../components/Screen";
@@ -24,13 +25,17 @@ class RequestScreen extends Component {
     };
   }
 
+  deleteToken = async (key) => {
+    await SecureStore.deleteItemAsync(key);
+  }
+
   logout = async () => {
     const res = await client2.post("/auth/logout", {}).catch((error) => {
       console.log("error: " + error.message);
     });
     console.log(res.data.message);
-    deleteToken("access");
-    deleteToken("refresh");
+    this.deleteToken("access");
+    this.deleteToken("refresh");
     this.props.navigation.navigate("LoginScreen");
   };
 
