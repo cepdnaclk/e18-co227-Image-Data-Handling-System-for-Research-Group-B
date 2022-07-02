@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import colours from "../Config/colors";
+import colours from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // for icons search in --> https://oblador.github.io/react-native-vector-icons/
@@ -42,6 +42,7 @@ function InputField({
             padding={10}
             placeholder={hint}
           ></TextInput>
+          
         </View>
 
         <TouchableOpacity style={styles.eye} onPress={() => setShow(!show)}>

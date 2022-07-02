@@ -10,10 +10,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const token = await SecureStore.getItemAsync('access');
-        //console.log("access token is " + token);
+        const token = await SecureStore.getItemAsync('refresh');
+        //console.log("refresh token is " + token);
         if(token){
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers.refresh_token = `${token}`;
         }
         return config;
     },

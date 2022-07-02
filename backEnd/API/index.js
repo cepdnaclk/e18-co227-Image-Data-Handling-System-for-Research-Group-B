@@ -5,7 +5,8 @@ const fs = require("fs");
 const User = require("./models/User");
 
 // create/ connect with the database
-require("./configurations/db");
+const db = require("./configurations/db");
+db.connect();
 
 app.use(express.json());
 
@@ -45,10 +46,14 @@ app.get("/api/get-all", async (req, res) => {
 
 // import routes
 
-// User route
+// User Auth route
 const userAuthRoute = require("./routes/user_authentication");
 app.use("/api/auth", userAuthRoute);
 
 // Admin route
 const adminAcceptRoute = require("./routes/admin");
 app.use("/api/admin", adminAcceptRoute);
+
+// User route
+const user = require("./routes/user");
+app.use("/api/user", user);

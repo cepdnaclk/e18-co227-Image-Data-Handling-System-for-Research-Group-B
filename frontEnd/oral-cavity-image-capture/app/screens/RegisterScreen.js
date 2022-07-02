@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Text, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -8,7 +15,7 @@ import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
 import ErrorMessage from "../components/ErrorMessage";
 import AppFormField from "../components/AppFormField";
-import client from "../API/client"; 
+import client from "../API/client";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -17,21 +24,38 @@ const validationSchema = Yup.object().shape({
   reg_no: Yup.string().required().label("Registration Number"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).max(12).label("Password"),
-  passwordConfirm: Yup.string().oneOf([Yup.ref("password"), null]),
+  confirmpassword: Yup.string().oneOf([Yup.ref("password"), null],"Passwords must match"),
 });
 
-function RegisterScreen(props) {
+function RegisterScreen({ navigation }) {
+  const successAlert = () =>
+    Alert.alert(
+      "Request Sent Successfully!",
+      "Please wait for the admin to accept your request.",
+      [{ text: "OK", onPress: () => navigation.navigate("LoginScreen") }]
+    );
+
+  const notsuccessAlert = (msg) =>
+    Alert.alert("Request Sent Failed!", msg, [
+      { text: "OK", onPress: () => navigation.navigate("RegisterScreen") },
+    ]);
 
   const signUp = async (values, formikActions) => {
     console.log(values);
-    const res = await client.post('/auth/signup', {
-      ...values,
-    })
-    console.log(res.data);
-    formikActions.resetForm();
-    formikActions.setSubmitting(false);
-  }
-
+    const res = await client
+      .post("/auth/signup", {
+        ...values,
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    //console.log(res.data);
+    if (res.data.success) {
+      successAlert();
+    } else {
+      notsuccessAlert(res.data.message);
+    }
+  };
 
   return (
     // full screen
@@ -47,68 +71,90 @@ function RegisterScreen(props) {
               reg_no: "",
               email: "",
               password: "",
-              passwordConfirm: "",
+              confirmpassword: "",
             }}
             onSubmit={signUp}
             validationSchema={validationSchema}
           >
             {({
+              values,
               handleChange,
               handleSubmit,
               errors,
               setFieldTouched,
               touched,
-            }) => (
-              <>
-                <KeyboardAwareScrollView contentContainerStyle={{}}>
-                  <AppFormField
-                    isSecured={false}
-                    iconName="user"
-                    iconSize={15}
-                    hint={"Full Name"}
-                    name="username"
-                  />
+            }) => {
+              const { username, reg_no, email, password, confirmpassword } =
+                values;
 
-                  <AppFormField
-                    isSecured={false}
-                    iconName="user"
-                    iconSize={15}
-                    hint={"Registration Number"}
-                    name="reg_no"
-                  />
+              return (
+                <>
+                  <KeyboardAwareScrollView contentContainerStyle={{}}>
+                    <AppFormField
+                      value={username}
+                      isSecured={false}
+                      iconName="user"
+                      iconSize={15}
+                      hint={"Full Name"}
+                      name="username"
+                    />
 
-                  <AppFormField
-                    isSecured={false}
-                    iconName="mail"
-                    iconSize={15}
-                    hint={"Email"}
-                    name="email"
-                  />
-                  <AppFormField
-                    isSecured={true}
-                    iconName="lock"
-                    iconSize={15}
-                    hint={"Password"}
-                    name="password"
-                  />
-                  <AppFormField
-                    isSecured={true}
-                    iconName="lock"
-                    iconSize={15}
-                    hint={"Confirm Password"}
-                    name="passwordConfirm"
-                  />
-                </KeyboardAwareScrollView>
-                {/* container with the register button and text below */}
-                <View style={styles.submitButton}>
-                  <SubmitButton
-                    style={styles.btnPosition}
-                    text="Request to Register"
-                    onPress={handleSubmit}
-                  />
-                </View>
-              </>
-            )}
+                    <AppFormField
+                      value={reg_no}
+                      isSecured={false}
+                      iconName="user"
+                      iconSize={15}
+                      hint={"Registration Number"}
+                      name="reg_no"
+                    />
+
+                    <AppFormField
+                      value={email}
+                      isSecured={false}
+                      iconName="mail"
+                      iconSize={15}
+                      hint={"Email"}
+                      name="email"
+                      keyboardType="email-address"
+                    />
+                    <AppFormField
+                      value={password}
+                      name="password"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      hint="Password"
+                      iconName="lock"
+                      iconSize={15}
+                      isSecured={true}
+                      password={true}
+                      showImage={<Text>Show</Text>}
+                      textContentType="password"
+                    />
+                    <AppFormField
+                      value={confirmpassword}
+                      name="confirmpassword"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      hint="Confirm Password"
+                      iconName="lock"
+                      iconSize={15}
+                      isSecured={true}
+                      password={true}
+                      showImage={<Text>Show</Text>}
+                      textContentType="password"
+                    />
+                  </KeyboardAwareScrollView>
+                  {/* container with the register button and text below */}
+                  <View style={styles.submitButton}>
+                    <SubmitButton
+                      style={styles.btnPosition}
+                      text="Request to Register"
+                      onPress={handleSubmit}
+                    />
+                  </View>
+                </>
+              );
+            }}
           </Formik>
         </View>
 
@@ -117,7 +163,11 @@ function RegisterScreen(props) {
 
           <Text>
             Already have an account?
-            <Text style={{ color: "#c25ced" }}> Login </Text>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("LoginScreen")}
+            >
+              <Text style={styles.regTouch}> Login </Text>
+            </TouchableWithoutFeedback>
           </Text>
         </View>
       </View>
@@ -145,7 +195,7 @@ const styles = StyleSheet.create({
   // },
 
   submitButton: {
-    marginTop: "25%",
+    marginTop: "10%",
     alignItems: "center",
   },
 
@@ -153,6 +203,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: "10%",
     // alignItems: "center",
+  },
+
+  regTouch: {
+    color: "#c25ced",
+    marginLeft: 5,
   },
 });
 

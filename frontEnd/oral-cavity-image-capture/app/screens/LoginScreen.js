@@ -8,17 +8,13 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import * as SecureStore from "expo-secure-store";
 
+import WelcomeHeader from "../components/welcomeHeader";
 import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/submitButton";
 import Screen from "../components/Screen";
-import WelcomeHeader from "../components/welcomeHeader";
-
 import client from "../API/client";
-
-import Profile from "../screens/Profile";
-import RegisterScreen from "../screens/RegisterScreen";
-import Requests from "../screens/Requests";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -26,28 +22,40 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
-  const createThreeButtonAlert = () =>
-    Alert.alert(
-      "Login Denied!",
-      "This may be due to Wrong Credentials or Unaccepted signup Request. Please make sure you have signed up and try again later.",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-    );
+  async function saveToken(key, val) {
+    await SecureStore.setItemAsync(key, val);
+  }
 
-  const login = async (values, { resetForm }) => {
-    //console.log(values);
-    const res = await client.post("/auth/login", {
-      ...values,
-    });
-    console.log(res.data);
+  const createAlert = (msg) =>
+    Alert.alert("Login Denied", msg, [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
+  const login = async (values, formikActions) => {
+    formikActions.resetForm();
+    // formikActions.setSubmitting(false);
+    
+    const res = await client
+      .post("/auth/login", {
+        ...values,
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    
     if (res.data.success) {
+      saveToken("access", res.data.access_token);
+      saveToken("refresh", res.data.refresh_token);
+
       if (res.data.user.role.includes(3)) {
-        navigation.navigate("Profile");
-      }else{
-        navigation.navigate("Requests");
+        
+        navigation.navigate("ProfileScreen");
+      } else {
+        
+        navigation.navigate("RequestScreen");
       }
     } else {
-      createThreeButtonAlert();
-      // resetForm({initialValues});
+      createAlert(res.data.message);
     }
   };
 
@@ -65,67 +73,75 @@ function LoginScreen({ navigation }) {
         onSubmit={login}
         validationSchema={validationSchema}
       >
-        {({ handleSubmit }) => (
-          <>
-            <View style={styles.inputFlex}>
-              {/* container with all the text input fields */}
+        {({ values, handleSubmit, handleChange }) => {
+          const { email, password } = values;
 
-              {/* email input*/}
-              <AppFormField
-                name="email"
-                autoCapitalize="none"
-                autoCorrect={false}
-                hint={"Email"}
-                iconName="mail"
-                iconSize={15}
-                isSecured={false}
-                keyboardType="email-address"
-                textContentType="emailAddress"
-              />
-              {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
+          return (
+            <>
+              <View style={styles.inputFlex}>
+                {/* container with all the text input fields */}
 
-              {/* password input */}
-              <AppFormField
-                name="password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                hint="Password"
-                iconName="lock"
-                iconSize={15}
-                isSecured={isSecured}
-                password={true}
-                showImage={<Text>Show</Text>}
-                textContentType="password"
-              />
+                {/* email input*/}
+                <AppFormField
+                  value={values.email}
+                  handleChange={handleChange("email")}
+                  name="email"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  hint={"Email"}
+                  iconName="mail"
+                  iconSize={15}
+                  isSecured={false}
+                  keyboardType="email-address"
+                  textContentType="emailAddress"
+                />
+                {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
 
-              {/* forgot password */}
-              <Text style={styles.recoverPwd}> Forgot your password? </Text>
-            </View>
+                {/* password input */}
+                <AppFormField
+                  value={password}
+                  handleChange={handleChange("password")}
+                  name="password"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  hint="Password"
+                  iconName="lock"
+                  iconSize={15}
+                  isSecured={isSecured}
+                  password={true}
+                  showImage={<Text>Show</Text>}
+                  textContentType="password"
+                />
 
-            <View style={{ height: "25%" }}></View>
-
-            <View style={styles.bottomFlex}>
-              <SubmitButton
-                text=" Login"
-                iconName={"login"}
-                iconSize={18}
-                onPress={handleSubmit}
-              />
-
-              <Text style={{ margin: 10 }}> or </Text>
-
-              <View style={styles.reg}>
-                <Text>Don't have an account yet?</Text>
-
-                <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate("RegisterScreen")}
-                >
-                  <Text style={styles.regTouch}> Register </Text>
-                </TouchableWithoutFeedback>
+                {/* forgot password */}
+                <Text style={styles.recoverPwd}> Forgot your password? </Text>
               </View>
-            </View>
-          </>
-        )}
+
+              <View style={{ height: "25%" }}></View>
+
+              <View style={styles.bottomFlex}>
+                <SubmitButton
+                  text=" Login"
+                  iconName={"login"}
+                  iconSize={18}
+                  onPress={handleSubmit}
+                />
+
+                <Text style={{ margin: 10 }}> or </Text>
+
+                <View style={styles.reg}>
+                  <Text>Don't have an account yet?</Text>
+
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate("RegisterScreen")}
+                  >
+                    <Text style={styles.regTouch}> Register </Text>
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+            </>
+          );
+        }}
       </Formik>
     </Screen>
   );
@@ -157,7 +173,6 @@ const styles = StyleSheet.create({
 
   reg: {
     flexDirection: "row",
-    // padding: 10,
   },
 
   regTouch: {
