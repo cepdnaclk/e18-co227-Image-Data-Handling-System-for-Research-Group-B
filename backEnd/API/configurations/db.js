@@ -8,9 +8,16 @@ function connect() {
       .then((res, err) => {
         if (err) return reject(err);
         resolve();
-        console.log("connected to the MongoDB database")
+        console.log("connected to the MongoDB database");
       });
   });
 }
 
-module.exports = { connect };
+function close() {
+  return new Promise((resolve, reject) => {
+    mongoose.connection
+      .close()
+      .then(console.log("Close connection with database"));
+  });
+}
+module.exports = { connect, close };
