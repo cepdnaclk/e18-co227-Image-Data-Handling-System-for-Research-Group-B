@@ -11,10 +11,11 @@ import {
 } from "react-native";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Formik } from "formik";
 
 import TopPane from "../components/TopPane";
 import InputsWithoutIcon from "../components/InputsWithoutIcon";
-import SubmitButton from "../components/submitButton";
+import SubmitButton from "../components/SubmitButton";
 import SelectOption from "../components/SelectOption";
 import DescriptionBox from "../components/DescriptionBox";
 
@@ -40,20 +41,20 @@ function PatientRegisterScreen(props) {
 
       {/* container with all the text input fields */}
       <KeyboardAwareScrollView>
-      <View style={styles.inputFlex}>
-        <InputsWithoutIcon isSecured={false} hint={"Patient Name"} />
-        <InputsWithoutIcon isSecured={false} hint={"District"} />
-        <InputsWithoutIcon isSecured={false} hint={"Age"} />
-        <SelectOption
-          hint={"Select Gender"}
-          dataSet={gender}
-          thisHeight={45}
-          fontSize={14}
-        />
-        <InputsWithoutIcon isSecured={false} hint={"Contact Number"} />
-        <InputsWithoutIcon isSecured={false} hint={"Habbits"} />
-        <DescriptionBox isSecured={false} hint={"Description"} />
-      </View>
+        <View style={styles.inputFlex}>
+          <InputsWithoutIcon isSecured={false} hint={"Patient Name"} />
+          <InputsWithoutIcon isSecured={false} hint={"District"} />
+          <InputsWithoutIcon isSecured={false} hint={"Age"} />
+          <SelectOption
+            hint={"Select Gender"}
+            dataSet={gender}
+            thisHeight={45}
+            fontSize={14}
+          />
+          <InputsWithoutIcon isSecured={false} hint={"Contact Number"} />
+          <InputsWithoutIcon isSecured={false} hint={"Habbits"} />
+          <DescriptionBox isSecured={false} hint={"Description"} />
+        </View>
       </KeyboardAwareScrollView>
 
       {/* container with the button */}

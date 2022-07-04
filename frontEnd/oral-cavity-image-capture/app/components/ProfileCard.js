@@ -3,7 +3,7 @@ import { View, Image, StyleSheet } from "react-native";
 
 import AppText from "../config/AppText";
 import colours from "../config/colors";
-import SubmitButton from "./submitButton";
+import SubmitButton from "./SubmitButton";
 
 export default function ProfileCard({ name, id, email, image }) {
   return (

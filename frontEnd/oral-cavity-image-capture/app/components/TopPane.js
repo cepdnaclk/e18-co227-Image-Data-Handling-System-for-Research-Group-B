@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    
   },
 
   text: {
     fontSize: 16,
+    color: "black",
     fontWeight: "bold",
   },
 
