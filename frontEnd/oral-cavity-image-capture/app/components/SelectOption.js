@@ -2,25 +2,30 @@ import React, { Component } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 
-import colors from "../Config/colors";
+import colors from "../config/colors";
 
 // how to get the screen dimensions
 // see if this works when screen is rotated ( if not watch React Native Tutorial 1:25:00 )
 // const windowWidth = Dimensions.get("window");
 
-const SelectOption = ({dataSet, hint, thisHeight, fontSize}) => {
+const SelectOption = ({ dataSet, hint, thisHeight, fontSize }) => {
   return (
     <SelectDropdown
       data={dataSet}
       defaultButtonText={hint}
       renderDropdownIcon={() => {
-        return <IconAntDesign name={"down"} color={"#bab5b6"} style={{paddingEnd: 10}}/>;
+        return (
+          <IconAntDesign
+            name={"down"}
+            color={"#bab5b6"}
+            style={{ paddingEnd: 10 }}
+          />
+        );
       }}
       buttonTextStyle={{
         color: "#bab5b6",
         fontSize: fontSize,
         textAlign: "left",
-
       }}
       buttonStyle={{
         borderColor: colors.ash,
@@ -30,7 +35,6 @@ const SelectOption = ({dataSet, hint, thisHeight, fontSize}) => {
         backgroundColor: colors.ash,
         marginBottom: 10,
         paddingEStart: 20,
-        
       }}
       onSelect={(selectedItem, index) => {
         console.log(selectedItem, index);
@@ -48,5 +52,6 @@ const SelectOption = ({dataSet, hint, thisHeight, fontSize}) => {
     />
   );
 };
+
 
 export default SelectOption;

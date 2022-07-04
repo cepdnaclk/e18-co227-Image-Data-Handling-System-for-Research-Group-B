@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Alert } from "react-native";
 
 import AppText from "../config/AppText";
 import colours from "../config/colors";
-import SubmitButton from "./submitButton";
+import SubmitButton from "./SubmitButton";
 import client from "../API/client";
 
 export default function RequestCard({ name, regno, email, image, reqid, requestScreen }) {
