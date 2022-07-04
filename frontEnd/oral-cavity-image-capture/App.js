@@ -27,20 +27,36 @@ export default function App() {
   }, []);
 
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="LoginScreen">
-    //     <Stack.Screen options={{ headerShown: false }} name={"LoginScreen"} component={LoginScreen} />
-    //     <Stack.Screen options={{ headerShown: false }} name={"RegisterScreen"} component={RegisterScreen} />
-    //     <Stack.Screen options={{ headerShown: false }} name={"ProfileScreen"} component={ProfileScreen} />
-    //     <Stack.Screen options={{ headerShown: false }} name={"RequestScreen"} component={RequestScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="LoginScreen">
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"LoginScreen"}
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"RegisterScreen"}
+          component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"ProfileScreen"}
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"RequestScreen"}
+          component={RequestScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
 
     // <LoginScreen />
     // <ProfileScreen />
     // <RegisterScreen />
     // <RequestScreen />
-    <Patient />
+    // <Patient />
     // <PatientRegisterScreen />
   );
 }
