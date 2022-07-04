@@ -8,6 +8,8 @@ import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
+import PatientRegisterScreen from "./app/screens/PatientRegisterScreen";
+import Patient from "./app/screens/Patient";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -27,13 +29,34 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LoginScreen">
-        <Stack.Screen options={{ headerShown: false }} name={"LoginScreen"} component={LoginScreen} />
-        <Stack.Screen options={{ headerShown: false }} name={"RegisterScreen"} component={RegisterScreen} />
-        <Stack.Screen options={{ headerShown: false }} name={"ProfileScreen"} component={ProfileScreen} />
-        <Stack.Screen options={{ headerShown: false }} name={"RequestScreen"} component={RequestScreen} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"LoginScreen"}
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"RegisterScreen"}
+          component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"ProfileScreen"}
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"RequestScreen"}
+          component={RequestScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
 
-    //<LoginScreen/>
+    // <LoginScreen />
+    // <ProfileScreen />
+    // <RegisterScreen />
+    // <RequestScreen />
+    // <Patient />
+    // <PatientRegisterScreen />
   );
 }

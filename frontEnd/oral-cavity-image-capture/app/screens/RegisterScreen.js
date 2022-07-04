@@ -11,7 +11,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import WelcomeHeader from "../components/welcomeHeader";
-import SubmitButton from "../components/submitButton";
+import SubmitButton from "../components/SubmitButton";
 import Screen from "../components/Screen";
 import ErrorMessage from "../components/ErrorMessage";
 import AppFormField from "../components/AppFormField";

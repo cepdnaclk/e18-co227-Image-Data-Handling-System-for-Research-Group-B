@@ -12,7 +12,7 @@ import * as SecureStore from "expo-secure-store";
 
 import ProfileCard from "../components/ProfileCard";
 import Screen from "../components/Screen";
-import SubmitButton from "../components/submitButton";
+import SubmitButton from "../components/SubmitButton";
 import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
 
