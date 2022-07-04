@@ -46,7 +46,7 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 **Wire frame Diagram**
 
-![WorkPlacePage](./docs/images/wireframe.jpeg)
+![WorkPlacePage](./docs/images/wireframeDiagram.png)
 
 .....
 
