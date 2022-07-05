@@ -84,77 +84,81 @@ function Patient(props) {
             <>
               {/* <KeyboardAwareScrollView> */}
               {/* <View style={styles.inputFlex}> */}
-              <AppFormField
-                value={patientName}
-                isSecured={false}
-                iconName="user"
-                iconSize={15}
-                hint={"Patient Name"}
-                name="patientName"
-              />
 
-              <AppFormField
-                value={district}
-                isSecured={false}
-                iconName="enviroment"
-                iconSize={15}
-                hint={"District"}
-                name="district"
-              />
-
-              <AppFormField
-                value={age}
-                isSecured={false}
-                iconName="solution1"
-                iconSize={15}
-                hint={"Age"}
-                name="age"
-                textContentType="number"
-              />
-              <View style={styles.selectOptionContainer}>
-                <SelectOption
-                  hint={"Select Gender"}
-                  dataSet={selectGender}
-                  thisHeight={45}
-                  fontSize={14}
+              <KeyboardAwareScrollView>
+                <AppFormField
+                  value={patientName}
+                  isSecured={false}
+                  iconName="user"
+                  iconSize={15}
+                  hint={"Patient Name"}
+                  name="patientName"
                 />
-              </View>
 
-              <AppFormField
-                value={contactNumber}
-                isSecured={false}
-                iconName="phone"
-                iconSize={15}
-                hint={"Contact Number"}
-                name="contactNumber"
-              />
+                <AppFormField
+                  value={district}
+                  isSecured={false}
+                  iconName="enviroment"
+                  iconSize={15}
+                  hint={"District"}
+                  name="district"
+                />
 
-              <AppFormField
-                value={habbits}
-                isSecured={false}
-                iconName="smileo"
-                iconSize={15}
-                hint={"Habbits"}
-                name="habbits"
-              />
+                <AppFormField
+                  value={age}
+                  isSecured={false}
+                  iconName="solution1"
+                  iconSize={15}
+                  hint={"Age"}
+                  name="age"
+                  keyboadType="number"
+                  // textContentType="number"
+                />
+                <View style={styles.selectOptionContainer}>
+                  <SelectOption
+                    hint={"Select Gender"}
+                    dataSet={selectGender}
+                    thisHeight={45}
+                    fontSize={14}
+                  />
+                </View>
 
-              <AppFormField
-                value={description}
-                isSecured={false}
-                iconName="database"
-                iconSize={15}
-                hint={"Description"}
-                name="description"
-              />
+                <AppFormField
+                  value={contactNumber}
+                  isSecured={false}
+                  iconName="phone"
+                  iconSize={15}
+                  hint={"Contact Number"}
+                  name="contactNumber"
+                />
 
-              {/* <DescriptionBox isSecured={false} hint={"Description"} /> */}
-              {/* </View> */}
-              {/* </KeyboardAwareScrollView> */}
+                <AppFormField
+                  value={habbits}
+                  isSecured={false}
+                  iconName="smileo"
+                  iconSize={15}
+                  hint={"Habbits"}
+                  name="habbits"
+                />
 
-              {/* container with the button */}
-              <View style={styles.bottomFlex}>
-                <SubmitButton text="Register Patient" />
-              </View>
+                <AppFormField
+                  value={description}
+                  isSecured={false}
+                  iconName="database"
+                  iconSize={15}
+                  hint={"Description"}
+                  name="description"
+                />
+
+                {/* <DescriptionBox isSecured={false} hint={"Description"} /> */}
+                {/* </View> */}
+                {/* </KeyboardAwareScrollView> */}
+
+                {/* container with the button */}
+                <View style={styles.bottomFlex}>
+                  <SubmitButton text="Register Patient" />
+                </View>
+              </KeyboardAwareScrollView>
             </>
           );
         }}
