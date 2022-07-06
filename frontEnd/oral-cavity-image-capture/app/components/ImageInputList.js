@@ -12,13 +12,8 @@ export default function ImageInputList({
   const scrollToEnd = useRef();
 
   return (
-    <View style={style}>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={true} //
-        onContentSizeChange={() => scrollToEnd.current.scrollToEnd()}
-        ref={scrollToEnd}
-      >
+    <View style={styles.scrollViewContainer}>
+      <ScrollView>
         <View style={styles.container}>
           {imageUris.map((uri) => (
             <View key={uri} style={styles.image}>
@@ -28,7 +23,6 @@ export default function ImageInputList({
               />
             </View>
           ))}
-
           <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
         </View>
       </ScrollView>
@@ -37,9 +31,6 @@ export default function ImageInputList({
 }
 
 const styles = StyleSheet.create({
-  all: {
-    height: "90%",
-  },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -50,4 +41,5 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginVertical: 10,
   },
+  scrollViewContainer: {},
 });

@@ -10,7 +10,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colours from "../Config/colors";
+import colours from "../config/colors";
 
 export default function ImageInput({ imageUri, onChangeImage }) {
   useEffect(() => {

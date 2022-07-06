@@ -11,8 +11,8 @@ const TopPane = ({ text, leftIcon, rightIcon }) => {
   return (
     <View style={styles.container}>
       <View style={styles.outerLeftIcon}>
-        <View style={styles.rightIcon}>
-          <IconAntDesign size={15} name={leftIcon} />
+        <View style={styles.leftIcon}>
+          <IconAntDesign size={25} name={leftIcon} />
         </View>
       </View>
 
@@ -21,8 +21,8 @@ const TopPane = ({ text, leftIcon, rightIcon }) => {
       </View>
 
       <View style={styles.outerRightIcon}>
-        <View style={styles.leftIcon}>
-          <Entypo size={16} name={rightIcon} />
+        <View style={styles.rightIcon}>
+          <Entypo size={20} name={rightIcon} />
         </View>
       </View>
     </View>
@@ -31,13 +31,14 @@ const TopPane = ({ text, leftIcon, rightIcon }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    marginVertical: 10,
+    // backgroundColor: "red",
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 24,
     color: "black",
     fontWeight: "bold",
   },
@@ -52,13 +53,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#edeff2",
     height: 35,
     width: 35,
-    borderRadius: 5,
+    borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
   },
 
   rightIcon: {
-    backgroundColor: "#edeff2",
+    // backgroundColor: "#edeff2",
     height: 35,
     width: 35,
     borderRadius: 5,
