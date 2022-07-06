@@ -89,7 +89,7 @@ function RegisterScreen({ navigation }) {
 
               return (
                 <>
-                  <KeyboardAwareScrollView contentContainerStyle={{}}>
+                  <KeyboardAwareScrollView>
                     <AppFormField
                       value={username}
                       isSecured={false}
@@ -143,15 +143,15 @@ function RegisterScreen({ navigation }) {
                       showImage={<Text>Show</Text>}
                       textContentType="password"
                     />
+                    {/* container with the register button and text below */}
+                    <View style={styles.submitButton}>
+                      <SubmitButton
+                        style={styles.btnPosition}
+                        text="Request to Register"
+                        onPress={handleSubmit}
+                      />
+                    </View>
                   </KeyboardAwareScrollView>
-                  {/* container with the register button and text below */}
-                  <View style={styles.submitButton}>
-                    <SubmitButton
-                      style={styles.btnPosition}
-                      text="Request to Register"
-                      onPress={handleSubmit}
-                    />
-                  </View>
                 </>
               );
             }}
