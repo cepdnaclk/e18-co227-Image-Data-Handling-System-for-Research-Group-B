@@ -55,7 +55,7 @@ export default function App() {
 
     // <LoginScreen />
     // <ProfileScreen />
-    <RegisterScreen />
+    // <RegisterScreen />
     // <RequestScreen />
     // <Patient />
     // <PatientRegisterScreen />
