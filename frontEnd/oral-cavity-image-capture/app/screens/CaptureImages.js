@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-
-import Screen from "../components/Screen";
 import ImageInputList from "../components/ImageInputList";
-import AppText from "../components/AppText";
-import SubmitButton from "../components/submitButton";
+import IconButton from "../components/IconButton";
+import TopPane from "../components/TopPane";
 
 export default function CaptureImages() {
   const [imageUris, setImageUris] = useState([]);
@@ -20,41 +18,60 @@ export default function CaptureImages() {
   };
 
   return (
-    <Screen>
-      <AppText style={styles.title}>Captured Images</AppText>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAdd}
-        onRemoveImage={handleRemove}
-        style={styles.scrollViewContainer}
-      />
-
-      <View styles={styles.SubmitButtonContainer}>
-        <SubmitButton
-          style={styles.SubmitButtonContainer}
-          text=" Next"
-          iconName={"login"}
-          iconSize={18}
+    <View style={styles.Screen}>
+      <TopPane text={"Add image"} leftIcon={"left"} />
+      <View style={styles.imageContainer}>
+        <ImageInputList
+          imageUris={imageUris}
+          onAddImage={handleAdd}
+          onRemoveImage={handleRemove}
+        />
+      </View>
+      <View style={styles.ButtonContainer}>
+        <IconButton
+          iconName={"camera"}
+          iconSize={24}
+          onPress={console.log("submitted")}
+        />
+        <IconButton
+          iconName={"images"}
+          iconSize={24}
+          onPress={console.log("submitted")}
+        />
+        <IconButton
+          iconName={"chevron-right"}
+          iconSize={24}
           onPress={console.log("submitted")}
         />
       </View>
-    </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    height: "83%",
-    marginTop: "5%",
+  Screen: {
+    flex: 1,
+    flexDirection: "column",
+    paddingHorizontal: 10,
+    paddingTop: 25,
+    paddingBottom: 60,
+    // backgroundColor: "green",
   },
-
-  SubmitButtonContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+  imageContainer: {
+    // backgroundColor: "red",
   },
-
+  ButtonContainer: {
+    position: "absolute",
+    bottom: 0,
+    alignSelf: "flex-end",
+  },
   title: {
+    padding: 10,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  temp: {
+    flexDirection: "column",
+    height: 300,
   },
 });

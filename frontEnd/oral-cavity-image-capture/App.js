@@ -10,6 +10,7 @@ import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
 import PatientRegisterScreen from "./app/screens/PatientRegisterScreen";
 import Patient from "./app/screens/Patient";
+import CaptureImages from "./app/screens/CaptureImages";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -40,7 +41,8 @@ export default function App() {
     // <ProfileScreen />
     // <RegisterScreen />
     // <RequestScreen />
-    <Patient />
+    // <Patient />
     // <PatientRegisterScreen />
+    <CaptureImages />
   );
 }
