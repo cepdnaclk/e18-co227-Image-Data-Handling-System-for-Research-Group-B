@@ -8,9 +8,9 @@ import SelectOption from "../components/SelectOption";
 const patients = [1, 2, 3, 4, 5];
 
 function SelectPatientScreen({ navigation, route }) {
-  const thisUser = route.params.examiner;
+  const thisUser = route.params.user;
   const back = () => {
-    navigation.navigate("AddImagesScreen", { examiner: thisUser });
+    navigation.navigate("AddImagesScreen", { user: thisUser });
   };
   return (
     // full screen
@@ -47,7 +47,7 @@ function SelectPatientScreen({ navigation, route }) {
           iconSize={18}
           onPress={() =>
             navigation.navigate("PatientRegisterScreen", {
-              examiner: thisUser,
+              user: thisUser,
             })
           }
         />

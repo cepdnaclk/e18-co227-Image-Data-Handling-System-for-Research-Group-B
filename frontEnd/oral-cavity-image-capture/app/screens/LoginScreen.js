@@ -49,7 +49,7 @@ function LoginScreen({ navigation }) {
 
       if (res.data.user.role.includes(3)) {
         navigation.navigate("ProfileScreen", {
-          examiner: res.data.user,
+          user: res.data.user,
         });
       } else {
         navigation.navigate("RequestScreen");

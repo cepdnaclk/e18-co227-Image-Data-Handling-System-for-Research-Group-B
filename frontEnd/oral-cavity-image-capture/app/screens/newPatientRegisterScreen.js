@@ -41,7 +41,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function PatientRegisterScreen({ navigation, route }) {
-  const thisUser = route.params.examiner;
+  const thisUser = route.params.user;
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
 
@@ -50,7 +50,12 @@ function PatientRegisterScreen({ navigation, route }) {
       "Patient Added Successfully!",
       "You may now select the patient from the list.",
 
-      [{ text: "OK", onPress: () => navigation.navigate("LoginScreen") }]
+      [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("SelectPatientScreen"),
+        },
+      ]
     );
 
   const notsuccessAlert = (msg) =>
@@ -77,16 +82,20 @@ function PatientRegisterScreen({ navigation, route }) {
   };
   const back = () => {
     Alert.alert(
-      "Cancell Patient Registering!",
-      "You may loss the entered data.",
+      "Are You Sure?",
+      "Cancelling Patient Register may loss the entered data.",
 
       [
         {
-          text: "Cancel",
+          text: "Yes",
           onPress: () =>
-            navigation.navigate("SelectPatientScreen", { examiner: thisUser }),
+            navigation.navigate("SelectPatientScreen", { user: thisUser }),
         },
-        { text: "Continue", onPress: () => {} },
+        {
+          text: "No",
+          onPress: () =>
+            navigation.navigate("PatientRegisterScreen", { user: thisUser }),
+        },
       ]
     );
   };

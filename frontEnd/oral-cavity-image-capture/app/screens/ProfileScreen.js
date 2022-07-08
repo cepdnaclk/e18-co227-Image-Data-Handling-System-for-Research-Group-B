@@ -17,7 +17,7 @@ import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
 
 function Profile({ navigation, route }) {
-  const thisUser = route.params.examiner;
+  const thisUser = route.params.user;
 
   async function deleteToken(key) {
     await SecureStore.deleteItemAsync(key);
@@ -62,7 +62,7 @@ function Profile({ navigation, route }) {
           iconSize={18}
           onPress={() =>
             navigation.navigate("AddImagesScreen", {
-              examiner: thisUser,
+              user: thisUser,
             })
           }
         />
