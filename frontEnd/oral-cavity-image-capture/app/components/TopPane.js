@@ -1,18 +1,19 @@
 // headers like - Hey there, Welcome Back
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableHighlight } from "react-native";
 
 // for icons search in --> https://oblador.github.io/react-native-vector-icons/
-import IconAntDesign from "react-native-vector-icons/AntDesign";
 import Entypo from "react-native-vector-icons/Entypo";
 
-const TopPane = ({ text, leftIcon, rightIcon }) => {
+const TopPane = ({ text, leftIcon, rightIcon, onPressleft, onPressright }) => {
   return (
     <View style={styles.container}>
       <View style={styles.outerLeftIcon}>
         <View style={styles.leftIcon}>
-          <IconAntDesign size={25} name={leftIcon} />
+          <TouchableHighlight style={styles.leftIcon} onPress={onPressleft}>
+            <Entypo size={27} name={leftIcon} />
+          </TouchableHighlight>
         </View>
       </View>
 
@@ -22,7 +23,9 @@ const TopPane = ({ text, leftIcon, rightIcon }) => {
 
       <View style={styles.outerRightIcon}>
         <View style={styles.rightIcon}>
-          <Entypo size={20} name={rightIcon} />
+          <TouchableHighlight style={styles.leftIcon} onPress={onPressright}>
+            <Entypo size={27} name={rightIcon} />
+          </TouchableHighlight>
         </View>
       </View>
     </View>
@@ -33,8 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 10,
-    // backgroundColor: "red",
+    marginVertical: 20,
   },
 
   text: {
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   },
 
   rightIcon: {
-    // backgroundColor: "#edeff2",
+    backgroundColor: "#edeff2",
     height: 35,
     width: 35,
     borderRadius: 5,

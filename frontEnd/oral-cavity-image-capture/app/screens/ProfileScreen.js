@@ -17,7 +17,6 @@ import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
 
 function Profile({ navigation }) {
-
   async function deleteToken(key) {
     await SecureStore.deleteItemAsync(key);
   }
@@ -36,16 +35,13 @@ function Profile({ navigation }) {
   };
 
   const logout = async () => {
-    const res = await client2
-      .post("/auth/logout", {})
-      .catch((error) => {
-        console.log("error: " + error.message);
-      });
+    const res = await client2.post("/auth/logout", {}).catch((error) => {
+      console.log("error: " + error.message);
+    });
     console.log(res.data.message);
-    deleteToken('access');
-    deleteToken('refresh');
-    navigation.navigate("LoginScreen")
-    
+    deleteToken("access");
+    deleteToken("refresh");
+    navigation.navigate("LoginScreen");
   };
 
   useEffect(() => {
@@ -85,7 +81,7 @@ function Profile({ navigation }) {
           text=" Capture Image"
           iconName={"camerao"}
           iconSize={18}
-          onPress={() => navigation.navigate("LoginScreen")}
+          onPress={() => navigation.navigate("AddImagesScreen")}
         />
         <SubmitButton
           // style={styles.submitButton}

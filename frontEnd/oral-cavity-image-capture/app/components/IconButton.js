@@ -1,14 +1,12 @@
 import React from "react";
 
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, TouchableHighlight } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function IconButton({ iconName, iconSize, onPress }) {
   return (
     <TouchableHighlight style={styles.IconButton} onPress={onPress}>
-      <Text style={styles.textLogin}>
-        <FontAwesome5 name={iconName} size={iconSize} color="black" />
-      </Text>
+      <FontAwesome5 name={iconName} size={iconSize} color="black" />
     </TouchableHighlight>
   );
 }
