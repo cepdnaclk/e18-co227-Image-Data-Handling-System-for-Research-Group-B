@@ -16,41 +16,22 @@ import SubmitButton from "../components/SubmitButton";
 import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
 
-function Profile({ navigation }) {
+function Profile({ navigation, route }) {
+  const thisUser = route.params.user;
 
   async function deleteToken(key) {
     await SecureStore.deleteItemAsync(key);
   }
 
-  const [userDetails, setDetails] = useState([]);
-
-  const getDetails = () => {
-    client1
-      .get("/user/get-user")
-      .then((data) => {
-        setDetails(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const logout = async () => {
-    const res = await client2
-      .post("/auth/logout", {})
-      .catch((error) => {
-        console.log("error: " + error.message);
-      });
+    const res = await client2.post("/auth/logout", {}).catch((error) => {
+      console.log("error: " + error.message);
+    });
     console.log(res.data.message);
-    deleteToken('access');
-    deleteToken('refresh');
-    navigation.navigate("LoginScreen")
-    
+    deleteToken("access");
+    deleteToken("refresh");
+    navigation.navigate("LoginScreen");
   };
-
-  useEffect(() => {
-    getDetails();
-  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -65,17 +46,11 @@ function Profile({ navigation }) {
           <Text style={styles.header}>Profile</Text>
         </View>
         <View style={{ flex: 2 }}>
-          <FlatList
-            data={userDetails.data}
-            //keyExtractor={this._keyExtractor}
-            renderItem={({ item: requestItem }) => (
-              <ProfileCard
-                name={requestItem.username}
-                id={requestItem.reg_no}
-                email={requestItem.email}
-                image={require("../assets/Images/doctor.jpg")}
-              />
-            )}
+          <ProfileCard
+            name={thisUser.username}
+            id={thisUser.reg_no}
+            email={thisUser.email}
+            image={require("../assets/Images/doctor.jpg")}
           />
         </View>
       </>
@@ -85,7 +60,10 @@ function Profile({ navigation }) {
           text=" Capture Image"
           iconName={"camerao"}
           iconSize={18}
-          onPress={() => navigation.navigate("LoginScreen")}
+          onPress={() => navigation.navigate("CaptureImages", {
+            examiner: thisUser,
+            
+          })}
         />
         <SubmitButton
           // style={styles.submitButton}
