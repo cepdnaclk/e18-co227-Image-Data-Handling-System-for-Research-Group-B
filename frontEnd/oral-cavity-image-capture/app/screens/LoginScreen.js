@@ -40,7 +40,8 @@ function LoginScreen({ navigation }) {
         ...values,
       })
       .catch((error) => {
-        console.log(error.message);
+        return createAlert(error.message);
+        console.log("error " + error.message);
       });
     
     if (res.data.success) {

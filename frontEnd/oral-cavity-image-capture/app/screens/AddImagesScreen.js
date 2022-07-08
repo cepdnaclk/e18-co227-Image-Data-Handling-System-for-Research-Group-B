@@ -6,7 +6,9 @@ import ImageContainer from "../components/ImageContainer";
 import IconButton from "../components/IconButton";
 import TopPane from "../components/TopPane";
 
-export default function AddImagesScreen({ navigation }) {
+export default function AddImagesScreen({ navigation, route }) {
+  const thisUser = route.params.examiner;
+
   const [imageUris, setImageUris] = useState([]);
 
   useEffect(() => {
@@ -50,7 +52,9 @@ export default function AddImagesScreen({ navigation }) {
   };
 
   const back = () => {
-    navigation.navigate("ProfileScreen");
+    navigation.navigate("ProfileScreen", {
+      user: thisUser,
+    });
     console.log("back");
   };
 
