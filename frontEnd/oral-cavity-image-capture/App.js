@@ -9,8 +9,9 @@ import LoginScreen from "./app/screens/LoginScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
 import AddImagesScreen from "./app/screens/AddImagesScreen";
-import PatientRegisterScreen from "./app/screens/PatientRegisterScreen";
+import PatientRegisterScreen from "./app/screens/newPatientRegisterScreen";
 import Patient from "./app/screens/Patient";
+import SelectPatientScreen from "./app/screens/SelectPatientScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -55,6 +56,16 @@ export default function App() {
           name={"AddImagesScreen"}
           component={AddImagesScreen}
         />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"SelectPatientScreen"}
+          component={SelectPatientScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={"PatientRegisterScreen"}
+          component={PatientRegisterScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
 
@@ -65,5 +76,6 @@ export default function App() {
     // <Patient />
     // <PatientRegisterScreen />
     // <AddImagesScreen />
+    // <SelectPatientScreen />
   );
 }

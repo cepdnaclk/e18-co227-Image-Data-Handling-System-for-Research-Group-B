@@ -6,7 +6,8 @@ import ImageContainer from "../components/ImageContainer";
 import IconButton from "../components/IconButton";
 import TopPane from "../components/TopPane";
 
-export default function AddImagesScreen({ navigation }) {
+export default function AddImagesScreen({ navigation, route }) {
+  const thisUser = route.params.examiner;
   const [imageUris, setImageUris] = useState([]);
 
   useEffect(() => {
@@ -50,8 +51,11 @@ export default function AddImagesScreen({ navigation }) {
   };
 
   const back = () => {
-    navigation.navigate("ProfileScreen");
-    console.log("back");
+    navigation.navigate("ProfileScreen", { examiner: thisUser });
+  };
+
+  const next = () => {
+    navigation.navigate("SelectPatientScreen", { examiner: thisUser });
   };
 
   return (
@@ -61,6 +65,7 @@ export default function AddImagesScreen({ navigation }) {
         leftIcon={"chevron-left"}
         rightIcon={"chevron-right"}
         onPressleft={back}
+        onPressright={next}
       />
       <View style={styles.imageContainer}>
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />
