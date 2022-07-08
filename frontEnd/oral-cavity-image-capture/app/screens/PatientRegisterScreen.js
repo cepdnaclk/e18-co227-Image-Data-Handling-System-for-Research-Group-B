@@ -44,7 +44,7 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().required().label("Description"),
 });
 
-function PatientRegisterScreen({navigation}) {
+function PatientRegisterScreen({ navigation }) {
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
 
@@ -52,13 +52,12 @@ function PatientRegisterScreen({navigation}) {
     Alert.alert(
       "Patient Added Successfully!",
       "You may now select the patient from the list.",
-      
+
       [{ text: "OK", onPress: () => navigation.navigate("LoginScreen") }]
     );
 
   const notsuccessAlert = (msg) =>
-    Alert.alert("Failed!", msg, 
-    [
+    Alert.alert("Failed!", msg, [
       { text: "OK", onPress: () => navigation.navigate("RegisterScreen") },
     ]);
 
@@ -125,7 +124,6 @@ function PatientRegisterScreen({navigation}) {
 
           return (
             <>
-              
               <KeyboardAwareScrollView>
                 <AppFormField
                   value={patient_name}
@@ -156,7 +154,6 @@ function PatientRegisterScreen({navigation}) {
                   // textContentType="number"
                 />
                 <View style={styles.selectOptionContainer}>
-                  
                   <SelectDropdown
                     data={selectGender}
                     //placeholder={"hint"}
@@ -169,7 +166,7 @@ function PatientRegisterScreen({navigation}) {
                         />
                       );
                     }}
-                   dropdownIconPosition={"left"}
+                    dropdownIconPosition={"left"}
                     buttonTextStyle={{
                       color: "#bab5b6",
                       fontSize: 14,
@@ -185,7 +182,7 @@ function PatientRegisterScreen({navigation}) {
                       marginBottom: 10,
                     }}
                     onSelect={(selectedItem, index) => {
-                      values.patient_gender = selectedItem
+                      values.patient_gender = selectedItem;
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       return selectedItem;
@@ -226,8 +223,8 @@ function PatientRegisterScreen({navigation}) {
 
               <View style={styles.bottomFlex}>
                 <SubmitButton
-                iconName={"pluscircleo"}
-                iconSize={18}
+                  iconName={"pluscircleo"}
+                  iconSize={18}
                   text=" Add New Patient"
                   onPress={handleSubmit}
                 />

@@ -2,29 +2,25 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 import TopPane from "../components/TopPane";
-import InputsWithoutIcon from "../components/InputsWithoutIcon";
-import SubmitButton from "../components/submitButton";
+import SubmitButton from "../components/SubmitButton";
 import SelectOption from "../components/SelectOption";
 
 const patients = [1, 2, 3, 4, 5];
 
-function SelectPatientScreen(props) {
+function SelectPatientScreen({ navigation, route }) {
+  const thisUser = route.params.examiner;
+  const back = () => {
+    navigation.navigate("AddImagesScreen", { examiner: thisUser });
+  };
   return (
     // full screen
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-      }}
-    >
-      {/* container with the top pane */}
-      <View style={styles.topFlex}>
-        <TopPane
-          text={"Select Patient"}
-          leftIcon={"left"}
-          rightIcon={"dots-two-horizontal"}
-        />
-      </View>
+    <View style={styles.Screen}>
+      <TopPane
+        text={"Select Patient"}
+        leftIcon={"chevron-left"}
+        rightIcon={"dots-two-horizontal"}
+        onPressleft={back}
+      />
 
       {/* container with all the text input fields */}
       <View style={styles.inputFlex}>
@@ -44,7 +40,17 @@ function SelectPatientScreen(props) {
 
       {/* container with the buttons */}
       <View style={styles.bottomFlex}>
-        <SubmitButton text="Register New Patient" />
+        <SubmitButton
+          // style={styles.submitButton}
+          text="Add new patient"
+          iconName={""}
+          iconSize={18}
+          onPress={() =>
+            navigation.navigate("PatientRegisterScreen", {
+              examiner: thisUser,
+            })
+          }
+        />
         <View style={{ height: 10 }}></View>
         <SubmitButton text="Upload" />
       </View>
@@ -57,11 +63,11 @@ function SelectPatientScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  topFlex: {
-    alignItems: "center",
-    marginTop: "10%",
+  Screen: {
     flex: 1,
-    justifyContent: "flex-end",
+    flexDirection: "column",
+    paddingHorizontal: 10,
+    paddingTop: 20,
   },
 
   inputFlex: {

@@ -8,7 +8,6 @@ import TopPane from "../components/TopPane";
 
 export default function AddImagesScreen({ navigation, route }) {
   const thisUser = route.params.examiner;
-
   const [imageUris, setImageUris] = useState([]);
 
   useEffect(() => {
@@ -52,10 +51,18 @@ export default function AddImagesScreen({ navigation, route }) {
   };
 
   const back = () => {
+<<<<<<< HEAD
     navigation.navigate("ProfileScreen", {
       user: thisUser,
     });
     console.log("back");
+=======
+    navigation.navigate("ProfileScreen", { examiner: thisUser });
+  };
+
+  const next = () => {
+    navigation.navigate("SelectPatientScreen", { examiner: thisUser });
+>>>>>>> 716d801c42aa22d4d820e1770d638f4ce85f6795
   };
 
   return (
@@ -65,6 +72,7 @@ export default function AddImagesScreen({ navigation, route }) {
         leftIcon={"chevron-left"}
         rightIcon={"chevron-right"}
         onPressleft={back}
+        onPressright={next}
       />
       <View style={styles.imageContainer}>
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />

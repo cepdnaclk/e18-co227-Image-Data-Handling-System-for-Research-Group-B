@@ -27,7 +27,7 @@ class RequestScreen extends Component {
 
   deleteToken = async (key) => {
     await SecureStore.deleteItemAsync(key);
-  }
+  };
 
   logout = async () => {
     const res = await client2.post("/auth/logout", {}).catch((error) => {
@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
     flex: 6,
   },
 
-  buttonContainer: { 
-    flex: 1, 
-    alignItems: "center", 
-    justifyContent: "center" 
+  buttonContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

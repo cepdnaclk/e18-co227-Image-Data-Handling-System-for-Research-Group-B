@@ -17,7 +17,7 @@ import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
 
 function Profile({ navigation, route }) {
-  const thisUser = route.params.user;
+  const thisUser = route.params.examiner;
 
   async function deleteToken(key) {
     await SecureStore.deleteItemAsync(key);
@@ -68,7 +68,7 @@ function Profile({ navigation, route }) {
         />
         <SubmitButton
           // style={styles.submitButton}
-          text=" Sign Out"
+          text="Sign Out"
           iconName={"logout"}
           iconSize={18}
           onPress={logout}

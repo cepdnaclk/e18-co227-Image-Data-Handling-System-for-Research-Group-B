@@ -34,7 +34,7 @@ function LoginScreen({ navigation }) {
   const login = async (values, formikActions) => {
     formikActions.resetForm();
     // formikActions.setSubmitting(false);
-    
+
     const res = await client
       .post("/auth/login", {
         ...values,
@@ -43,19 +43,15 @@ function LoginScreen({ navigation }) {
         return createAlert(error.message);
         console.log("error " + error.message);
       });
-    
     if (res.data.success) {
       saveToken("access", res.data.access_token);
       saveToken("refresh", res.data.refresh_token);
 
       if (res.data.user.role.includes(3)) {
-        
         navigation.navigate("ProfileScreen", {
-          user: res.data.user,
-
+          examiner: res.data.user,
         });
       } else {
-        
         navigation.navigate("RequestScreen");
       }
     } else {
