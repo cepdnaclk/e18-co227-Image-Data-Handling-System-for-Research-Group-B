@@ -49,4 +49,8 @@ app.use("/api/admin", adminAcceptRoute);
 const user = require("./routes/user");
 app.use("/api/user", user);
 
+// User patient
+const patient = require("./routes/patient");
+app.use("/api/patient", patient);
+
 module.exports = app;

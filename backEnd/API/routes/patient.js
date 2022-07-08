@@ -24,7 +24,7 @@ router.post("/add", async (req, res) => {
     }
 
     const newPatient = new Patient({
-      examiner_reg_no: req.body.reg_no,
+      //examiner_reg_no: req.body.reg_no,
       patient_name: req.body.patient_name,
       patient_habits: req.body.patient_habits,
       patient_district: req.body.patient_district,
@@ -37,7 +37,7 @@ router.post("/add", async (req, res) => {
     const patient = await newPatient.save();
     // const others = patient._doc;
     // others["message"] = "Successfully added";
-    res.status(200).json({ message: "Successfully added", patient: patient.patient_name });
+    res.status(200).json({ success: true, message: "Successfully added", patient: patient.patient_name });
   } catch (error) {
     res.status(500).json(error);
   }
