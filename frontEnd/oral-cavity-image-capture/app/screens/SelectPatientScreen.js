@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Text } from "react-native";
 
 import TopPane from "../components/TopPane";
 import SubmitButton from "../components/SubmitButton";
@@ -32,12 +32,15 @@ function SelectPatientScreen({ navigation, route }) {
   return (
     // full screen
     <View style={styles.Screen}>
-      <TopPane
+      {/* <TopPane
         text={"Select Patient"}
         leftIcon={"chevron-left"}
         rightIcon={"dots-two-horizontal"}
         onPressleft={back}
-      />
+      /> */}
+
+      <Text style={styles.header}>Select Patient</Text>
+
       <View style={styles.SelectOptionContainer}>
         <SelectOption
           hint={"Select Patient"}
@@ -85,10 +88,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   ButtonContainer: {
-    bottom: 10,
+    bottom: "10%",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  header: {
+    marginTop: "10%",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 

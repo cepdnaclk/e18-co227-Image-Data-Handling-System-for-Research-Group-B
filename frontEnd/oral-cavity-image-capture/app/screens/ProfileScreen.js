@@ -43,6 +43,7 @@ function Profile({ navigation, route }) {
             justifyContent: "center",
           }}
         >
+          {/* <Text style={styles.header}>Profile</Text> */}
           <Text style={styles.header}>Profile</Text>
         </View>
         <View style={{ flex: 2 }}>
@@ -79,6 +80,11 @@ function Profile({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   header: {
     textAlign: "center",
     fontSize: 20,

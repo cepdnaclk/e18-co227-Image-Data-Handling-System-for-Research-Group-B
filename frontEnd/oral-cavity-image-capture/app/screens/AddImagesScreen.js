@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import ImageContainer from "../components/ImageContainer";
@@ -63,19 +63,22 @@ export default function AddImagesScreen({ navigation, route }) {
 
   return (
     <View style={styles.Screen}>
-      <TopPane
+      {/* <TopPane
         text={"Add image"}
         leftIcon={"chevron-left"}
         rightIcon={"chevron-right"}
         onPressleft={back}
         onPressright={next}
-      />
+      /> */}
+
+      <Text style={styles.header}>Add Image</Text>
       <View style={styles.imageContainer}>
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />
       </View>
       <View style={styles.ButtonContainer}>
         <IconButton iconName={"camera"} iconSize={24} onPress={CaptureImage} />
         <IconButton iconName={"images"} iconSize={24} onPress={PickImage} />
+        <IconButton iconName={"angle-right"} iconSize={24} onPress={next} />
       </View>
     </View>
   );
@@ -99,5 +102,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     alignSelf: "flex-end",
+  },
+
+  header: {
+    marginTop: "10%",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });

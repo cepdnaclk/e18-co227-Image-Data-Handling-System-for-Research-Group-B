@@ -36,33 +36,58 @@ export default function App() {
           name={"LoginScreen"}
           component={LoginScreen}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{ headerShown: false }}
           name={"RegisterScreen"}
           component={RegisterScreen}
         />
+         */}
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
+          name={"RegisterScreen"}
+          component={RegisterScreen}
+        />
+
+        <Stack.Screen
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
           name={"ProfileScreen"}
           component={ProfileScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
           name={"RequestScreen"}
           component={RequestScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
           name={"AddImagesScreen"}
           component={AddImagesScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
           name={"SelectPatientScreen"}
           component={SelectPatientScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
           name={"PatientRegisterScreen"}
           component={PatientRegisterScreen}
         />
