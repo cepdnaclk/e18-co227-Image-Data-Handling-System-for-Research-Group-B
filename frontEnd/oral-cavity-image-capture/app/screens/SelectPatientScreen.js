@@ -11,8 +11,6 @@ function SelectPatientScreen({ navigation, route }) {
   const thisUser = route.params.user;
   const imageUris = route.params.images;
 
-  console.log(imageUris);
-
   const Upload = () =>
     Alert.alert(
       "Images uploaded Successfully!",
@@ -21,8 +19,10 @@ function SelectPatientScreen({ navigation, route }) {
       [
         {
           text: "OK",
-          onPress: () =>
-            navigation.navigate("ProfileScreen", { user: thisUser }),
+          onPress: () => {
+            console.log(imageUris),
+              navigation.navigate("ProfileScreen", { user: thisUser });
+          },
         },
       ]
     );
@@ -56,6 +56,7 @@ function SelectPatientScreen({ navigation, route }) {
           onPress={() =>
             navigation.navigate("PatientRegisterScreen", {
               user: thisUser,
+              images: imageUris,
             })
           }
         />

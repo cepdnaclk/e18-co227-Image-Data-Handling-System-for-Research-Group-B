@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Alert,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -42,6 +35,7 @@ const validationSchema = Yup.object().shape({
 
 function PatientRegisterScreen({ navigation, route }) {
   const thisUser = route.params.user;
+  const imageUris = route.params.images;
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
 
@@ -94,7 +88,10 @@ function PatientRegisterScreen({ navigation, route }) {
         {
           text: "Yes",
           onPress: () =>
-            navigation.navigate("SelectPatientScreen", { user: thisUser }),
+            navigation.navigate("SelectPatientScreen", {
+              user: thisUser,
+              images: imageUris,
+            }),
         },
         {
           text: "No",
