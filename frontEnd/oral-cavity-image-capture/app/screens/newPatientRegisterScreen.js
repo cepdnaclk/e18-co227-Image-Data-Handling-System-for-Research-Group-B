@@ -53,14 +53,19 @@ function PatientRegisterScreen({ navigation, route }) {
       [
         {
           text: "OK",
-          onPress: () => navigation.navigate("SelectPatientScreen"),
+          onPress: () =>
+            navigation.navigate("SelectPatientScreen", { user: thisUser }),
         },
       ]
     );
 
   const notsuccessAlert = (msg) =>
     Alert.alert("Failed!", msg, [
-      { text: "OK", onPress: () => navigation.navigate("RegisterScreen") },
+      {
+        text: "OK",
+        onPress: () =>
+          navigation.navigate("PatientRegisterScreen", { user: thisUser }),
+      },
     ]);
 
   const action = async (values, formikActions) => {

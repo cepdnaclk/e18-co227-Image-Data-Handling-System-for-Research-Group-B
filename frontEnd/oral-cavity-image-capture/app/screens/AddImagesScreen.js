@@ -55,7 +55,10 @@ export default function AddImagesScreen({ navigation, route }) {
   };
 
   const next = () => {
-    navigation.navigate("SelectPatientScreen", { user: thisUser });
+    navigation.navigate("SelectPatientScreen", {
+      user: thisUser,
+      images: imageUris,
+    });
   };
 
   return (
