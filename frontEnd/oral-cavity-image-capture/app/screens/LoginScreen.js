@@ -123,18 +123,7 @@ function LoginScreen({ navigation }) {
                   text=" Login"
                   iconName={"login"}
                   iconSize={18}
-                  // onPress={handleSubmit}
-                  onPress={() => {
-                    handleSubmit;
-                    navigation.navigate("ProfileScreen", {
-                      // send the jSon object of user
-                      user: {
-                        username: "User Name",
-                        reg_no: "Reg Number",
-                        email: "user@email.com",
-                      },
-                    });
-                  }}
+                  onPress={handleSubmit}
                 />
 
                 <Text style={{ margin: 10 }}> or </Text>

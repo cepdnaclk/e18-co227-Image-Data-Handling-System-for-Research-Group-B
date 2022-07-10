@@ -36,12 +36,6 @@ export default function App() {
           name={"LoginScreen"}
           component={LoginScreen}
         />
-        {/* <Stack.Screen
-          options={{ headerShown: false }}
-          name={"RegisterScreen"}
-          component={RegisterScreen}
-        />
-         */}
         <Stack.Screen
           options={{
             title: "",
@@ -55,6 +49,7 @@ export default function App() {
           options={{
             title: "",
             headerTransparent: true,
+            headerShown: false,
           }}
           name={"ProfileScreen"}
           component={ProfileScreen}
@@ -63,6 +58,7 @@ export default function App() {
           options={{
             title: "",
             headerTransparent: true,
+            headerShown: false,
           }}
           name={"RequestScreen"}
           component={RequestScreen}
