@@ -12,15 +12,20 @@ import client from "../API/client";
 
 function SelectPatientScreen({ navigation, route }) {
   const thisUser = route.params.user;
-  const [patients, setPatients] = React.useState([""]);
-  const [patient, setPatient] = React.useState("");
+  const patients = [];
+  let patient = "";
 
   const getPatients = async () => {
     const res = await client.get("/patient/all", {}).catch((error) => {
       console.log(error.message);
     });
     try {
-      setPatients(res.data.patients);
+      //console.log(res.data.patients)
+      res.data.patients.map(item => {
+        patients.push(item.patient_name);
+        
+    });
+      
     } catch (error) {
       console.log("unexpected: " + error);
     }
@@ -64,7 +69,7 @@ function SelectPatientScreen({ navigation, route }) {
           renderDropdownIcon={() => {
             return <IconAntDesign name={"down"} style={{ paddingStart: 5 }} />;
           }}
-          dropdownIconPosition={"left"}
+          dropdownIconPosition={"right"}
           buttonTextStyle={{
             color: "#bab5b6",
             fontSize: 14,
@@ -79,8 +84,16 @@ function SelectPatientScreen({ navigation, route }) {
             backgroundColor: colors.ash,
             marginBottom: 10,
           }}
+          search={true}
+          searchPlaceHolder={"Search Patient"}
+          renderSearchInputLeftIcon={() => {
+            return <IconAntDesign name={"search1"} style={{ paddingStart: 5 }} />;
+          }}
+
           onSelect={(selectedItem, index) => {
-            setPatient = selectedItem;
+            patient = selectedItem;
+            console.log("selected patient is " + patient);
+            
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;
