@@ -38,7 +38,7 @@ const refreshAccessToken = async () => {
   const res = await client2.post("/auth/token", {}).catch((error) => {
     console.log("refreshAccessToken() error: " + error.message + "\n");
   });
-  
+
   return res.data.access_token;
 };
 
