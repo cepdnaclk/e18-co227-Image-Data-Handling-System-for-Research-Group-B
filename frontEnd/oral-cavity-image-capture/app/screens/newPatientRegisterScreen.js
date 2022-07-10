@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Alert,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, StyleSheet, Alert, Text } from "react-native";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -36,12 +29,13 @@ const validationSchema = Yup.object().shape({
     .required()
     .matches(phoneRegExp)
     .label("Contact Number"),
-  patient_habbits: Yup.string().required().label("Habitats"),
+  patient_habbits: Yup.string().required().label("Habbits"),
   description: Yup.string().required().label("Description"),
 });
 
 function PatientRegisterScreen({ navigation, route }) {
   const thisUser = route.params.user;
+  const imageUris = route.params.images;
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
 
@@ -53,14 +47,19 @@ function PatientRegisterScreen({ navigation, route }) {
       [
         {
           text: "OK",
-          onPress: () => navigation.navigate("SelectPatientScreen", { user: thisUser }),
+          onPress: () =>
+            navigation.navigate("SelectPatientScreen", { user: thisUser }),
         },
       ]
     );
 
   const notsuccessAlert = (msg) =>
     Alert.alert("Failed!", msg, [
-      { text: "OK", onPress: () => navigation.navigate("RegisterScreen") },
+      {
+        text: "OK",
+        onPress: () =>
+          navigation.navigate("PatientRegisterScreen", { user: thisUser }),
+      },
     ]);
 
   const action = async (values, formikActions) => {
@@ -90,7 +89,10 @@ function PatientRegisterScreen({ navigation, route }) {
         {
           text: "Yes",
           onPress: () =>
-            navigation.navigate("SelectPatientScreen", { user: thisUser }),
+            navigation.navigate("SelectPatientScreen", {
+              user: thisUser,
+              images: imageUris,
+            }),
         },
         {
           text: "No",
@@ -104,12 +106,14 @@ function PatientRegisterScreen({ navigation, route }) {
   return (
     // full screen
     <View style={styles.Screen}>
-      <TopPane
+      {/* <TopPane
         text={"Add New Patient"}
         leftIcon={"chevron-left"}
         rightIcon={"dots-two-horizontal"}
         onPressleft={back}
-      />
+      /> */}
+
+      <Text style={styles.header}>Add New Patient</Text>
 
       {/* container with all the text input fields */}
       {/* container with all the text input fields */}
@@ -261,23 +265,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 20,
   },
+
   FormContainer: {
-    flex: 4,
+    // flex: 4,
     paddingTop: 20,
-    paddingBottom: 20,
+    height: "70%",
+    // paddingBottom: 20,
+
+    marginBottom: 20,
     // backgroundColor: "red",
   },
+
   ButtonContainer: {
     width: "100%",
+    bottom: "auto",
     alignSelf: "center",
     alignItems: "center",
     paddingTop: 10,
     paddingBottom: 20,
     // backgroundColor: "blue",
   },
+
   selectOptionContainer: {
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  header: {
+    marginTop: "10%",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 export default PatientRegisterScreen;

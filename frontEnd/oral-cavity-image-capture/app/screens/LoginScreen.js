@@ -118,13 +118,23 @@ function LoginScreen({ navigation }) {
               </View>
 
               <View style={{ height: "25%" }}></View>
-
               <View style={styles.bottomFlex}>
                 <SubmitButton
                   text=" Login"
                   iconName={"login"}
                   iconSize={18}
-                  onPress={handleSubmit}
+                  // onPress={handleSubmit}
+                  onPress={() => {
+                    handleSubmit;
+                    navigation.navigate("ProfileScreen", {
+                      // send the jSon object of user
+                      user: {
+                        username: "User Name",
+                        reg_no: "Reg Number",
+                        email: "user@email.com",
+                      },
+                    });
+                  }}
                 />
 
                 <Text style={{ margin: 10 }}> or </Text>

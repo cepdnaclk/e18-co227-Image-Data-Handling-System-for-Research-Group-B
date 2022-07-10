@@ -38,18 +38,30 @@ function SelectPatientScreen({ navigation, route }) {
     getPatients();
   }, []);
   
+  const imageUris = route.params.images;
+
+  const Upload = () =>
+    Alert.alert(
+      "Images uploaded Successfully!",
+      "Thank you for the your contribution.",
+
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log(imageUris),
+              navigation.navigate("ProfileScreen", { user: thisUser });
+          },
+        },
+      ]
+    );
   const back = () => {
     navigation.navigate("AddImagesScreen", { user: thisUser });
   };
   return (
     // full screen
     <View style={styles.Screen}>
-      <TopPane
-        text={"Select Patient"}
-        leftIcon={"chevron-left"}
-        rightIcon={"dots-two-horizontal"}
-        onPressleft={back}
-      />
+      <Text style={styles.header}>Select Patient</Text>
 
       {/* container with all the text input fields */}
       <View style={styles.inputFlex}>
@@ -83,37 +95,29 @@ function SelectPatientScreen({ navigation, route }) {
           }}
           rowTextForSelection={(item, index) => {
             return item;
-          }}
-        />
-      </View>
-
-      <View
-        style={{
-          flex: 4,
-        }}
-      ></View>
+          }}/></View>
+      
 
       {/* container with the buttons */}
-      <View style={styles.bottomFlex}>
+      <View style={styles.ButtonContainer}>
         <SubmitButton
-          // style={styles.submitButton}
           text="Add new patient"
           iconName={""}
           iconSize={18}
           onPress={() =>
             navigation.navigate("PatientRegisterScreen", {
               user: thisUser,
+              images: imageUris,
             })
           }
         />
-        <View style={{ height: 10 }}></View>
-        <SubmitButton text="Upload" 
-        onPress={() => console.log(patient)} />
+        <SubmitButton
+          text="Upload"
+          iconName={"upload"}
+          iconSize={18}
+          onPress={Upload}
+        />
       </View>
-
-      {/* <View style={styles.bottomFlex}>
-        <SubmitButton text="Register Patient" />
-      </View> */}
     </View>
   );
 }
@@ -126,18 +130,23 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
 
-  inputFlex: {
-    paddingTop: 20,
+  SelectOptionContainer: {
     flex: 1,
+    paddingTop: 40,
+    alignItems: "center",
+  },
+  ButtonContainer: {
+    bottom: "10%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
 
-  bottomFlex: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "10%",
+  header: {
+    marginTop: "10%",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 

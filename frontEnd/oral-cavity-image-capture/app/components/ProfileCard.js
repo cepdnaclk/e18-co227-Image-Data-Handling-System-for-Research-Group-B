@@ -24,8 +24,6 @@ export default function ProfileCard({ name, id, email, image }) {
 const styles = StyleSheet.create({
   all: {
     alignItems: "center",
-    
-    
   },
   profile: {
     flexDirection: "row",
