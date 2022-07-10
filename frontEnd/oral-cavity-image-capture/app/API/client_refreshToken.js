@@ -5,8 +5,8 @@ import config from "../../config";
 let headers = {};
 
 const axiosInstance = axios.create({
-  // baseURL: "http://192.168.43.5:3000/api",
-  baseURL: "http://192.168.1.4:3000/api",
+  baseURL: "http://192.168.43.5:3000/api",
+  // baseURL: "http://192.168.1.4:3000/api",
   headers,
 });
 

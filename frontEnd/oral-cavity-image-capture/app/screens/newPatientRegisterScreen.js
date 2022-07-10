@@ -113,7 +113,7 @@ function PatientRegisterScreen({ navigation, route }) {
         onPressleft={back}
       /> */}
 
-      <Text style={styles.header}>Add New Patient</Text>
+      {/* <Text style={styles.header}>Add New Patient</Text> */}
 
       {/* container with all the text input fields */}
       {/* container with all the text input fields */}
@@ -263,15 +263,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
-    paddingTop: 20,
+    paddingTop: 100,
   },
 
   FormContainer: {
     flex: 1,
-    paddingTop: 40,
+    marginBottom: 20,
+    // paddingTop: 40,
     // height: "70%",
     // paddingBottom: 20,
-    marginBottom: 20,
     // backgroundColor: "red",
   },
 

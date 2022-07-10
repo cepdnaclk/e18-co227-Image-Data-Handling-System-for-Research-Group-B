@@ -53,7 +53,7 @@ function SelectPatientScreen({ navigation, route }) {
   return (
     // full screen
     <View style={styles.Screen}>
-      <Text style={styles.header}>Select Patient</Text>
+      {/* <Text style={styles.header}>Select Patient</Text> */}
 
       {/* container with all the text input fields */}
       <View style={styles.SelectOptionContainer}>
@@ -120,12 +120,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
-    paddingTop: 20,
+    paddingTop: 100,
   },
 
   SelectOptionContainer: {
     flex: 1,
-    paddingTop: 40,
+
     alignItems: "center",
   },
   ButtonContainer: {

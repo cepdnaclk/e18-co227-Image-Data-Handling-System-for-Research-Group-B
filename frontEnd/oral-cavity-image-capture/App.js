@@ -66,7 +66,7 @@ export default function App() {
         />
         <Stack.Screen
           options={{
-            title: "",
+            title: "Add Image",
             headerTransparent: true,
           }}
           name={"AddImagesScreen"}
@@ -74,7 +74,7 @@ export default function App() {
         />
         <Stack.Screen
           options={{
-            title: "",
+            title: "Select Patient",
             headerTransparent: true,
           }}
           name={"SelectPatientScreen"}
@@ -82,7 +82,7 @@ export default function App() {
         />
         <Stack.Screen
           options={{
-            title: "",
+            title: "Add new Patient",
             headerTransparent: true,
           }}
           name={"PatientRegisterScreen"}

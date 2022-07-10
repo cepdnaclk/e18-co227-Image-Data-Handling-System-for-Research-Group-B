@@ -14,8 +14,8 @@ async function getToken(key) {
 }
 
 const axiosInstance = axios.create({
-  //baseURL: "http://192.168.43.5:3000/api",
-  baseURL: "http://192.168.1.4:3000/api",
+  baseURL: "http://192.168.43.5:3000/api",
+  // baseURL: "http://192.168.1.4:3000/api",
 
   headers,
 });
@@ -38,7 +38,7 @@ const refreshAccessToken = async () => {
   const res = await client2.post("/auth/token", {}).catch((error) => {
     console.log("refreshAccessToken() error: " + error.message + "\n");
   });
-  
+
   return res.data.access_token;
 };
 

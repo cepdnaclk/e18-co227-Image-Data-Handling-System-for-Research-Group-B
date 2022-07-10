@@ -69,7 +69,7 @@ export default function AddImagesScreen({ navigation, route }) {
         onPressright={next}
       /> */}
 
-      <Text style={styles.header}>Add Image</Text>
+      {/* <Text style={styles.header}>Add Image</Text> */}
       <View style={styles.imageContainer}>
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />
       </View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
-    paddingTop: 20,
+    paddingTop: 100,
     alignItems: "center",
     // backgroundColor: "green",
   },
