@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
+import config from "./config";
 
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
@@ -17,7 +18,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.1.2:3000/");
+      const res = await axios.get("http://192.168.1.3:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
