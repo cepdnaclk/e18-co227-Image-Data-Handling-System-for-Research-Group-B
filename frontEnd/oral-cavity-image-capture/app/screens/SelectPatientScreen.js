@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import colors from "../config/colors";
@@ -21,7 +21,6 @@ function SelectPatientScreen({ navigation, route }) {
     });
     try {
       setPatients(res.data.patients);
-      console.log(patients.item.patient_age);
     } catch (error) {
       console.log("unexpected: " + error);
     }
