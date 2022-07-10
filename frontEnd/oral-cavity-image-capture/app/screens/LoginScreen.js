@@ -123,7 +123,6 @@ function LoginScreen({ navigation }) {
                   text=" Login"
                   iconName={"login"}
                   iconSize={18}
-                  // onPress={handleSubmit}
                   onPress={handleSubmit}
                 />
 

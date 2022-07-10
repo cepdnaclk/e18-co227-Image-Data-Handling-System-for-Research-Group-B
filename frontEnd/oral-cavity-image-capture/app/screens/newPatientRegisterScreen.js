@@ -66,7 +66,7 @@ function PatientRegisterScreen({ navigation, route }) {
     console.log(values);
     const res = await client
       .post("/patient/add", {
-        "examiner_email": thisUser.email,
+        examiner_email: thisUser.email,
         ...values,
       })
       .catch((error) => {
@@ -267,11 +267,10 @@ const styles = StyleSheet.create({
   },
 
   FormContainer: {
-    // flex: 4,
-    paddingTop: 20,
-    height: "70%",
+    flex: 1,
+    paddingTop: 40,
+    // height: "70%",
     // paddingBottom: 20,
-
     marginBottom: 20,
     // backgroundColor: "red",
   },
@@ -283,7 +282,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 10,
     paddingBottom: 20,
-    // backgroundColor: "blue",
   },
 
   selectOptionContainer: {

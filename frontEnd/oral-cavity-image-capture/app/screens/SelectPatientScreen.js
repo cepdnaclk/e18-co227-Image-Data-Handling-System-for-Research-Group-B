@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import colors from "../config/colors";
@@ -11,33 +11,25 @@ import client from "../API/client";
 //const patients = [1, 2, 3, 4, 5];
 
 function SelectPatientScreen({ navigation, route }) {
-
   const thisUser = route.params.user;
   const [patients, setPatients] = React.useState([""]);
   const [patient, setPatient] = React.useState("");
 
   const getPatients = async () => {
-    const res = await client
-      .get("/patient/all", {
-        
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-    try{
+    const res = await client.get("/patient/all", {}).catch((error) => {
+      console.log(error.message);
+    });
+    try {
       setPatients(res.data.patients);
-      console.log(patients.item.patient_age);
-    }catch(error){
+    } catch (error) {
       console.log("unexpected: " + error);
     }
-    
-    
   };
 
   useEffect(() => {
     getPatients();
   }, []);
-  
+
   const imageUris = route.params.images;
 
   const Upload = () =>
@@ -64,7 +56,7 @@ function SelectPatientScreen({ navigation, route }) {
       <Text style={styles.header}>Select Patient</Text>
 
       {/* container with all the text input fields */}
-      <View style={styles.inputFlex}>
+      <View style={styles.SelectOptionContainer}>
         <SelectDropdown
           data={patients.patient_age}
           //placeholder={"hint"}
@@ -95,8 +87,9 @@ function SelectPatientScreen({ navigation, route }) {
           }}
           rowTextForSelection={(item, index) => {
             return item;
-          }}/></View>
-      
+          }}
+        />
+      </View>
 
       {/* container with the buttons */}
       <View style={styles.ButtonContainer}>
@@ -136,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   ButtonContainer: {
-    bottom: "10%",
+    bottom: 20,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
