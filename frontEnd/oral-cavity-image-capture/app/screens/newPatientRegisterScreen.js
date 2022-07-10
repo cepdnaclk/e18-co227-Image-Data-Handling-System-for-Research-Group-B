@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    marginTop: "10%",
+    marginTop: "5%",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",

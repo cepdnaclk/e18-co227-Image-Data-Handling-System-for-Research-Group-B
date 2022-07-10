@@ -65,9 +65,7 @@ export default function AddImagesScreen({ navigation, route }) {
     <View style={styles.Screen}>
       {/* <TopPane
         text={"Add image"}
-        leftIcon={"chevron-left"}
-        rightIcon={"chevron-right"}
-        onPressleft={back}
+        rightIcon={"arrowright"}
         onPressright={next}
       /> */}
 
@@ -76,9 +74,9 @@ export default function AddImagesScreen({ navigation, route }) {
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />
       </View>
       <View style={styles.ButtonContainer}>
-        <IconButton iconName={"camera"} iconSize={24} onPress={CaptureImage} />
-        <IconButton iconName={"images"} iconSize={24} onPress={PickImage} />
-        <IconButton iconName={"angle-right"} iconSize={24} onPress={next} />
+        <IconButton iconName={"camera"} iconSize={20} onPress={CaptureImage} />
+        <IconButton iconName={"images"} iconSize={20} onPress={PickImage} />
+        <IconButton iconName={"arrow-right"} iconSize={20} onPress={next} />
       </View>
     </View>
   );
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    marginTop: "10%",
+    marginTop: "5%",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",

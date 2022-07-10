@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableHighlight } from "react-native";
 
 // for icons search in --> https://oblador.github.io/react-native-vector-icons/
-import Entypo from "react-native-vector-icons/Entypo";
+import Entypo from "react-native-vector-icons/AntDesign";
 
 const TopPane = ({ text, leftIcon, rightIcon, onPressleft, onPressright }) => {
   return (
@@ -22,11 +22,11 @@ const TopPane = ({ text, leftIcon, rightIcon, onPressleft, onPressright }) => {
       </View>
 
       <View style={styles.outerRightIcon}>
-        <View style={styles.rightIcon}>
+        
           <TouchableHighlight style={styles.leftIcon} onPress={onPressright}>
-            <Entypo size={27} name={rightIcon} />
+            <Entypo size={22} name={rightIcon} />
           </TouchableHighlight>
-        </View>
+        
       </View>
     </View>
   );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 20,
+    marginTop: "5%",
   },
 
   text: {
@@ -51,33 +51,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  leftIcon: {
-    backgroundColor: "#edeff2",
-    height: 35,
-    width: 35,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  rightIcon: {
-    backgroundColor: "#edeff2",
-    height: 35,
-    width: 35,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   outerRightIcon: {
-    marginEnd: "8%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
 
   outerLeftIcon: {
-    marginStart: "8%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

@@ -6,15 +6,15 @@ import { FontAwesome5 } from "@expo/vector-icons";
 export default function IconButton({ iconName, iconSize, onPress }) {
   return (
     <TouchableHighlight style={styles.IconButton} onPress={onPress}>
-      <FontAwesome5 name={iconName} size={iconSize} color="black" />
+      <FontAwesome5 name={iconName} size={iconSize} color="#000" />
     </TouchableHighlight>
   );
 }
 
 const styles = StyleSheet.create({
   IconButton: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
