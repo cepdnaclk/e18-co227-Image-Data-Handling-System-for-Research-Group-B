@@ -13,12 +13,13 @@ import AddImagesScreen from "./app/screens/AddImagesScreen";
 import PatientRegisterScreen from "./app/screens/newPatientRegisterScreen";
 import Patient from "./app/screens/Patient";
 import SelectPatientScreen from "./app/screens/SelectPatientScreen";
+import GuidlinesScreen from "./app/screens/GuidlinesScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.1.4:3000/");
+      const res = await axios.get("http://192.168.1.2:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
@@ -41,9 +42,19 @@ export default function App() {
           options={{
             title: "",
             headerTransparent: true,
+            headerShown: false,
           }}
           name={"RegisterScreen"}
           component={RegisterScreen}
+        />
+
+        <Stack.Screen
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
+          name={"GuidlinesScreen"}
+          component={GuidlinesScreen}
         />
 
         <Stack.Screen
@@ -98,6 +109,6 @@ export default function App() {
     // <Patient />
     // <PatientRegisterScreen />
     // <AddImagesScreen />
-    // <SelectPatientScreen />
+    //  <GuidlinesScreen />
   );
 }

@@ -132,7 +132,7 @@ function LoginScreen({ navigation }) {
                   <Text>Don't have an account yet?</Text>
 
                   <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate("RegisterScreen")}
+                    onPress={() => navigation.navigate("GuidlinesScreen")}
                   >
                     <Text style={styles.regTouch}> Register </Text>
                   </TouchableWithoutFeedback>

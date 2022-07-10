@@ -3,10 +3,10 @@ import React from "react";
 import { StyleSheet, TouchableHighlight } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function IconButton({ iconName, iconSize, onPress }) {
+export default function IconButton({ iconName, iconSize, onPress, iconColor }) {
   return (
     <TouchableHighlight style={styles.IconButton} onPress={onPress}>
-      <FontAwesome5 name={iconName} size={iconSize} color="#000" />
+      <FontAwesome5 name={iconName} size={iconSize} color={iconColor} />
     </TouchableHighlight>
   );
 }

@@ -71,7 +71,7 @@ function PatientRegisterScreen({ navigation, route }) {
       })
       .catch((error) => {
         //notsuccessAlert(res.data.message);
-        console.log("eror");
+        console.log("error");
       });
     console.log(res.data);
     if (res.data.success) {
