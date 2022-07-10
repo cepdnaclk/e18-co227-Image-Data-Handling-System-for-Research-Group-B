@@ -24,7 +24,7 @@ router.post("/add", async (req, res) => {
     }
 
     const newPatient = new Patient({
-      //examiner_reg_no: req.body.reg_no,
+      examiner_email: req.body.examiner_email,
       patient_name: req.body.patient_name,
       patient_habits: req.body.patient_habits,
       patient_district: req.body.patient_district,
@@ -46,7 +46,8 @@ router.post("/add", async (req, res) => {
 // get all patients
 router.get("/all", authenticateToken, async (req, res) => {
   try {
-    const patients = await Patient.find({ examiner_email: req.email });
+    const patients = await Patient.find({ examiner_email: req.user.email });
+    console.log(req.user);
 
     return res.status(200).json({ patients: patients });
   } catch (err) {

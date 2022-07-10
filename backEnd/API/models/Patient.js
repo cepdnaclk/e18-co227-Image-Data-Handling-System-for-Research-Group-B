@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const PatientSchema = new mongoose.Schema({
-    // examiner_reg_no:{
-    //     type: String,
-    //     required: true,
-    // },
+    examiner_email:{
+        type: String,
+        required: true,
+    },
     patient_name:{
         type: String,
         required: true,

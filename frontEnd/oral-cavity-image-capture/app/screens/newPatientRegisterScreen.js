@@ -53,7 +53,7 @@ function PatientRegisterScreen({ navigation, route }) {
       [
         {
           text: "OK",
-          onPress: () => navigation.navigate("SelectPatientScreen"),
+          onPress: () => navigation.navigate("SelectPatientScreen", { user: thisUser }),
         },
       ]
     );
@@ -67,6 +67,7 @@ function PatientRegisterScreen({ navigation, route }) {
     console.log(values);
     const res = await client
       .post("/patient/add", {
+        "examiner_email": thisUser.email,
         ...values,
       })
       .catch((error) => {
