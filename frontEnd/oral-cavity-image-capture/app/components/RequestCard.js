@@ -17,7 +17,7 @@ export default function RequestCard({ name, regno, email, image, reqid, requestS
   const accept = async () => {
     const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
       
-      console.log('id2' + error.message);
+      console.log('admin/accept error : ' + error.message);
     });
     
     client
@@ -36,7 +36,7 @@ export default function RequestCard({ name, regno, email, image, reqid, requestS
   const reject = async () => {
     const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
       
-      console.log('id2' + error.message);
+      console.log('admin/reject error : ' + error.message);
     });
     
     client

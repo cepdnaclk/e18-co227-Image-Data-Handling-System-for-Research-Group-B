@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     alignSelf: "flex-end",
+    marginBottom: 10,
   },
 
   header: {

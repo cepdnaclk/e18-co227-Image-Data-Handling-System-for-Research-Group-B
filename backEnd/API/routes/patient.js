@@ -4,7 +4,7 @@ const Patient = require("../models/Patient");
 const User = require("../models/User");
 const authenticateToken = require("../middlewares/auth");
 
-router.post("/add", async (req, res) => {
+router.post("/add", authenticateToken, async (req, res) => {
   try {
     //const useremail = await User.findOne({email: req.body.email});
     const patientname = await Patient.findOne({

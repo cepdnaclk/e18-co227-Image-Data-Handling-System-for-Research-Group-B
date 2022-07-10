@@ -58,7 +58,7 @@ function SelectPatientScreen({ navigation, route }) {
       {/* container with all the text input fields */}
       <View style={styles.SelectOptionContainer}>
         <SelectDropdown
-          data={patients.patient_age}
+          data={patients}
           //placeholder={"hint"}
           defaultButtonText={"Select Patient"}
           renderDropdownIcon={() => {

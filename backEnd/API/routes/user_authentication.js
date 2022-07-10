@@ -127,6 +127,7 @@ router.post("/login", async (req, res) => {
 
 // log out
 router.post("/logout", (req, res) => {
+ 
   const refreshToken = req.header("refresh_token");
   if (!refreshToken)
     return res.status(401).json({ message: "Authentication failed" });
@@ -137,21 +138,31 @@ router.post("/logout", (req, res) => {
 
 // re-new access token
 router.post("/token", (req, res) => {
+  console.log("New access token generating ... \n");
+
   const refreshToken = req.header("refresh_token");
+  console.log("this is the refresh token = " + req.header("refresh_token") + "\n");
 
-  if (!refreshToken)
+  if (!refreshToken){
+    console.log("No refresh token sent with the header\n");
     return res.status(401).json({ message: "Authentication failed" });
-  if (!refreshTokens.includes(refreshToken))
+  }
+    
+  if (!refreshTokens.includes(refreshToken)){
+    console.log("refresh token sent with the header is not found in refreshTokens[] array\n");
     return res.status(403).json({ message: "Authentication failed" });
-
+  }
+    
   jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, result) => {
     if (err) return res.status(500).json({ message: "Authentication failed" });
 
     const access_token = jwt.sign(
-      { email: userByEmail.email, role: userByEmail.role },
+      { email: result.email, role: result.role },
       process.env.ACCESS_SECRET,
       { expiresIn: process.env.REFRESH_TIME }
     );
+
+    console.log("new access token created = " + access_token + "\n");
     res.status(200).json({ access_token: access_token });
   });
 });
