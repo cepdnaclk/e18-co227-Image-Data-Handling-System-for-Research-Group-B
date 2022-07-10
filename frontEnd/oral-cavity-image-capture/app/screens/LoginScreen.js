@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
+
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as SecureStore from "expo-secure-store";
@@ -124,6 +125,12 @@ function LoginScreen({ navigation }) {
                   iconName={"login"}
                   iconSize={18}
                   onPress={handleSubmit}
+
+                  // for testing purposes only👇
+                  // onPress={() => {
+                  //   handleSubmit;
+                  //   navigation.navigate("AdminDoctor");
+                  // }}
                 />
 
                 <Text style={{ margin: 10 }}> or </Text>

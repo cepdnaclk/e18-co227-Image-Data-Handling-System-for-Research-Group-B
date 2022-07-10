@@ -3,7 +3,6 @@ import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
-import config from "./config";
 
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
@@ -11,8 +10,8 @@ import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
 import AddImagesScreen from "./app/screens/AddImagesScreen";
 import PatientRegisterScreen from "./app/screens/newPatientRegisterScreen";
-import Patient from "./app/screens/Patient";
 import SelectPatientScreen from "./app/screens/SelectPatientScreen";
+import AdminDoctor from "./app/screens/AdminDoctor";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -37,6 +36,7 @@ export default function App() {
           name={"LoginScreen"}
           component={LoginScreen}
         />
+
         <Stack.Screen
           options={{
             title: "",
@@ -55,6 +55,16 @@ export default function App() {
           name={"ProfileScreen"}
           component={ProfileScreen}
         />
+
+        <Stack.Screen
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
+          name={"AdminDoctor"}
+          component={AdminDoctor}
+        />
+
         <Stack.Screen
           options={{
             title: "",
@@ -64,6 +74,7 @@ export default function App() {
           name={"RequestScreen"}
           component={RequestScreen}
         />
+
         <Stack.Screen
           options={{
             title: "",
@@ -72,6 +83,7 @@ export default function App() {
           name={"AddImagesScreen"}
           component={AddImagesScreen}
         />
+
         <Stack.Screen
           options={{
             title: "",
@@ -80,6 +92,7 @@ export default function App() {
           name={"SelectPatientScreen"}
           component={SelectPatientScreen}
         />
+
         <Stack.Screen
           options={{
             title: "",
