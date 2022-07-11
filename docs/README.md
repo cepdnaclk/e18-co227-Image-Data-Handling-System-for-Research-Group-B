@@ -15,7 +15,7 @@ title: Image-Data-Handling-System-for-Research
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-<img src="./images/intro_image.png" width=40% height=40% />
+![Sample Image](./images/intro_image3.png)
 
 ## Team
 
@@ -44,11 +44,11 @@ An AI-based tool needs a lot of images to train the model. But, A web-based appl
 
 ## Technology Stack and Solution Architecture
 
-<img src="./images/solutionArchi.png" width=70% height=70% />
+![Sample Image](./images/solutionArchi.png)
 
 ## Data and Control Flow Diagram
 
-<img src="./images/dataFlow.jpg" width=80% height=80% />
+![Sample Image](./images/dataFlow.jpg)
 
 ## User Interface Design
 
@@ -65,7 +65,7 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 **Wire frame Diagram**
 
-<img src="./images/wireframeDiagram.png" width=75% height=75% />
+![Sample Image](./images/wireframeDiagram.png)
 
 ## Links
 
