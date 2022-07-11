@@ -27,8 +27,9 @@ title: Image-Data-Handling-System-for-Research
 
 1. [Introduction](#introduction)
 2. [Technology Stack and Solution Architecture](#technology-stack-and-solution-architecture)
-3. [User Interface Design](#user-interface-design)
-4. [Links](#links)
+3. [Data and Control Flow Diagram](#data-and-control-flow-diagram)
+4. [User Interface Design](#user-interface-design)
+5. [Links](#links)
 
 ---
 
