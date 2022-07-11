@@ -26,7 +26,7 @@ title: Image-Data-Handling-System-for-Research
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Solution Architecture](#solution-architecture)
+2. [Technology Stack and Solution Architecture](#technology-stack-and-solution-architecture)
 3. [User Interface Design](#user-interface-design)
 4. [Links](#links)
 
@@ -34,21 +34,20 @@ title: Image-Data-Handling-System-for-Research
 
 ## Introduction
 
-In this project, we develop a mobile application that can be used to capture and upload images of the oral cavity. This will mainly serve the roles of the admin to accept user requests and the doctor to capture the oral cavity images and upload them along with the patient's details.
+In this project, we develop a mobile application that can be used to capture and upload images with some image metadata. This will mainly serve the roles of the admin, to accept user requests and the doctor, to capture the oral cavity images and upload them along with the patient's details.
 
 ### Purpose of Our Project
 
 This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
 An AI-based tool needs a lot of images to train the model. But, A web-based application does not provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
 
-## Technology Stack
+## Technology Stack and Solution Architecture
 
-\
- ![TrechStack Image](./images/ts.jpg)
+![Solution Image](./images/solutionArchi.png)
 
-## Solution Architecture
+## Data and Control Flow Diagram
 
-![Solution Image](./images/solution.png)
+![Flow Image](./images/dataFlow.jpg)
 
 ## User Interface Design
 
