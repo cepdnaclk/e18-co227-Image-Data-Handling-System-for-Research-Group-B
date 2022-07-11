@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Alert } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
+import { useIsFocused } from "@react-navigation/native";
+
 import colors from "../config/colors";
 import TopPane from "../components/TopPane";
 import SubmitButton from "../components/SubmitButton";
@@ -20,7 +22,7 @@ function SelectPatientScreen({ navigation, route }) {
       console.log(error.message);
     });
     try {
-      //console.log(res.data.patients)
+      console.log(res.data.patients)
       res.data.patients.map(item => {
         patients.push(item.patient_name);
         
@@ -30,10 +32,14 @@ function SelectPatientScreen({ navigation, route }) {
       console.log("unexpected: " + error);
     }
   };
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    getPatients();
-  }, []);
+    if (isFocused) {
+      console.log("called")
+      getPatients();
+    }
+  }, [isFocused]);
 
   const imageUris = route.params.images;
 
@@ -87,13 +93,13 @@ function SelectPatientScreen({ navigation, route }) {
           search={true}
           searchPlaceHolder={"Search Patient"}
           renderSearchInputLeftIcon={() => {
-            return <IconAntDesign name={"search1"} style={{ paddingStart: 5 }} />;
+            return (
+              <IconAntDesign name={"search1"} style={{ paddingStart: 5 }} />
+            );
           }}
-
           onSelect={(selectedItem, index) => {
             patient = selectedItem;
             console.log("selected patient is " + patient);
-            
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;

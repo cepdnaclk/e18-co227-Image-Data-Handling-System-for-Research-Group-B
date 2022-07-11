@@ -46,10 +46,10 @@ router.post("/add", authenticateToken, async (req, res) => {
 // get all patients
 router.get("/all", authenticateToken, async (req, res) => {
   try {
-    const patients = await Patient.find({ examiner_email: req.user.email });
-    console.log(req.user);
-
-    return res.status(200).json({ patients: patients });
+    console.log(req.user.email);
+    const patients = await Patient.find({ examiner_email: req.user.email }, {"patient_name":1, "_id":0});
+    
+    return res.status(200).send({ patients: patients });
   } catch (err) {
     return res.status(500).json({ message: err });
   }
