@@ -30,6 +30,7 @@ export default function AddImagesScreen({ navigation, route }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
+      allowsMultipleSelection: true,
     });
     if (!image.cancelled) {
       setImageUris([...imageUris, image.uri]);
@@ -57,19 +58,12 @@ export default function AddImagesScreen({ navigation, route }) {
   const next = () => {
     navigation.navigate("SelectPatientScreen", {
       user: thisUser,
-      images: imageUris,
+      imageUris: imageUris,
     });
   };
 
   return (
     <View style={styles.Screen}>
-      {/* <TopPane
-        text={"Add image"}
-        rightIcon={"arrowright"}
-        onPressright={next}
-      /> */}
-
-      {/* <Text style={styles.header}>Add Image</Text> */}
       <View style={styles.imageContainer}>
         <ImageContainer imageUris={imageUris} onRemoveImage={handleRemove} />
       </View>

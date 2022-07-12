@@ -113,9 +113,6 @@ function LoginScreen({ navigation }) {
                   showImage={<Text>Show</Text>}
                   textContentType="password"
                 />
-
-                {/* forgot password */}
-                <Text style={styles.recoverPwd}> Forgot your password? </Text>
               </View>
 
               <View style={{ height: "25%" }}></View>

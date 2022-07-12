@@ -53,4 +53,8 @@ app.use("/api/user", user);
 const patient = require("./routes/patient");
 app.use("/api/patient", patient);
 
+// import iamges rout
+const upload = require("./routes/upload");
+app.use("/api/upload/images", upload);
+
 module.exports = app;

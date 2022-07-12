@@ -6,7 +6,6 @@ const authenticateToken = require("../middlewares/auth");
 // ************** get method to list all the signup requests *************************
 
 router.get("/get-requests", authenticateToken, async (req, res) => {
-  
   if (req.user.role.includes(1)) {
     Request.find({}, (error, request) => {
       if (error) {

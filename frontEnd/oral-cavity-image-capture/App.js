@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.1.2:3000/");
+      const res = await axios.get("http://192.168.43.5:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
@@ -52,6 +52,7 @@ export default function App() {
           options={{
             title: "",
             headerTransparent: true,
+            headerShown: false,
           }}
           name={"GuidlinesScreen"}
           component={GuidlinesScreen}

@@ -8,15 +8,14 @@ const authenticateToken = async (req, res, next) => {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) {
-    
     return res.sendStatus(401);
   }
 
   jwt.verify(token, process.env.ACCESS_SECRET, async (error, user) => {
-    if (error){
+    if (error) {
       console.log("JWT Token error: " + error.message);
-      return  res.status(401).json({message: error});
-    } 
+      return res.status(401).json({ message: error });
+    }
 
     const existing_user = await User.findOne({ email: user.email });
 

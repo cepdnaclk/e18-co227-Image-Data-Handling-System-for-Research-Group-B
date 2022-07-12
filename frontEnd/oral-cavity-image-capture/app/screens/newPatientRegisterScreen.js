@@ -35,7 +35,7 @@ const validationSchema = Yup.object().shape({
 
 function PatientRegisterScreen({ navigation, route }) {
   const thisUser = route.params.user;
-  const imageUris = route.params.images;
+  const imageUris = route.params.imageUris;
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
 
@@ -48,7 +48,10 @@ function PatientRegisterScreen({ navigation, route }) {
         {
           text: "OK",
           onPress: () =>
-            navigation.navigate("SelectPatientScreen", { user: thisUser }),
+            navigation.navigate("SelectPatientScreen", {
+              user: thisUser,
+              imageUris: imageUris,
+            }),
         },
       ]
     );
@@ -91,7 +94,6 @@ function PatientRegisterScreen({ navigation, route }) {
           onPress: () =>
             navigation.navigate("SelectPatientScreen", {
               user: thisUser,
-              images: imageUris,
             }),
         },
         {
