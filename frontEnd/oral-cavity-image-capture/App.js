@@ -8,6 +8,7 @@ import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import RequestScreen from "./app/screens/RequestScreen";
+import Requests_noSignout from "./app/screens/Requests_noSignout";
 import AddImagesScreen from "./app/screens/AddImagesScreen";
 import PatientRegisterScreen from "./app/screens/newPatientRegisterScreen";
 import SelectPatientScreen from "./app/screens/SelectPatientScreen";
@@ -18,7 +19,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.43.5:3000/");
+      const res = await axios.get("http://192.168.1.2:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
@@ -72,6 +73,7 @@ export default function App() {
           options={{
             title: "",
             headerTransparent: true,
+            headerShown: false,
           }}
           name={"AdminDoctor"}
           component={AdminDoctor}
@@ -85,6 +87,15 @@ export default function App() {
           }}
           name={"RequestScreen"}
           component={RequestScreen}
+        />
+        <Stack.Screen
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+          name={"Requests_noSignout"}
+          component={Requests_noSignout}
         />
 
         <Stack.Screen

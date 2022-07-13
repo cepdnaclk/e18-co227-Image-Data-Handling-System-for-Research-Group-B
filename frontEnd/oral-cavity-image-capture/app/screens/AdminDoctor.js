@@ -1,14 +1,15 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProfileScreen from "./ProfileScreen";
-import RequestScreen from "./RequestScreen";
+import Requests_noSignout from "./Requests_noSignout";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => (
+const TabNavigator = ({user}) => (
+  
   <Tab.Navigator
     tabBarOptions={{
       activeBackgroundColor: colors.primary,
@@ -33,15 +34,15 @@ const TabNavigator = () => (
 
         // this is only for testing purpose 👇
         user: {
-          username: "User Name",
-          reg_no: "Reg Number",
-          email: "user@email.com",
+          username: user.username,
+          reg_no: user.reg_no,
+          email: user.email,
         },
       }}
     />
     <Tab.Screen
-      name="RequestScreen"
-      component={RequestScreen}
+      name="Requests_noSignout"
+      component={Requests_noSignout}
       options={{
         title: "Requests",
         headerShown: false,
@@ -57,6 +58,8 @@ const TabNavigator = () => (
   </Tab.Navigator>
 );
 
-export default function AdminDoctor() {
-  return <TabNavigator />;
+export default function AdminDoctor({ navigation, route }) {
+  const thisUser = route.params.user;
+ // console.log(thisUser);
+  return <TabNavigator user={thisUser}/>;
 }

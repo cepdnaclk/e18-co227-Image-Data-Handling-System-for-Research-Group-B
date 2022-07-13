@@ -46,7 +46,7 @@ function Profile({ navigation, route }) {
           {/* <Text style={styles.header}>Profile</Text> */}
           <Text style={styles.header}>Profile</Text>
         </View>
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 4 }}>
           <ProfileCard
             name={thisUser.username}
             id={thisUser.reg_no}
@@ -55,7 +55,7 @@ function Profile({ navigation, route }) {
           />
         </View>
       </>
-      <View style={{ flex: 2, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ flex: 3, alignItems: "center", justifyContent: "center" }}>
         <SubmitButton
           // style={styles.submitButton}
           text="Add Image"

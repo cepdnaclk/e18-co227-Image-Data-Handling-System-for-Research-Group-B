@@ -110,7 +110,14 @@ function SelectPatientScreen({ navigation, route }) {
                 {
                   text: "OK",
                   onPress: () => {
-                    navigation.navigate("ProfileScreen", { user: thisUser });
+                    console.log("user " + thisUser.role)
+                    // if(thisUser.role.includes(3) && thisUser.role.includes(1)){
+                      
+                    //   navigation.navigate("Requests_noSignout", { user: thisUser });
+                    // }else{
+                      navigation.navigate("ProfileScreen", { user: thisUser });
+                  //  }
+                    
                   },
                 },
               ]
@@ -264,6 +271,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     // paddingLeft: 30,
     // fontWeight: "bold",
+    fontSize: 13,
   },
   dropdownDropdownStyle: {
     backgroundColor: "#edeff2",

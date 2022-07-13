@@ -48,7 +48,11 @@ function LoginScreen({ navigation }) {
       saveToken("access", res.data.access_token);
       saveToken("refresh", res.data.refresh_token);
 
-      if (res.data.user.role.includes(3)) {
+      if (res.data.user.role.includes(3) && res.data.user.role.includes(1)) {
+        navigation.navigate("AdminDoctor", {
+          user: res.data.user,
+        });
+      } else if (res.data.user.role.includes(3)) {
         navigation.navigate("ProfileScreen", {
           user: res.data.user,
         });
