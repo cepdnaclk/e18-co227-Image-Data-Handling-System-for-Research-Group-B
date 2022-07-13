@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs");
 const User = require("./models/User");
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
@@ -11,17 +13,23 @@ app.get("/", (req, res) => {
 
 // post method to add a user to the database
 app.post("/api/add-user", async (req, res) => {
+  // encrypt the password - for security purposes
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
   const newUser = await User({
     reg_no: req.body.reg_no,
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
+    role: req.body.role,
   });
 
   await newUser.save();
   console.log(newUser);
   res.json(newUser);
 });
+
 
 // get method to get a list of all users
 app.get("/api/get-all", async (req, res) => {
