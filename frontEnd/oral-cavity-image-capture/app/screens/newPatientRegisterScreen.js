@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import TopPane from "../components/TopPane";
 import SubmitButton from "../components/SubmitButton";
@@ -178,31 +179,8 @@ function PatientRegisterScreen({ navigation, route }) {
                   <View style={styles.selectOptionContainer}>
                     <SelectDropdown
                       data={selectGender}
-                      //placeholder={"hint"}
+                      // placeholder={"hint"}
                       defaultButtonText={"Select Gender"}
-                      renderDropdownIcon={() => {
-                        return (
-                          <IconAntDesign
-                            name={"down"}
-                            style={{ paddingStart: 5 }}
-                          />
-                        );
-                      }}
-                      dropdownIconPosition={"left"}
-                      buttonTextStyle={{
-                        color: "#bab5b6",
-                        fontSize: 14,
-                        textAlign: "left",
-                        paddingStart: 15,
-                      }}
-                      buttonStyle={{
-                        borderColor: colors.ash,
-                        height: 50,
-                        width: "90%",
-                        borderRadius: 15,
-                        backgroundColor: colors.ash,
-                        marginBottom: 10,
-                      }}
                       onSelect={(selectedItem, index) => {
                         values.patient_gender = selectedItem;
                       }}
@@ -212,6 +190,21 @@ function PatientRegisterScreen({ navigation, route }) {
                       rowTextForSelection={(item, index) => {
                         return item;
                       }}
+                      renderDropdownIcon={() => {
+                        return (
+                          <IconAntDesign
+                            name={"down"}
+                            style={{ paddingStart: 5 }}
+                          />
+                        );
+                      }}
+                      dropdownIconPosition={"left"}
+                      buttonStyle={styles.dropdownBtnStyle}
+                      buttonTextStyle={styles.dropdownBtnTxtStyle}
+                      dropdownStyle={styles.dropdownDropdownStyle}
+                      rowStyle={styles.dropdownRowStyle}
+                      rowTextStyle={styles.dropdownRowTxtStyle}
+                      selectedRowStyle={styles.dropdownSelectedRowStyle}
                     />
                   </View>
 
@@ -296,6 +289,34 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  dropdownBtnStyle: {
+    borderColor: colors.ash,
+    height: 50,
+    width: "90%",
+    borderRadius: 15,
+    backgroundColor: colors.ash,
+    marginBottom: 10,
+  },
+  dropdownBtnTxtStyle: {
+    color: "#000",
+    fontSize: 14,
+    textAlign: "left",
+    paddingStart: 15,
+  },
+  dropdownDropdownStyle: {
+    backgroundColor: "#edeff2",
+    borderRadius: 12,
+    height: 100,
+  },
+  dropdownRowStyle: {
+    backgroundColor: "#edeff2",
+    borderBottomColor: "#C5C5C5",
+  },
+  dropdownRowTxtStyle: {
+    color: "#000",
+    textAlign: "center",
+    // fontWeight: "bold",
   },
 });
 export default PatientRegisterScreen;

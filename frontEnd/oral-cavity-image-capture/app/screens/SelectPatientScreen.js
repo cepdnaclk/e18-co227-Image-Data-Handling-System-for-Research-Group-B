@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Alert } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import IconAntDesign from "react-native-vector-icons/AntDesign";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import SelectDropdown from "react-native-select-dropdown";
 
-import colors from "../config/colors";
 import SubmitButton from "../components/SubmitButton";
-
 import client from "../API/client";
 
 function SelectPatientScreen({ navigation, route }) {
   const thisUser = route.params.user;
   const imageUris = route.params.imageUris;
   const [progress, setProgress] = useState(0);
+  const [onSelect, setOnSelect] = useState(true);
   const patients = [];
   const _ids = [];
   let patientIndex = null;
@@ -41,7 +48,6 @@ function SelectPatientScreen({ navigation, route }) {
   }, [isFocused]);
 
   const Upload = async () => {
-    console.log("called");
     const data = new FormData();
     imageUris.forEach((image, i) => {
       const ext = image.substring(image.lastIndexOf(".") + 1);
@@ -55,7 +61,7 @@ function SelectPatientScreen({ navigation, route }) {
     if (imageUris.length === 0) {
       Alert.alert(
         "No images to upload",
-        "You didn't select or capture images to upload.\n Please add images to upload",
+        "You didn't select or capture images to upload. Please add images to upload.",
 
         [
           {
@@ -93,7 +99,7 @@ function SelectPatientScreen({ navigation, route }) {
             },
           }
         );
-        console.log(res.data.success);
+        console.log(res.data);
         try {
           if (res.data.success) {
             Alert.alert(
@@ -113,6 +119,7 @@ function SelectPatientScreen({ navigation, route }) {
         } catch {}
       } catch (error) {
         console.log(error);
+        setProgress(0);
         Alert.alert(
           "Unable to upload images Successfully!",
           "Unable to upload images succcessfully due to network error. Pleas try again",
@@ -120,7 +127,10 @@ function SelectPatientScreen({ navigation, route }) {
           [
             {
               text: "OK",
-              onPress: () => {},
+              onPress: () => {
+                getPatients();
+                console.log(patients);
+              },
             },
           ]
         );
@@ -128,120 +138,112 @@ function SelectPatientScreen({ navigation, route }) {
     }
   };
 
-  const back = () => {
-    navigation.navigate("AddimageScreen", { user: thisUser });
-  };
   return (
-    // full screen
-    <View style={styles.Screen}>
-      {/* <Text style={styles.header}>Select Patient</Text> */}
+    <SafeAreaView style={styles.saveAreaViewContainer}>
+      <StatusBar backgroundColor="#eee" barStyle="dark-content" />
+      <View style={styles.viewContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}
+          contentContainerStyle={styles.scrollViewContainer}
+        >
+          <SelectDropdown
+            data={patients}
+            // defaultValueByIndex={1}
+            // defaultValue={patients[patientIndex]}
+            onSelect={(selectedItem, index) => {
+              patientIndex = index;
+              console.log(selectedItem, index);
+            }}
+            defaultButtonText={"Select patient"}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            buttonStyle={styles.dropdownBtnStyle}
+            buttonTextStyle={styles.dropdownBtnTxtStyle}
+            renderDropdownIcon={(isOpened) => {
+              return (
+                <FontAwesome
+                  name={isOpened ? "chevron-up" : "chevron-down"}
+                  color={"#000"}
+                  size={18}
+                />
+              );
+            }}
+            dropdownIconPosition={"right"}
+            dropdownStyle={styles.dropdownDropdownStyle}
+            rowStyle={styles.dropdownRowStyle}
+            rowTextStyle={styles.dropdownRowTxtStyle}
+            selectedRowStyle={styles.dropdownSelectedRowStyle}
+            search
+            searchInputStyle={styles.dropdownsearchInputStyleStyle}
+            searchInputTxtColor={"#fff"}
+            searchPlaceHolder={"Search here"}
+            searchPlaceHolderColor={"#F8F8F8"}
+            renderSearchInputLeftIcon={() => {
+              return <FontAwesome name={"search"} color={"#FFF"} size={18} />;
+            }}
+            onFocus={() => {
+              // setOnSelect(false);
+            }}
+            onBlur={() => {
+              // setOnSelect(true);
+            }}
+          />
+          {progress ? (
+            <View style={styles.progressBarContiner}>
+              <Text style={styles.percentage}>
+                Uploading...
+                {Math.floor(progress * 100)} %
+              </Text>
+              <Progress.Bar progress={progress} width={300} />
+            </View>
+          ) : null}
 
-      {/* container with all the text input fields */}
-      <View style={styles.SelectOptionContainer}>
-        <SelectDropdown
-          data={patients}
-          //placeholder={"hint"}
-          defaultButtonText={"Select Patient"}
-          renderDropdownIcon={() => {
-            return <IconAntDesign name={"down"} style={{ paddingStart: 5 }} />;
-          }}
-          dropdownIconPosition={"right"}
-          buttonTextStyle={{
-            color: "#000",
-            fontSize: 14,
-            textAlign: "left",
-            paddingStart: 15,
-          }}
-          buttonStyle={{
-            borderColor: colors.ash,
-            height: 50,
-            width: "90%",
-            borderRadius: 15,
-            backgroundColor: colors.ash,
-            marginBottom: 10,
-          }}
-          search={true}
-          searchPlaceHolder={"Search Patient"}
-          renderSearchInputLeftIcon={() => {
-            return (
-              <IconAntDesign name={"search1"} style={{ paddingStart: 5 }} />
-            );
-          }}
-          onSelect={(selectedItem, index) => {
-            patientIndex = index;
-            console.log("selected patient is " + patientIndex);
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem;
-          }}
-          rowTextForSelection={(item, index) => {
-            return item;
-          }}
-        />
-
-        {progress ? (
-          <View style={styles.progressBarContiner}>
-            <Text style={styles.percentage}>
-              {Math.floor(progress * 100)} %
-            </Text>
-            <Progress.Bar progress={progress} width={300} />
-          </View>
-        ) : null}
-        {/* <Progress.Bar progress={progress} width={300} /> 
-        <Progress.Pie progress={progress} size={100} />
-        <Progress.Circle size={30} indeterminate={true} />
-        <Progress.CircleSnail color={["red", "green", "blue"]} /> */}
+          {onSelect ? (
+            <View style={styles.ButtonContainer}>
+              <SubmitButton
+                text="Add new patient"
+                iconName={""}
+                iconSize={18}
+                onPress={() =>
+                  navigation.navigate("PatientRegisterScreen", {
+                    user: thisUser,
+                    imageUris: imageUris,
+                  })
+                }
+              />
+              <SubmitButton
+                text="Upload"
+                iconName={"upload"}
+                iconSize={18}
+                onPress={Upload}
+              />
+            </View>
+          ) : null}
+        </ScrollView>
       </View>
-
-      {/* container with the buttons */}
-      <View style={styles.ButtonContainer}>
-        <SubmitButton
-          text="Add new patient"
-          iconName={""}
-          iconSize={18}
-          onPress={() =>
-            navigation.navigate("PatientRegisterScreen", {
-              user: thisUser,
-              imageUris: imageUris,
-            })
-          }
-        />
-        <SubmitButton
-          text="Upload"
-          iconName={"upload"}
-          iconSize={18}
-          onPress={Upload}
-        />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  Screen: {
-    flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: 10,
-    paddingTop: 100,
-  },
-
-  SelectOptionContainer: {
-    flex: 1,
+  saveAreaViewContainer: { flex: 1 },
+  viewContainer: { flex: 1 },
+  scrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 20,
+    paddingTop: "20%",
   },
   ButtonContainer: {
-    bottom: 20,
+    bottom: 10,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  header: {
-    marginTop: "10%",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
   },
   progressBarContiner: {
     marginTop: 50,
@@ -250,6 +252,39 @@ const styles = StyleSheet.create({
   percentage: {
     fontSize: 25,
     paddingBottom: 10,
+  },
+  dropdownBtnStyle: {
+    width: "80%",
+    height: 50,
+    backgroundColor: "#edeff2",
+    borderRadius: 8,
+  },
+  dropdownBtnTxtStyle: {
+    color: "#000",
+    textAlign: "left",
+    // paddingLeft: 30,
+    // fontWeight: "bold",
+  },
+  dropdownDropdownStyle: {
+    backgroundColor: "#edeff2",
+    borderRadius: 12,
+    height: "50%",
+  },
+  dropdownRowStyle: {
+    backgroundColor: "#edeff2",
+    borderBottomColor: "#C5C5C5",
+  },
+  dropdownRowTxtStyle: {
+    color: "#000",
+    textAlign: "left",
+    // paddingLeft: 30,
+    // fontWeight: "bold",
+  },
+  dropdownSelectedRowStyle: { backgroundColor: "rgba(255,255,255,0.2)" },
+  dropdownsearchInputStyleStyle: {
+    backgroundColor: "#000",
+    borderBottomWidth: 1,
+    borderBottomColor: "#FFF",
   },
 });
 
