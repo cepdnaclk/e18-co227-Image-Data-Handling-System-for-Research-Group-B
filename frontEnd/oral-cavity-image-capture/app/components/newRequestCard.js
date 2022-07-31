@@ -12,7 +12,7 @@ export default function RequestCard({
   email,
   image,
   reqid,
-  requestScreen,
+  onClick,
 }) {
   const createAlert = () =>
     Alert.alert(
@@ -25,38 +25,51 @@ export default function RequestCard({
     );
 
   const accept = async () => {
-    const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
-      console.log("admin/accept error : " + error.message);
-    });
-
-    client
-      .get("/admin/get-requests")
-      .then((data) => {
-        coKnsole.log(data);
-        requestScreen.setState({ responsedata: data }, () => {
-          requestScreen.setState({ loading: false });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
+        console.log("admin/accept error : " + error.message);
       });
+
+      console.log(res.status);
+      if (res.status === 200) {
+        onClick(reqid);
+        // client
+        //   .get("/admin/get-requests")
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     onClick(reqid);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const reject = async () => {
-    const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
-      console.log("admin/reject error : " + error.message);
-    });
-
-    client
-      .get("/admin/get-requests")
-      .then((data) => {
-        requestScreen.setState({ responsedata: data }, () => {
-          requestScreen.setState({ loading: false });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
+        console.log("admin/accept error : " + error.message);
       });
+
+      console.log(res.status);
+      if (res.status === 200) {
+        onClick(reqid);
+        // client
+        //   .get("/admin/get-requests")
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     onClick(reqid);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

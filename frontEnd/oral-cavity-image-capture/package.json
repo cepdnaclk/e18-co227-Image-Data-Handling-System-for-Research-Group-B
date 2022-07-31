@@ -12,6 +12,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
+    "@react-navigation/material-bottom-tabs": "^6.2.2",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "axios": "^0.27.2",
@@ -26,6 +27,7 @@
     "react-native-gesture-handler": "~2.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-material-dropdown": "^0.11.1",
+    "react-native-paper": "^4.12.3",
     "react-native-progress": "^5.0.0",
     "react-native-select-dropdown": "^2.0.3",
     "yup": "^0.32.11"

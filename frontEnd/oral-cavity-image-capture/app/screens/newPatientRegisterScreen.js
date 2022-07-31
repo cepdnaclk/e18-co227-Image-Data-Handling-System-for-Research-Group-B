@@ -35,7 +35,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function PatientRegisterScreen({ navigation, route }) {
-  const thisUser = route.params.user;
   const imageUris = route.params.imageUris;
   const [selected, setSelected] = React.useState("");
   const selectGender = ["Female", "Male"];
@@ -50,7 +49,6 @@ function PatientRegisterScreen({ navigation, route }) {
           text: "OK",
           onPress: () =>
             navigation.navigate("SelectPatientScreen", {
-              user: thisUser,
               imageUris: imageUris,
             }),
         },
@@ -61,8 +59,7 @@ function PatientRegisterScreen({ navigation, route }) {
     Alert.alert("Failed!", msg, [
       {
         text: "OK",
-        onPress: () =>
-          navigation.navigate("PatientRegisterScreen", { user: thisUser }),
+        onPress: () => navigation.navigate("PatientRegisterScreen"),
       },
     ]);
 
@@ -70,7 +67,6 @@ function PatientRegisterScreen({ navigation, route }) {
     console.log(values);
     const res = await client
       .post("/patient/add", {
-        examiner_email: thisUser.email,
         ...values,
       })
       .catch((error) => {
@@ -92,15 +88,11 @@ function PatientRegisterScreen({ navigation, route }) {
       [
         {
           text: "Yes",
-          onPress: () =>
-            navigation.navigate("SelectPatientScreen", {
-              user: thisUser,
-            }),
+          onPress: () => navigation.navigate("SelectPatientScreen", {}),
         },
         {
           text: "No",
-          onPress: () =>
-            navigation.navigate("PatientRegisterScreen", { user: thisUser }),
+          onPress: () => navigation.navigate("PatientRegisterScreen"),
         },
       ]
     );

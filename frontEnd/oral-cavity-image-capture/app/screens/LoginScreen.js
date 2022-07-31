@@ -16,6 +16,7 @@ import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/SubmitButton";
 import Screen from "../components/Screen";
 import client from "../API/client";
+import { useLogin } from "../context/loginProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -23,6 +24,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
+  const { setIsLoggedIn, setUser, setRole } = useLogin();
+
   async function saveToken(key, val) {
     await SecureStore.setItemAsync(key, val);
   }
@@ -44,20 +47,29 @@ function LoginScreen({ navigation }) {
         return createAlert(error.message);
         console.log("error " + error.message);
       });
+    // console.log(res.data.user);
     if (res.data.success) {
       saveToken("access", res.data.access_token);
       saveToken("refresh", res.data.refresh_token);
 
-      if (res.data.user.role.includes(3) && res.data.user.role.includes(1)) {
-        navigation.navigate("AdminDoctor", {
-          user: res.data.user,
-        });
-      } else if (res.data.user.role.includes(3)) {
-        navigation.navigate("ProfileScreen", {
-          user: res.data.user,
-        });
+      // set roles according to login
+
+      // Admin => 1
+      // AdminDoctor => 2
+      // Doctor => 3
+
+      if (res.data.user.role.includes(1) && res.data.user.role.includes(3)) {
+        setRole(1);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
+      } else if (res.data.user.role.includes(1)) {
+        setRole(2);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
       } else {
-        navigation.navigate("RequestScreen");
+        setRole(3);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
       }
     } else {
       createAlert(res.data.message);

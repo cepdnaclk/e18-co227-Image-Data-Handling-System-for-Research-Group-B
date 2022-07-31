@@ -8,8 +8,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = ({user}) => (
-  
+const TabNavigator = () => (
   <Tab.Navigator
     tabBarOptions={{
       activeBackgroundColor: colors.primary,
@@ -29,16 +28,16 @@ const TabNavigator = ({user}) => (
         ),
       }}
       component={ProfileScreen}
-      initialParams={{
-        // pass the admin data object
+      // initialParams={{
+      //   // pass the admin data object
 
-        // this is only for testing purpose 👇
-        user: {
-          username: user.username,
-          reg_no: user.reg_no,
-          email: user.email,
-        },
-      }}
+      //   // this is only for testing purpose 👇
+      //   user: {
+      //     username: user.username,
+      //     reg_no: user.reg_no,
+      //     email: user.email,
+      //   },
+      // }}
     />
     <Tab.Screen
       name="Requests_noSignout"
@@ -58,8 +57,8 @@ const TabNavigator = ({user}) => (
   </Tab.Navigator>
 );
 
-export default function AdminDoctor({ navigation, route }) {
-  const thisUser = route.params.user;
- // console.log(thisUser);
-  return <TabNavigator user={thisUser}/>;
+export default function AdminDoctor({ navigation }) {
+  // const thisUser = route.params.user;
+  // console.log(thisUser);
+  return <TabNavigator user={thisUser} />;
 }

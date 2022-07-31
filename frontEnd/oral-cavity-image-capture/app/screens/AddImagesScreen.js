@@ -6,8 +6,7 @@ import ImageContainer from "../components/ImageContainer";
 import IconButton from "../components/IconButton";
 import TopPane from "../components/TopPane";
 
-export default function AddImagesScreen({ navigation, route }) {
-  const thisUser = route.params.user;
+export default function AddImagesScreen({ navigation }) {
   const [imageUris, setImageUris] = useState([]);
 
   useEffect(() => {
@@ -50,14 +49,8 @@ export default function AddImagesScreen({ navigation, route }) {
   const handleRemove = (uri) => {
     setImageUris(imageUris.filter((imageUri) => imageUri != uri));
   };
-
-  const back = () => {
-    navigation.navigate("ProfileScreen", { user: thisUser });
-  };
-
   const next = () => {
     navigation.navigate("SelectPatientScreen", {
-      user: thisUser,
       imageUris: imageUris,
     });
   };
@@ -88,7 +81,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     marginBottom: 10,
-    // backgroundColor: "red",
   },
   ButtonContainer: {
     position: "absolute",

@@ -4,22 +4,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 
-import RegisterScreen from "./app/screens/RegisterScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import ProfileScreen from "./app/screens/ProfileScreen";
-import RequestScreen from "./app/screens/RequestScreen";
-import Requests_noSignout from "./app/screens/Requests_noSignout";
-import AddImagesScreen from "./app/screens/AddImagesScreen";
-import PatientRegisterScreen from "./app/screens/newPatientRegisterScreen";
-import SelectPatientScreen from "./app/screens/SelectPatientScreen";
-import GuidlinesScreen from "./app/screens/GuidlinesScreen";
-import AdminDoctor from "./app/screens/AdminDoctor";
+import LoginProvider from "./app/context/loginProvider";
+import MainNavigator from "./app/routes/loginNavigation";
+import { useLogin } from "./app/context/loginProvider";
+import AdminDoctor from "./app/screens/tabScreens/AdminDoctor";
 
-const Stack = createStackNavigator();
+const MainStack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.1.2:3000/");
+      const res = await axios.get("http://192.168.1.103:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
@@ -32,108 +26,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={"LoginScreen"}
-          component={LoginScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"RegisterScreen"}
-          component={RegisterScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"GuidlinesScreen"}
-          component={GuidlinesScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"ProfileScreen"}
-          component={ProfileScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"AdminDoctor"}
-          component={AdminDoctor}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"RequestScreen"}
-          component={RequestScreen}
-        />
-        <Stack.Screen
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-          name={"Requests_noSignout"}
-          component={Requests_noSignout}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "Add Image",
-            headerTransparent: true,
-          }}
-          name={"AddImagesScreen"}
-          component={AddImagesScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "Select Patient",
-            headerTransparent: true,
-          }}
-          name={"SelectPatientScreen"}
-          component={SelectPatientScreen}
-        />
-
-        <Stack.Screen
-          options={{
-            title: "Add new Patient",
-            headerTransparent: true,
-          }}
-          name={"PatientRegisterScreen"}
-          component={PatientRegisterScreen}
-        />
-      </Stack.Navigator>
+      <LoginProvider>
+        <MainNavigator />
+      </LoginProvider>
     </NavigationContainer>
-
-    // <LoginScreen />
-    // <ProfileScreen />
-    // <RegisterScreen />
-    // <RequestScreen />
-    // <Patient />
-    // <PatientRegisterScreen />
-    // <AddImagesScreen />
-    //  <GuidlinesScreen />
   );
 }

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useIsFocused } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -17,10 +18,8 @@ import SubmitButton from "../components/SubmitButton";
 import client from "../API/client";
 
 function SelectPatientScreen({ navigation, route }) {
-  const thisUser = route.params.user;
   const imageUris = route.params.imageUris;
   const [progress, setProgress] = useState(0);
-  const [onSelect, setOnSelect] = useState(true);
   const patients = [];
   const _ids = [];
   let patientIndex = null;
@@ -67,7 +66,7 @@ function SelectPatientScreen({ navigation, route }) {
           {
             text: "OK",
             onPress: () => {
-              navigation.navigate("AddImagesScreen", { user: thisUser });
+              navigation.navigate("AddImagesScreen");
             },
           },
         ]
@@ -102,26 +101,20 @@ function SelectPatientScreen({ navigation, route }) {
         console.log(res.data);
         try {
           if (res.data.success) {
-            Alert.alert(
-              "Images uploaded Successfully!",
-              "Thank you for the your contribution.",
+            setProgress(0),
+              Alert.alert(
+                "Images uploaded Successfully!",
+                "Thank you for the your contribution.",
 
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    console.log("user " + thisUser.role)
-                    // if(thisUser.role.includes(3) && thisUser.role.includes(1)){
-                      
-                    //   navigation.navigate("Requests_noSignout", { user: thisUser });
-                    // }else{
-                      navigation.navigate("ProfileScreen", { user: thisUser });
-                  //  }
-                    
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      navigation.navigate("Home");
+                    },
                   },
-                },
-              ]
-            );
+                ]
+              );
           }
         } catch {}
       } catch (error) {
@@ -147,91 +140,94 @@ function SelectPatientScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.saveAreaViewContainer}>
-      <StatusBar backgroundColor="#eee" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="#000" barStyle="light-content" /> */}
       <View style={styles.viewContainer}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          alwaysBounceVertical={false}
-          contentContainerStyle={styles.scrollViewContainer}
-        >
-          <SelectDropdown
-            data={patients}
-            // defaultValueByIndex={1}
-            // defaultValue={patients[patientIndex]}
-            onSelect={(selectedItem, index) => {
-              patientIndex = index;
-              console.log(selectedItem, index);
-            }}
-            defaultButtonText={"Select patient"}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={styles.dropdownBtnStyle}
-            buttonTextStyle={styles.dropdownBtnTxtStyle}
-            renderDropdownIcon={(isOpened) => {
-              return (
-                <FontAwesome
-                  name={isOpened ? "chevron-up" : "chevron-down"}
-                  color={"#000"}
-                  size={18}
-                />
-              );
-            }}
-            dropdownIconPosition={"right"}
-            dropdownStyle={styles.dropdownDropdownStyle}
-            rowStyle={styles.dropdownRowStyle}
-            rowTextStyle={styles.dropdownRowTxtStyle}
-            selectedRowStyle={styles.dropdownSelectedRowStyle}
-            search
-            searchInputStyle={styles.dropdownsearchInputStyleStyle}
-            searchInputTxtColor={"#fff"}
-            searchPlaceHolder={"Search here"}
-            searchPlaceHolderColor={"#F8F8F8"}
-            renderSearchInputLeftIcon={() => {
-              return <FontAwesome name={"search"} color={"#FFF"} size={18} />;
-            }}
-            onFocus={() => {
-              // setOnSelect(false);
-            }}
-            onBlur={() => {
-              // setOnSelect(true);
-            }}
-          />
-          {progress ? (
-            <View style={styles.progressBarContiner}>
-              <Text style={styles.percentage}>
-                Uploading...
-                {Math.floor(progress * 100)} %
-              </Text>
-              <Progress.Bar progress={progress} width={300} />
-            </View>
-          ) : null}
-
-          {onSelect ? (
-            <View style={styles.ButtonContainer}>
-              <SubmitButton
-                text="Add new patient"
-                iconName={""}
-                iconSize={18}
-                onPress={() =>
-                  navigation.navigate("PatientRegisterScreen", {
-                    user: thisUser,
-                    imageUris: imageUris,
-                  })
-                }
-              />
-              <SubmitButton
-                text="Upload"
-                iconName={"upload"}
-                iconSize={18}
-                onPress={Upload}
-              />
-            </View>
-          ) : null}
-        </ScrollView>
+        <View style={styles.scrollViewContainer}>
+          <View style={styles.dropdownContainer}>
+            <SelectDropdown
+              data={patients}
+              onSelect={(selectedItem, index) => {
+                patientIndex = index;
+                console.log(selectedItem, index);
+              }}
+              defaultButtonText={"Select patient"}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+              buttonStyle={styles.dropdownBtnStyle}
+              buttonTextStyle={styles.dropdownBtnTxtStyle}
+              renderDropdownIcon={(isOpened) => {
+                return (
+                  <FontAwesome
+                    name={isOpened ? "chevron-up" : "chevron-down"}
+                    color={"#000"}
+                    size={18}
+                  />
+                );
+              }}
+              dropdownIconPosition={"right"}
+              dropdownStyle={styles.dropdownDropdownStyle}
+              rowStyle={styles.dropdownRowStyle}
+              rowTextStyle={styles.dropdownRowTxtStyle}
+              selectedRowStyle={styles.dropdownSelectedRowStyle}
+              search
+              searchInputStyle={styles.dropdownsearchInputStyleStyle}
+              searchInputTxtColor={"#fff"}
+              searchPlaceHolder={"Search here"}
+              searchPlaceHolderColor={"#F8F8F8"}
+              renderSearchInputLeftIcon={() => {
+                return <FontAwesome name={"search"} color={"#FFF"} size={18} />;
+              }}
+              onFocus={() => {
+                // setOnSelect(false);
+              }}
+              onBlur={() => {
+                // setOnSelect(true);
+              }}
+            />
+            {/* {progress ? (
+              <View style={styles.progressBarContiner}>
+                <Text style={styles.percentage}>
+                  Uploading...
+                  {Math.floor(progress * 100)} %
+                </Text>
+                <Progress.Bar progress={progress} width={300} />
+              </View>
+            ) : null} */}
+          </View>
+          {/* <KeyboardAwareScrollView> */}
+          <View style={styles.ButtonContainer}>
+            {progress ? (
+              <View style={styles.progressBarContiner}>
+                <Text style={styles.percentage}>
+                  Uploading...
+                  {Math.floor(progress * 100)} %
+                </Text>
+                <Progress.Bar progress={progress} width={300} />
+              </View>
+            ) : null}
+            <SubmitButton
+              text="Add new patient"
+              iconName={""}
+              iconSize={18}
+              onPress={() =>
+                navigation.navigate("PatientRegisterScreen", {
+                  imageUris: imageUris,
+                })
+              }
+            />
+            <SubmitButton
+              text="Upload"
+              iconName={"upload"}
+              iconSize={18}
+              onPress={Upload}
+            />
+          </View>
+          {/* </KeyboardAwareScrollView> */}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -244,22 +240,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: "20%",
+    paddingTop: 30,
+    paddingTop: 130,
   },
-  ButtonContainer: {
-    bottom: 10,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  progressBarContiner: {
-    marginTop: 50,
-    alignItems: "center",
-  },
-  percentage: {
-    fontSize: 25,
-    paddingBottom: 10,
-  },
+  dropdownContainer: { flex: 1 },
   dropdownBtnStyle: {
     width: "80%",
     height: 50,
@@ -293,6 +277,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     borderBottomWidth: 1,
     borderBottomColor: "#FFF",
+  },
+  progressBarContiner: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  percentage: {
+    fontSize: 12,
+    paddingBottom: 10,
+  },
+  ButtonContainer: {
+    height: 200,
+    bottom: 20,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

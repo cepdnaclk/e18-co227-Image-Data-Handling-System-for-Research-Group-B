@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  FlatList,
-  Button,
-  SafeAreaView,
-  View,
-} from "react-native";
-import axios from "axios";
+import React from "react";
+import { StyleSheet, Text, SafeAreaView, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
 import ProfileCard from "../components/ProfileCard";
-import Screen from "../components/Screen";
 import SubmitButton from "../components/SubmitButton";
-import client1 from "../API/client";
 import client2 from "../API/client_refreshToken";
+import { useLogin } from "../context/loginProvider";
 
-function Profile({ navigation, route }) {
-  const thisUser = route.params.user;
+function Profile({ navigation }) {
+  const { user, setUser, setIsLoggedIn, setRole } = useLogin();
 
   async function deleteToken(key) {
     await SecureStore.deleteItemAsync(key);
@@ -27,10 +18,12 @@ function Profile({ navigation, route }) {
     const res = await client2.post("/auth/logout", {}).catch((error) => {
       console.log("error: " + error.message);
     });
-    console.log(res.data.message);
+    // console.log(res.data.message);
     deleteToken("access");
     deleteToken("refresh");
-    navigation.navigate("LoginScreen");
+    setIsLoggedIn(false);
+    setRole(0);
+    setUser({});
   };
 
   return (
@@ -43,14 +36,13 @@ function Profile({ navigation, route }) {
             justifyContent: "center",
           }}
         >
-          {/* <Text style={styles.header}>Profile</Text> */}
           <Text style={styles.header}>Profile</Text>
         </View>
         <View style={{ flex: 4 }}>
           <ProfileCard
-            name={thisUser.username}
-            id={thisUser.reg_no}
-            email={thisUser.email}
+            name={user.username}
+            id={user.reg_no}
+            email={user.email}
             image={require("../assets/Images/doctor.jpg")}
           />
         </View>
@@ -61,11 +53,7 @@ function Profile({ navigation, route }) {
           text="Add Image"
           iconName={"camerao"}
           iconSize={18}
-          onPress={() =>
-            navigation.navigate("AddImagesScreen", {
-              user: thisUser,
-            })
-          }
+          onPress={() => navigation.navigate("AddImagesScreen", {})}
         />
         <SubmitButton
           // style={styles.submitButton}

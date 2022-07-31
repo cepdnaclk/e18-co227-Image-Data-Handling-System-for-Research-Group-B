@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  FlatList,
-  Button,
-  SafeAreaView,
-  View,
-} from "react-native";
+import { StyleSheet, Text, FlatList, SafeAreaView, View } from "react-native";
 
 import * as SecureStore from "expo-secure-store";
 
