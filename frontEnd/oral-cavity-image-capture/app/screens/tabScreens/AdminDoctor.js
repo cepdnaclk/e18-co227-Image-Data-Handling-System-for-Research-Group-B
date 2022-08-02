@@ -1,10 +1,11 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Tab = createMaterialBottomTabNavigator();
 
 import Profile from "../ProfileScreen";
-import RequestScreen from "../newRequestScreen";
+import Request from "../newRequestScreen";
 
 export default function MyTabs() {
   return (
@@ -14,9 +15,11 @@ export default function MyTabs() {
       shifting={true}
     >
       <Tab.Screen
-        name="Profile"
+        name="Profile2"
         component={Profile}
         options={{
+          title: "profile",
+          headerShown: true,
           tabBarLabel: "Profile",
           tabBarColor: "#8fa5e3",
           tabBarIcon: ({ color }) => (
@@ -25,15 +28,19 @@ export default function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="RequestSccreen"
-        component={RequestScreen}
+        name="Requests"
+        component={Request}
         options={{
+          title: "Requests2",
+          headerTransparent: true,
+          headerShown: true,
           tabBarLabel: "Request",
           tabBarColor: "#8fa5d3",
           tabBarBadge: 9,
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name={"user-plus"} size={18} color={color} />
           ),
+          tabPress: () => console.log("hello"),
         }}
       />
     </Tab.Navigator>

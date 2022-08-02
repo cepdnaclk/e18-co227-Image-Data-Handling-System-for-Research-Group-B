@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,
-    paddingTop: 130,
+    paddingTop: 30,
   },
   dropdownContainer: { flex: 1 },
   dropdownBtnStyle: {

@@ -4,7 +4,6 @@ import * as ImagePicker from "expo-image-picker";
 
 import ImageContainer from "../components/ImageContainer";
 import IconButton from "../components/IconButton";
-import TopPane from "../components/TopPane";
 
 export default function AddImagesScreen({ navigation }) {
   const [imageUris, setImageUris] = useState([]);
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
-    paddingTop: 100,
+    // paddingTop: 100,
     alignItems: "center",
     // backgroundColor: "green",
   },

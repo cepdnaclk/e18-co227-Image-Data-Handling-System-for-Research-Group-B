@@ -3,13 +3,14 @@ import { StyleSheet, Text, FlatList, SafeAreaView, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 
-import RequestCard from "../components/newRequestCard";
-import SubmitButton from "../components/SubmitButton";
 import client from "../API/client";
 import client2 from "../API/client_refreshToken";
 import { useLogin } from "../context/loginProvider";
+import RequestCard from "../components/newRequestCard";
+import SubmitButton from "../components/SubmitButton";
+import Header from "../components/Header";
 
-export default function RequestScreen() {
+export default function RequestScreen({ navigation }) {
   const { role, setRole, setIsLoggedIn, setUser } = useLogin();
   const [requests, setRequests] = useState([{}]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -60,31 +61,29 @@ export default function RequestScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Requests</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          {isLoaded ? (
-            <FlatList
-              data={requests}
-              keyExtractor={(item) => {
-                return item._id.toString();
-              }}
-              renderItem={({ item: requestItem }) => (
-                <RequestCard
-                  reqid={requestItem._id}
-                  name={requestItem.username}
-                  regno={requestItem.reg_no}
-                  email={requestItem.email}
-                  image={require("../assets/Images/doctor.jpg")}
-                  onClick={handleRemove}
-                />
-              )}
-            />
-          ) : null}
-        </View>
-      </>
+      <View>
+        <Header title={"Requests"} />
+      </View>
+      <View style={styles.container}>
+        {isLoaded ? (
+          <FlatList
+            data={requests}
+            keyExtractor={(item) => {
+              return item._id.toString();
+            }}
+            renderItem={({ item: requestItem }) => (
+              <RequestCard
+                reqid={requestItem._id}
+                name={requestItem.username}
+                regno={requestItem.reg_no}
+                email={requestItem.email}
+                image={require("../assets/Images/doctor.jpg")}
+                onClick={handleRemove}
+              />
+            )}
+          />
+        ) : null}
+      </View>
       {isAdminDoc ? (
         <View style={styles.buttonContainer}>
           <SubmitButton
@@ -100,27 +99,15 @@ export default function RequestScreen() {
 }
 
 const styles = StyleSheet.create({
-  headerText: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    justifyContent: "center",
-  },
-
-  headerContainer: {
-    marginTop: 10,
+  container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  infoContainer: {
-    flex: 6,
+    paddingTop: 15,
   },
 
   buttonContainer: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 10,
   },
 });

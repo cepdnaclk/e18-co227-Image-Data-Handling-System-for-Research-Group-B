@@ -13,7 +13,7 @@ const MainStack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.1.103:3000/");
+      const res = await axios.get("http://192.168.1.100:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);

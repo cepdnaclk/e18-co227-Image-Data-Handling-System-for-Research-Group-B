@@ -1,5 +1,4 @@
 import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 import { useLogin } from "../context/loginProvider";
 
@@ -16,6 +15,7 @@ const MainStackScreens = ({ navigation }) => {
   const { role } = useLogin();
 
   let Home;
+  let HomeTitle = "Profile";
 
   if (role === 1) {
     Home = AdminDoctorHome;
@@ -25,23 +25,35 @@ const MainStackScreens = ({ navigation }) => {
     Home = UserHome;
   }
   return (
-    <MainStack.Navigator screenOptions={{ headerShown: false }}>
+    <MainStack.Navigator
+      screenOptions={{
+        headerTransparent: false,
+        headerShown: true,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontFamily: "serif",
+        },
+        headerStyle: {
+          backgroundColor: "#f1f1f1",
+        },
+        headerTintColor: "#095f92",
+      }}
+    >
       <MainStack.Screen
         name="Home"
         component={Home}
-        // options={{
-        //   title: "Profile",
-        //   headerTransparent: false,
-        //   headerShown: true,
-        // }}
+        options={{
+          headerTransparent: true,
+          headerShown: false,
+        }}
       />
       <MainStack.Screen
         name="AddImagesScreen"
         component={AddImagesScreen}
         options={{
           title: "Add Image",
-          headerTransparent: true,
-          headerShown: true,
+          // headerTransparent: true,
+          // headerShown: true,
         }}
       />
       <MainStack.Screen
@@ -49,8 +61,8 @@ const MainStackScreens = ({ navigation }) => {
         component={SelectPatientScreen}
         options={{
           title: "Select Patient",
-          headerTransparent: true,
-          headerShown: true,
+          // headerTransparent: true,
+          // headerShown: true,
         }}
       />
       <MainStack.Screen
@@ -58,8 +70,8 @@ const MainStackScreens = ({ navigation }) => {
         component={PatientRegisterScreen}
         options={{
           title: "Register Patient",
-          headerTransparent: true,
-          headerShown: true,
+          // headerTransparent: true,
+          // headerShown: true,
         }}
       />
     </MainStack.Navigator>

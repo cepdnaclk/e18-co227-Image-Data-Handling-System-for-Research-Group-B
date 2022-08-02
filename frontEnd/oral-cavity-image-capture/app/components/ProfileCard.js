@@ -3,7 +3,6 @@ import { View, Image, StyleSheet } from "react-native";
 
 import AppText from "../config/AppText";
 import colours from "../config/colors";
-import SubmitButton from "./SubmitButton";
 
 export default function ProfileCard({ name, id, email, image }) {
   return (
@@ -11,11 +10,13 @@ export default function ProfileCard({ name, id, email, image }) {
       <View style={styles.card}>
         <View style={styles.profile}>
           <Image style={styles.image} source={image} />
-          <View style={styles.detailsContainer}>
-            <AppText style={styles.name}>{name}</AppText>
-            <AppText style={[styles.id]}>{id}</AppText>
-            <AppText style={styles.email}>{email}</AppText>
-          </View>
+          <AppText style={styles.name}>{name}</AppText>
+        </View>
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.label}>Registration Number</AppText>
+          <AppText style={styles.info}>{id}</AppText>
+          <AppText style={styles.label}>Email</AppText>
+          <AppText style={styles.info}>{email}</AppText>
         </View>
       </View>
     </View>
@@ -25,53 +26,52 @@ const styles = StyleSheet.create({
   all: {
     alignItems: "center",
   },
+  card: {
+    marginVertical: 20,
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    width: "100%",
+    // backgroundColor: colours.lightGray,
+    borderRadius: 15,
+    overflow: "hidden",
+  },
   profile: {
     flexDirection: "row",
-    marginLeft: 20,
-    marginVertical: 10,
-    borderRadius: 15,
-    backgroundColor: colours.lightGray,
-    overflow: "hidden",
-  },
-
-  card: {
-    paddingTop: 20,
+    marginTop: 10,
     paddingBottom: 20,
-    justifyContent: "center",
-    width: "90%",
-    backgroundColor: colours.lightGray,
-    borderRadius: 15,
-    overflow: "hidden",
+    borderBottomColor: "#999",
+    borderBottomWidth: 2,
   },
-
   image: {
     width: 100,
     height: 100,
     borderRadius: 50,
   },
-
   detailsContainer: {
-    paddingLeft: 30,
+    paddingLeft: 10,
+    paddingRight: 100,
     justifyContent: "center",
   },
 
-  name: {
+  label: {
+    paddingTop: 30,
+    fontSize: 15,
+    color: colours.gray,
+    fontFamily: "Roboto",
+  },
+  info: {
+    paddingTop: 10,
     fontSize: 20,
     fontWeight: "600",
     color: colours.black,
   },
 
-  id: {
-    paddingTop: 15,
-    fontSize: 15,
-    color: colours.black,
-  },
-
-  email: {
-    color: colours.gray,
-    fontSize: 15,
+  name: {
+    color: "#000",
+    fontSize: 25,
     fontWeight: "500",
-    fontStyle: "italic",
+    paddingTop: 20,
+    paddingLeft: 20,
   },
   submitButton: {
     width: "45%",

@@ -8,7 +8,6 @@ import SelectDropdown from "react-native-select-dropdown";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import TopPane from "../components/TopPane";
 import SubmitButton from "../components/SubmitButton";
 import AppFormField from "../components/AppFormField";
 import colors from "../config/colors";
@@ -250,7 +249,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
-    paddingTop: 100,
+    paddingTop: 20,
   },
 
   FormContainer: {
