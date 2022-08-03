@@ -3,8 +3,9 @@ const fs = require("fs");
 const path = require("path");
 const Image = require("../models/image");
 const authenticateToken = require("../middlewares/auth");
-
 const multer = require("multer");
+const { PythonShell } = require("python-shell");
+const ImageAnalyzer = require("../middlewares/ImageAnalyzer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -33,24 +34,45 @@ router.post("/:folder/:id/save", authenticateToken, async (req, res) => {
     }
 
     const files = req.files;
+    let count = 0;
 
-    files.forEach(async (file, i) => {
+    files.forEach((file, i) => {
       //join and get Full image path
       const relativeDir = `../${file.path}`;
       const Path = path.join(__dirname, relativeDir);
 
-      const newImage = new Image({
-        examiner_reg_no: req.user.email,
-        patient_id: req.params.id,
-        original: Path,
-      });
-
-      const image = await newImage.save();
+      const options = {
+        args: [Path],
+      };
+      PythonShell.run(
+        "../API/middlewares/pydom/index.py",
+        options,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+            if (result < 0.75) {
+              fs.unlink(Path, () => {
+                count++;
+                console.log("file removed " + count);
+              });
+            } else {
+              const newImage = new Image({
+                examiner_reg_no: req.user.email,
+                patient_id: req.params.id,
+                original: Path,
+              });
+              newImage.save();
+            }
+          }
+        }
+      );
     });
-
     return res.status(200).json({
       success: true,
-      message: "images are uccessfully uploaded",
+      message: "images are uccessfully uploaded.",
+      deleteCount: count,
     });
   });
 });
