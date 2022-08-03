@@ -34,7 +34,9 @@ router.post("/:folder/:id/save", authenticateToken, async (req, res) => {
     }
 
     const files = req.files;
+    let arrayLenght = files.length;
     let count = 0;
+    let itemCount = 0;
 
     files.forEach((file, i) => {
       //join and get Full image path
@@ -44,10 +46,12 @@ router.post("/:folder/:id/save", authenticateToken, async (req, res) => {
       const options = {
         args: [Path],
       };
+
       PythonShell.run(
         "../API/middlewares/pydom/index.py",
         options,
         (err, result) => {
+          itemCount++;
           if (err) {
             console.log(err);
           } else {
@@ -66,13 +70,15 @@ router.post("/:folder/:id/save", authenticateToken, async (req, res) => {
               newImage.save();
             }
           }
+          if (itemCount === arrayLenght) {
+            return res.status(200).json({
+              success: true,
+              message: "Images are uccessfully uploaded.",
+              deleteCount: count,
+            });
+          }
         }
       );
-    });
-    return res.status(200).json({
-      success: true,
-      message: "images are uccessfully uploaded.",
-      deleteCount: count,
     });
   });
 });
