@@ -5,7 +5,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 const Tab = createMaterialBottomTabNavigator();
 
 import Profile from "../ProfileScreen";
-import Request from "../newRequestScreen";
+import Request from "../RequestScreen";
 
 export default function MyTabs() {
   return (
@@ -36,7 +36,7 @@ export default function MyTabs() {
           headerShown: true,
           tabBarLabel: "Request",
           tabBarColor: "#8fa5d3",
-          tabBarBadge: 9,
+          // tabBarBadge: 9,
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name={"user-plus"} size={18} color={color} />
           ),

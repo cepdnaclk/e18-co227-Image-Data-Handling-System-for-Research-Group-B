@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  ScrollView,
-  Alert,
-} from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -103,8 +94,10 @@ function SelectPatientScreen({ navigation, route }) {
           if (res.data.success) {
             setProgress(0),
               Alert.alert(
-                "Images uploaded Successfully!",
-                "Thank you for the your contribution.",
+                `${imageUris.length - res.data.deleteCount} out of ${
+                  imageUris.length
+                } images uploaded Successfully`,
+                `${res.data.deleteCount} images are rejected from the system due to low quality. Thak you for the contribution.`,
 
                 [
                   {

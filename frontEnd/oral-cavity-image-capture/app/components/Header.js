@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   text: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
     fontFamily: "serif",
-    color: "#095f92",
+    color: "#0b0070",
   },
 });
 

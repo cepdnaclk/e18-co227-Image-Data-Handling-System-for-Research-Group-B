@@ -3,11 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useLogin } from "../context/loginProvider";
 
 import UserHome from "../screens/ProfileScreen";
-import AdminHome from "../screens/newRequestScreen";
+import AdminHome from "../screens/RequestScreen";
 import AdminDoctorHome from "../screens/tabScreens/AdminDoctor";
 import AddImagesScreen from "../screens/AddImagesScreen";
 import SelectPatientScreen from "../screens/SelectPatientScreen";
-import PatientRegisterScreen from "../screens/newPatientRegisterScreen";
+import PatientRegisterScreen from "../screens/PatientRegisterScreen";
 
 const MainStack = createStackNavigator();
 
@@ -32,11 +32,12 @@ const MainStackScreens = ({ navigation }) => {
         headerTitleStyle: {
           fontWeight: "bold",
           fontFamily: "serif",
+          fontSize: 20,
         },
         headerStyle: {
           backgroundColor: "#f1f1f1",
         },
-        headerTintColor: "#095f92",
+        headerTintColor: "#0b0070",
       }}
     >
       <MainStack.Screen

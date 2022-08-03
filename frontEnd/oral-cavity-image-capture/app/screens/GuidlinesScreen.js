@@ -1,10 +1,18 @@
-import React from "react";
-import { View, StyleSheet, Text, SafeAreaView, Image } from "react-native";
-import WelcomeHeader from "../components/welcomeHeader";
-import Screen from "../components/Screen";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Image,
+  Alert,
+} from "react-native";
+import Checkbox from "expo-checkbox";
 import IconButton from "../components/IconButton";
 
 function GuidlinesScreen({ navigation }) {
+  const [isChecked, setChecked] = useState(false);
   return (
     <SafeAreaView style={styles.screen}>
       {/* <WelcomeHeader topLine="Hey there," bottomLine="Welcome Back" /> */}
@@ -21,13 +29,44 @@ function GuidlinesScreen({ navigation }) {
           Kindly follow the safety procedures we have implemented to protect
           your images and the details of the patients.
         </Text>
+        <View style={styles.section}>
+          <Checkbox
+            style={styles.checkbox}
+            value={isChecked}
+            onValueChange={setChecked}
+            color={isChecked ? "#8fa5e3" : undefined}
+          />
+          <Text style={styles.paragraph}>By continuing you accept our</Text>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("GuidlinesScreen")}
+          >
+            <Text style={styles.regTouch}> Terms of Use </Text>
+          </TouchableWithoutFeedback>
+        </View>
       </View>
+
       <View style={styles.ButtonContainer}>
         <IconButton
           iconName={"arrow-right"}
           iconSize={20}
           iconColor={"#fff"}
-          onPress={() => navigation.navigate("RegisterScreen")}
+          onPress={() => {
+            if (isChecked === false) {
+              Alert.alert(
+                "Please accept the Terms of use",
+                "",
+
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {},
+                  },
+                ]
+              );
+            } else {
+              navigation.navigate("RegisterScreen");
+            }
+          }}
         />
       </View>
     </SafeAreaView>
@@ -64,6 +103,18 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+  },
+  section: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkbox: {
+    margin: 8,
+  },
+  regTouch: {
+    color: "#c25ced",
+    marginLeft: 5,
+    textDecorationLine: "underline",
   },
 });
 

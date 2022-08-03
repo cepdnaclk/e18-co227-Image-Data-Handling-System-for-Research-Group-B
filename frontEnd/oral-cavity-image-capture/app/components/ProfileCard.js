@@ -55,23 +55,22 @@ const styles = StyleSheet.create({
 
   label: {
     paddingTop: 30,
-    fontSize: 15,
+    fontSize: 13,
     color: colours.gray,
     fontFamily: "Roboto",
   },
-  info: {
-    paddingTop: 10,
-    fontSize: 20,
-    fontWeight: "600",
-    color: colours.black,
-  },
-
   name: {
     color: "#000",
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "500",
     paddingTop: 20,
     paddingLeft: 20,
+  },
+  info: {
+    paddingTop: 10,
+    fontSize: 16,
+    fontWeight: "600",
+    color: colours.black,
   },
   submitButton: {
     width: "45%",

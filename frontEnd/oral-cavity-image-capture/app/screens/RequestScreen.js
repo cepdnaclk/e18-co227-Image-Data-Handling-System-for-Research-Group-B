@@ -1,110 +1,121 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, FlatList, SafeAreaView, View } from "react-native";
-
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  FlatList,
+  SafeAreaView,
+  View,
+  StatusBar,
+} from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 
-import RequestCard from "../components/RequestCard";
-import SubmitButton from "../components/SubmitButton";
 import client from "../API/client";
 import client2 from "../API/client_refreshToken";
+import { useLogin } from "../context/loginProvider";
+import RequestCard from "../components/RequestCard";
+import SubmitButton from "../components/SubmitButton";
+import Header from "../components/Header";
 
-class RequestScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      responsedata: [],
-      loading: true,
-    };
+export default function RequestScreen({ navigation }) {
+  const { role, setRole, setIsLoggedIn, setUser } = useLogin();
+  const [requests, setRequests] = useState([{}]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const isFocused = useIsFocused();
+  let isAdminDoc = false;
+
+  if (role === 1) {
+    isAdminDoc = true;
   }
+  useEffect(() => {
+    if (isFocused) {
+      getRequest();
+    }
+  }, [isFocused]);
 
-  deleteToken = async (key) => {
+  const deleteToken = async (key) => {
     await SecureStore.deleteItemAsync(key);
   };
 
-  logout = async () => {
+  const logout = async () => {
     const res = await client2.post("/auth/logout", {}).catch((error) => {
       console.log("error: " + error.message);
     });
-    console.log(res.data.message);
-    this.deleteToken("access");
-    this.deleteToken("refresh");
-    this.props.navigation.navigate("LoginScreen");
+    // console.log(res.data.message);
+    deleteToken("access");
+    deleteToken("refresh");
+    setIsLoggedIn(false);
+    setRole(0);
+    setUser({});
   };
 
-  componentDidMount() {
-    client
+  const getRequest = async () => {
+    await client
       .get("/admin/get-requests")
-      .then((data) => {
-        this.setState({ responsedata: data }, () => {
-          this.setState({ loading: false });
-        });
+      .then((res) => {
+        setRequests(res.data);
+        setIsLoaded(true);
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-  render() {
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <>
-          <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>Requests</Text>
-          </View>
-          <View style={styles.infoContainer}>
-            <FlatList
-              data={this.state.responsedata.data}
-              keyExtractor={this._keyExtractor}
-              renderItem={({ item: requestItem }) => (
-                <RequestCard
-                  reqid={requestItem._id}
-                  name={requestItem.username}
-                  regno={requestItem.reg_no}
-                  email={requestItem.email}
-                  requestScreen={this}
-                  image={require("../assets/Images/doctor.jpg")}
-                />
-              )}
-            />
-          </View>
-        </>
+  const handleRemove = (reqid) => {
+    setRequests(requests.filter((item) => item._id !== reqid));
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <Header title={"Requests"} />
+      </View>
+      <StatusBar backgroundColor="#f1f1f1" barStyle="dark-content" />
+      <View style={styles.container}>
+        {isLoaded ? (
+          <FlatList
+            data={requests}
+            keyExtractor={(item) => {
+              return item._id.toString();
+            }}
+            renderItem={({ item: requestItem }) => (
+              <RequestCard
+                reqid={requestItem._id}
+                name={requestItem.username}
+                regno={requestItem.reg_no}
+                email={requestItem.email}
+                image={require("../assets/Images/doctor.jpg")}
+                onClick={handleRemove}
+              />
+            )}
+          />
+        ) : null}
+      </View>
+      {isAdminDoc ? null : (
         <View style={styles.buttonContainer}>
           <SubmitButton
             text=" Sign Out"
             iconName={"logout"}
             iconSize={18}
-            onPress={this.logout}
+            onPress={logout}
           />
         </View>
-      </SafeAreaView>
-    );
-  }
+      )}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-  headerText: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    justifyContent: "center",
-  },
-
-  headerContainer: {
-    marginTop: 10,
+  container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  infoContainer: {
-    flex: 6,
+    paddingTop: 15,
   },
 
   buttonContainer: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 10,
   },
 });
-
-export default RequestScreen;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert, Text } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import ImageContainer from "../components/ImageContainer";
@@ -49,9 +49,28 @@ export default function AddImagesScreen({ navigation }) {
     setImageUris(imageUris.filter((imageUri) => imageUri != uri));
   };
   const next = () => {
-    navigation.navigate("SelectPatientScreen", {
-      imageUris: imageUris,
-    });
+    if (imageUris.length !== 0) {
+      Alert.alert(
+        "Warning!",
+        "The images with unaccepted quality will be rejected from the system.",
+
+        [
+          { text: "Cancel", onPress: () => {} },
+          {
+            text: "Continue",
+            onPress: () => {
+              navigation.navigate("SelectPatientScreen", {
+                imageUris: imageUris,
+              });
+            },
+          },
+        ]
+      );
+    } else {
+      navigation.navigate("SelectPatientScreen", {
+        imageUris: imageUris,
+      });
+    }
   };
 
   return (
