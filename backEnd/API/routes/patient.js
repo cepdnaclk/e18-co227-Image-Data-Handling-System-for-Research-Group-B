@@ -22,7 +22,7 @@ router.post("/add", authenticateToken, async (req, res) => {
     }
 
     const newPatient = new Patient({
-      examiner_email: req.body.examiner_email,
+      examiner_email: req.user.email,
       patient_name: req.body.patient_name,
       patient_habits: req.body.patient_habits,
       patient_district: req.body.patient_district,

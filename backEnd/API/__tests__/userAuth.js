@@ -7,7 +7,7 @@ const db = require("../configurations/db");
 const newUser = {
   username: "Nethsara",
   reg_no: "E400",
-  email: "neth@gmail.com",
+  email: "neth@gmail0.com",
   password: "abc123",
 };
 

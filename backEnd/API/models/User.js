@@ -42,13 +42,13 @@ const UserSchema = new mongoose.Schema(
 
 // // avoid duplicate users
 // UserSchema.statics.isUserExisting = async function(userEmail) {
-  
+
 //   if (!userEmail)
 //     throw new Error('Email or register number required')
 
 //   try {
 //     const userByEmail = await this.findOne({userEmail});
-    
+
 //     console.log(userByEmail.email, userEmail)
 //     if (userByEmail) return true;
 //     return false;

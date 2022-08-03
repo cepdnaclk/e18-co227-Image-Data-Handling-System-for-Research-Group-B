@@ -6,19 +6,20 @@ const authenticateToken = require("../middlewares/auth");
 // ************** get method to list all the signup requests *************************
 
 router.get("/get-requests", authenticateToken, async (req, res) => {
-  if (req.user.role.includes(1)) {
-    Request.find({}, (error, request) => {
-      if (error) {
-        res.send({ message: error });
-        return;
-      }
-      res.json(request);
-    });
-  } else {
-    res.send({
-      message: "Unauthorized access. Only Admins can view requests.",
-    });
-    return;
+  try {
+    if (req.user.role.includes(1)) {
+      const requests = await Request.find(
+        {},
+        { _id: 1, username: 1, reg_no: 1, email: 1 }
+      );
+      res.status(200).json(requests);
+    } else {
+      return res.status(200).json({
+        message: "Unauthorized access. Only Admins can view requests.",
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err });
   }
 });
 
