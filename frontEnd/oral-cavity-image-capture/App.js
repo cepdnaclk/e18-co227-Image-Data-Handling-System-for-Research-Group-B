@@ -1,22 +1,15 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 
-import RegisterScreen from "./app/screens/RegisterScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import ProfileScreen from "./app/screens/ProfileScreen";
-import RequestScreen from "./app/screens/RequestScreen";
-import PatientRegisterScreen from "./app/screens/PatientRegisterScreen";
-import Patient from "./app/screens/Patient";
-import CaptureImages from "./app/screens/CaptureImages";
+import LoginProvider from "./app/context/loginProvider";
+import MainNavigator from "./app/routes/loginNavigation";
 
-const Stack = createStackNavigator();
 export default function App() {
   const fetchAPI = async () => {
     try {
-      const res = await axios.get("http://192.168.8.153:3000/");
+      const res = await axios.get("http://192.168.1.103:3000/");
       console.log(res.data);
     } catch (error) {
       console.log(error.message);
@@ -28,37 +21,10 @@ export default function App() {
   }, []);
 
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="LoginScreen">
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name={"LoginScreen"}
-    //       component={LoginScreen}
-    //     />
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name={"RegisterScreen"}
-    //       component={RegisterScreen}
-    //     />
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name={"ProfileScreen"}
-    //       component={ProfileScreen}
-    //     />
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name={"RequestScreen"}
-    //       component={RequestScreen}
-    //     />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    // <LoginScreen />
-    // <ProfileScreen />
-    // <RegisterScreen />
-    // <RequestScreen />
-    // <Patient />
-    // <PatientRegisterScreen />
-    <CaptureImages />
+    <NavigationContainer>
+      <LoginProvider>
+        <MainNavigator />
+      </LoginProvider>
+    </NavigationContainer>
   );
 }

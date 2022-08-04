@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
+
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as SecureStore from "expo-secure-store";
@@ -15,6 +16,7 @@ import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/SubmitButton";
 import Screen from "../components/Screen";
 import client from "../API/client";
+import { useLogin } from "../context/loginProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -22,6 +24,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
+  const { setIsLoggedIn, setUser, setRole } = useLogin();
+
   async function saveToken(key, val) {
     await SecureStore.setItemAsync(key, val);
   }
@@ -34,25 +38,38 @@ function LoginScreen({ navigation }) {
   const login = async (values, formikActions) => {
     formikActions.resetForm();
     // formikActions.setSubmitting(false);
-    
+
     const res = await client
       .post("/auth/login", {
         ...values,
       })
       .catch((error) => {
-        console.log(error.message);
+        return createAlert(error.message);
+        console.log("error " + error.message);
       });
-    
+    // console.log(res.data.user);
     if (res.data.success) {
       saveToken("access", res.data.access_token);
       saveToken("refresh", res.data.refresh_token);
 
-      if (res.data.user.role.includes(3)) {
-        
-        navigation.navigate("ProfileScreen");
+      // set roles according to login
+
+      // Admin => 1
+      // AdminDoctor => 2
+      // Doctor => 3
+
+      if (res.data.user.role.includes(1) && res.data.user.role.includes(3)) {
+        setRole(1);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
+      } else if (res.data.user.role.includes(1)) {
+        setRole(2);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
       } else {
-        
-        navigation.navigate("RequestScreen");
+        setRole(3);
+        setIsLoggedIn(true);
+        setUser(res.data.user);
       }
     } else {
       createAlert(res.data.message);
@@ -112,19 +129,21 @@ function LoginScreen({ navigation }) {
                   showImage={<Text>Show</Text>}
                   textContentType="password"
                 />
-
-                {/* forgot password */}
-                <Text style={styles.recoverPwd}> Forgot your password? </Text>
               </View>
 
               <View style={{ height: "25%" }}></View>
-
               <View style={styles.bottomFlex}>
                 <SubmitButton
                   text=" Login"
                   iconName={"login"}
                   iconSize={18}
                   onPress={handleSubmit}
+
+                  // for testing purposes only👇
+                  // onPress={() => {
+                  //   handleSubmit;
+                  //   navigation.navigate("AdminDoctor");
+                  // }}
                 />
 
                 <Text style={{ margin: 10 }}> or </Text>
@@ -133,7 +152,7 @@ function LoginScreen({ navigation }) {
                   <Text>Don't have an account yet?</Text>
 
                   <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate("RegisterScreen")}
+                    onPress={() => navigation.navigate("GuidlinesScreen")}
                   >
                     <Text style={styles.regTouch}> Register </Text>
                   </TouchableWithoutFeedback>

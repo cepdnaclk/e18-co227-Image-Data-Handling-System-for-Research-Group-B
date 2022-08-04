@@ -6,50 +6,52 @@ import colours from "../config/colors";
 import SubmitButton from "./SubmitButton";
 import client from "../API/client";
 
-export default function RequestCard({ name, regno, email, image, reqid, requestScreen }) {
-
+export default function RequestCard({
+  name,
+  regno,
+  email,
+  image,
+  reqid,
+  onClick,
+}) {
   const createAlert = () =>
-    Alert.alert("Are You Sure?", "You will not be able to recover a request after rejection", [
-      { text: "Yes, Reject", onPress: () => reject() },
-      { text: "Cancel", onPress: () => console.log("OK Pressed") },
-    ]);
-  
-  const accept = async () => {
-    const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
-      
-      console.log('id2' + error.message);
-    });
-    
-    client
-        .get("/admin/get-requests")
-        .then((data) => {
-          requestScreen.setState({ responsedata: data }, () => {
-            requestScreen.setState({ loading: false });
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    Alert.alert(
+      "Are You Sure?",
+      "You will not be able to recover a request after rejection",
+      [
+        { text: "Yes, Reject", onPress: () => reject() },
+        { text: "Cancel", onPress: () => console.log("OK Pressed") },
+      ]
+    );
 
+  const accept = async () => {
+    try {
+      const res = await client.post(`/admin/accept/${reqid}`).catch((error) => {
+        console.log("admin/accept error : " + error.message);
+      });
+
+      console.log(res.status);
+      if (res.status === 200) {
+        onClick(reqid);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const reject = async () => {
-    const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
-      
-      console.log('id2' + error.message);
-    });
-    
-    client
-        .get("/admin/get-requests")
-        .then((data) => {
-          requestScreen.setState({ responsedata: data }, () => {
-            requestScreen.setState({ loading: false });
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    try {
+      const res = await client.post(`/admin/reject/${reqid}`).catch((error) => {
+        console.log("admin/accept error : " + error.message);
+      });
 
+      console.log(res.status);
+      if (res.status === 200) {
+        onClick(reqid);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

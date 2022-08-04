@@ -24,7 +24,10 @@ const validationSchema = Yup.object().shape({
   reg_no: Yup.string().required().label("Registration Number"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).max(12).label("Password"),
-  confirmpassword: Yup.string().oneOf([Yup.ref("password"), null],"Passwords must match"),
+  confirmpassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
 });
 
 function RegisterScreen({ navigation }) {
@@ -58,9 +61,7 @@ function RegisterScreen({ navigation }) {
   };
 
   return (
-    // full screen
     <Screen>
-      {/* container with the headers */}
       <WelcomeHeader topLine="Hey there," bottomLine="Create an Account" />
 
       <View style={styles.all}>
@@ -171,8 +172,6 @@ function RegisterScreen({ navigation }) {
           </Text>
         </View>
       </View>
-
-      {/* </View> */}
     </Screen>
   );
 }

@@ -1,6 +1,12 @@
+const fs = require("fs");
 const app = require("./index");
-
 const db = require("./configurations/db");
+
+const dir = "../../../uploads/";
+
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
 
 // create/ connect with the database
 db.connect();

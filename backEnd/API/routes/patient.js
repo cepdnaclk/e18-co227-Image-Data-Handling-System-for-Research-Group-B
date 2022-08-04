@@ -4,7 +4,7 @@ const Patient = require("../models/Patient");
 const User = require("../models/User");
 const authenticateToken = require("../middlewares/auth");
 
-router.post("/add", async (req, res) => {
+router.post("/add", authenticateToken, async (req, res) => {
   try {
     //const useremail = await User.findOne({email: req.body.email});
     const patientname = await Patient.findOne({
@@ -14,17 +14,15 @@ router.post("/add", async (req, res) => {
 
     //if(!useremail){return res.status(401).json({message:"Authentication failed!"});}
     if (patientname) {
-      return res
-        .status(401)
-        .json({
-          message: `The patient name is already in use. Hint: Try "${
-            req.body.patient_name
-          } #${Math.floor(Math.random() * 1000 + 1).toString()}"`,
-        });
+      return res.status(401).json({
+        message: `The patient name is already in use. Hint: Try "${
+          req.body.patient_name
+        } #${Math.floor(Math.random() * 1000 + 1).toString()}"`,
+      });
     }
 
     const newPatient = new Patient({
-      examiner_reg_no: req.body.reg_no,
+      examiner_email: req.user.email,
       patient_name: req.body.patient_name,
       patient_habits: req.body.patient_habits,
       patient_district: req.body.patient_district,
@@ -37,7 +35,11 @@ router.post("/add", async (req, res) => {
     const patient = await newPatient.save();
     // const others = patient._doc;
     // others["message"] = "Successfully added";
-    res.status(200).json({ message: "Successfully added", patient: patient.patient_name });
+    return res.status(200).json({
+      success: true,
+      message: "Successfully added",
+      patient: patient.patient_name,
+    });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -46,9 +48,12 @@ router.post("/add", async (req, res) => {
 // get all patients
 router.get("/all", authenticateToken, async (req, res) => {
   try {
-    const patients = await Patient.find({ examiner_email: req.email });
+    const patients = await Patient.find(
+      { examiner_email: req.user.email },
+      { patient_name: 1, _id: 1 }
+    );
 
-    return res.status(200).json({ patients: patients });
+    return res.status(200).send({ patients: patients });
   } catch (err) {
     return res.status(500).json({ message: err });
   }

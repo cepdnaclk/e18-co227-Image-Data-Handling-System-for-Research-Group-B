@@ -156,7 +156,10 @@ function Patient(props) {
 
                 {/* container with the button */}
                 <View style={styles.bottomFlex}>
-                  <SubmitButton text="Register Patient" />
+                  <SubmitButton
+                    text="Register Patient"
+                    onPress={handleSubmit}
+                  />
                 </View>
               </KeyboardAwareScrollView>
             </>

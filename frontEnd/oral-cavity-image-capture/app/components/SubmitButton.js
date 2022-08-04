@@ -20,7 +20,8 @@ export default function submitButton({
       >
         <Text style={styles.textLogin}>
           {" "}
-          <IconAntDesign size={iconSize} name={iconName} /> {text}{" "}
+          <IconAntDesign size={iconSize} name={iconName} /> {"  "}
+          {text}{" "}
         </Text>
       </TouchableHighlight>
     </View>

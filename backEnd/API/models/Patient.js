@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PatientSchema = new mongoose.Schema({
-    examiner_reg_no:{
+    examiner_email:{
         type: String,
         required: true,
     },
