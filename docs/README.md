@@ -15,7 +15,7 @@ title: Image-Data-Handling-System-for-Research
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-![Sample Image](./images/intro_image.png)
+![Sample Image](./images/intro_image3.png)
 
 ## Team
 
@@ -26,29 +26,29 @@ title: Image-Data-Handling-System-for-Research
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Solution Architecture](#solution-architecture)
-3. [User Interface Design](#user-interface-design)
-4. [Links](#links)
+2. [Technology Stack and Solution Architecture](#technology-stack-and-solution-architecture)
+3. [Data and Control Flow Diagram](#data-and-control-flow-diagram)
+4. [User Interface Design](#user-interface-design)
+5. [Links](#links)
 
 ---
 
 ## Introduction
 
-In this project, we develop a mobile application that can be used to capture and upload images of the oral cavity. This will mainly serve the roles of the admin to accept user requests and the doctor to capture the oral cavity images and upload them along with the patient's details.
+In this project, we develop a mobile application that can be used to capture and upload images with some image metadata. This will mainly serve the roles of the admin, to accept user requests and the doctor, to capture the oral cavity images and upload them along with the patient's details.
 
 ### Purpose of Our Project
 
 This is a support system for the project of building an AI-based web application for Oral Cavity Detection which is done by a team of E17 undergraduates.
 An AI-based tool needs a lot of images to train the model. But, A web-based application does not provide a convenient method for the doctors to capture the photographs of the oral cavities and upload them forthwith. This mobile application will be a solution to the aforementioned issue.
 
-## Technology Stack
+## Technology Stack and Solution Architecture
 
-\
- ![TrechStack Image](./images/ts.jpg)
+![Sample Image](./images/solutionArchi.png)
 
-## Solution Architecture
+## Data and Control Flow Diagram
 
-![Solution Image](./images/solution.png)
+![Sample Image](./images/dataFlow.jpg)
 
 ## User Interface Design
 
@@ -65,7 +65,7 @@ See the prototype of our mobile interface [here](https://www.figma.com/proto/p9q
 
 **Wire frame Diagram**
 
-![WorkPlacePage](./images/wireframeDiagram.png)
+![Sample Image](./images/wireframeDiagram.png)
 
 ## Links
 
